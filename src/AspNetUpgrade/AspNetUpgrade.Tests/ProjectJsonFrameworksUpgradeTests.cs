@@ -1,8 +1,10 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ApprovalTests;
+using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions;
 using NUnit.Framework;
@@ -10,7 +12,7 @@ using NUnit.Framework;
 namespace AspNetUpgrade.Tests
 {
 
-    [UseReporter(typeof(DiffReporter))]
+    [UseReporter(typeof(DiffReporter), typeof(WinMergeReporter))]
     [TestFixture]
     public class ProjectJsonFrameworksUpgradeTests
     {
@@ -20,40 +22,55 @@ namespace AspNetUpgrade.Tests
 
         }
 
-        [TestCase(TestProjectJsonContents.Dnx451Project)]
+        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
+        [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
         [Test]
-        public void Can_Apply(string json)
+        public void Can_Apply(string scenario, string json)
         {
-            // arrange
-            var testFileUpgradeContext = new TestFileUpgradeContext(json);
-            var sut = new AspNetUpgrade.Actions.UpgradeFrameworksJson();
 
-            // act
-            sut.Apply(testFileUpgradeContext);
-            testFileUpgradeContext.SaveChanges();
+            using (ApprovalResults.ForScenario(scenario))
+            {
+                // arrange
+                var testFileUpgradeContext = new TestFileUpgradeContext(json);
+                var sut = new AspNetUpgrade.Actions.UpgradeFrameworksJson();
 
-            // assert.
-            var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-            Approvals.VerifyJson(modifiedContents);
+                // act
+                sut.Apply(testFileUpgradeContext);
+                testFileUpgradeContext.SaveChanges();
+
+                // assert.
+                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
+                Approvals.VerifyJson(modifiedContents);
+
+            }
+
+           
         }
 
-        [TestCase(TestProjectJsonContents.Dnx451Project)]
+        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
+        [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
         [Test]
-        public void Can_Undo(string json)
+        public void Can_Undo(string scenario, string json)
         {
-            // arrange
-            var testFileUpgradeContext = new TestFileUpgradeContext(json);
-            var sut = new AspNetUpgrade.Actions.UpgradeFrameworksJson();
 
-            // act
-            sut.Apply(testFileUpgradeContext);
-            sut.Undo(testFileUpgradeContext);
+            using (ApprovalResults.ForScenario(scenario))
+            {
+                // arrange
+                var testFileUpgradeContext = new TestFileUpgradeContext(json);
+                var sut = new AspNetUpgrade.Actions.UpgradeFrameworksJson();
 
-            testFileUpgradeContext.SaveChanges();
+                // act
+                sut.Apply(testFileUpgradeContext);
+                sut.Undo(testFileUpgradeContext);
 
-            // assert.
-            var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-            Approvals.VerifyJson(modifiedContents);
+                testFileUpgradeContext.SaveChanges();
+
+                // assert.
+                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
+                Approvals.VerifyJson(modifiedContents);
+
+            }
+           
         }
 
 

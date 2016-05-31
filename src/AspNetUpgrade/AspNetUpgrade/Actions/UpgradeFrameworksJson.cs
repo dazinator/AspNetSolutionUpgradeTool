@@ -13,21 +13,21 @@ namespace AspNetUpgrade.Actions
     public class UpgradeFrameworksJson : IAction
     {
 
-        private JObject BuildNetCoreAppFrameworkJson()
+        private JProperty BuildNetCoreAppFrameworkJson()
         {
 
             JArray importsArray = new JArray();
-            importsArray.Add(new JObject("dotnet5.6"));
-            importsArray.Add(new JObject("dnxcore50"));
-            importsArray.Add(new JObject("portable-net45+win8"));
+            importsArray.Add("dotnet5.6");
+            importsArray.Add("dnxcore50");
+            importsArray.Add("portable-net45+win8");
 
-            var importsObj = new JObject("imports");
-            importsObj.Add(importsArray);
+            var importsObj = new JObject(new JProperty("imports", importsArray));
+            //importsObj.Add(importsArray);
+            return new JProperty("netcoreapp1.0", importsObj);
+           
+            //netcoreapp1.Add(importsObj);
 
-            var netcoreapp1 = new JObject("netcoreapp1.0");
-            netcoreapp1.Add(importsObj);
-
-            return netcoreapp1;
+           // return netcoreapp1;
 
         }
 
@@ -44,8 +44,8 @@ namespace AspNetUpgrade.Actions
             var dnx451 = frameworks.Property("dnx451");
             if (dnx451 != null)
             {
-                dnx451.Remove();
-                frameworks.Add(new JProperty("net452", new JObject()));
+                var renamed = dnx451.Rename(name => name == "dnx451" ? "net452" : name);
+                dnx451.Replace(renamed);
             }
 
             var dnxCore50 = frameworks.Property("dnxcore50");
@@ -66,6 +66,8 @@ namespace AspNetUpgrade.Actions
 
         }
     }
+
+    
 
     public interface IAction
     {

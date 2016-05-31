@@ -18,15 +18,17 @@
     
   "frameworks":  {
         
-    "net452":  {
+    "netcoreapp1.0":  {
             
-      "dependencies":  {},
-            
-      "frameworkAssemblies":  {
+      "imports":  [
                 
-        "System.Web":  "4.0.0.0"
+        "dotnet5.6",
+                
+        "dnxcore50",
+                
+        "portable-net45+win8"
       
-            }
+            ]
     
         }
   
