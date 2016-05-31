@@ -7,7 +7,7 @@ https://wildermuth.com/2016/05/17/Converting-an-ASP-NET-Core-RC1-Project-to-RC2
 
 # How does it work?
 
-(It doesn't currently - as it's still in development - see issues! :) )
+Note: It doesn't currently - as it's still in development - see issues! :)
 
 It's an exe, you call it with some arguments pointing to your project.json files. It will loop through them and apply upgrade `Actions` to upgrade your project files in memory. Once all actions have been applied, it will save the modified files to disk again overwriting the old ones. MAKE SURE YOU TAKE A BACKUP BEFORE RUNNING THIS TOOL.
 
