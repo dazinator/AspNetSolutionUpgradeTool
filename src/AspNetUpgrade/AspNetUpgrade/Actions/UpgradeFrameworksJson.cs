@@ -9,7 +9,6 @@ namespace AspNetUpgrade.Actions
     //}
 
 
-
     public class UpgradeFrameworksJson : IAction
     {
 
@@ -24,10 +23,10 @@ namespace AspNetUpgrade.Actions
             var importsObj = new JObject(new JProperty("imports", importsArray));
             //importsObj.Add(importsArray);
             return new JProperty("netcoreapp1.0", importsObj);
-           
+
             //netcoreapp1.Add(importsObj);
 
-           // return netcoreapp1;
+            // return netcoreapp1;
 
         }
 
@@ -65,15 +64,5 @@ namespace AspNetUpgrade.Actions
             projectJsonObject["frameworks"].Replace(_oldFrameworks);
 
         }
-    }
-
-    
-
-    public interface IAction
-    {
-        void Apply(IJsonFileUpgradeContext fileUpgradeContext);
-
-        void Undo(IJsonFileUpgradeContext fileUpgradeContext);
-
     }
 }
