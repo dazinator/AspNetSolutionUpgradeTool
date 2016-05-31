@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetUpgrade", "AspNetUpgrade\AspNetUpgrade.csproj", "{CAD0426B-A732-4E86-98F2-86F9782CB8A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetUpgrade.Tests", "AspNetUpgrade.Tests\AspNetUpgrade.Tests.csproj", "{C7643908-BC61-4313-9920-7B9B83D25DCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAD0426B-A732-4E86-98F2-86F9782CB8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD0426B-A732-4E86-98F2-86F9782CB8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD0426B-A732-4E86-98F2-86F9782CB8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD0426B-A732-4E86-98F2-86F9782CB8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7643908-BC61-4313-9920-7B9B83D25DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7643908-BC61-4313-9920-7B9B83D25DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7643908-BC61-4313-9920-7B9B83D25DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7643908-BC61-4313-9920-7B9B83D25DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
