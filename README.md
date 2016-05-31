@@ -9,21 +9,11 @@ https://wildermuth.com/2016/05/17/Converting-an-ASP-NET-Core-RC1-Project-to-RC2
 
 (It doesn't currently - as it's still in development - see issues! :) )
 
-It's an exe, you call it with some arguments pointing to your project.json files. It will loop through them and apply upgrade `Actions` to upgrade the json in memory. Once all actions have been applied, it will save the modified project.json files to disk again overwriting the old ones. TAKE A BACKUP BEFORE RUNNING THIS TOOL.
+It's an exe, you call it with some arguments pointing to your project.json files. It will loop through them and apply upgrade `Actions` to upgrade your project files in memory. Once all actions have been applied, it will save the modified files to disk again overwriting the old ones. MAKE SURE YOU TAKE A BACKUP BEFORE RUNNING THIS TOOL.
 
 
 # What Changes does it make?
 
-1. Updates the "frameworks" section. If targeting `dnx451` then will be changed to `net452`. If targeting dnxcore50, that will be changed to:
+In a nutshell, this tool will update the `project.json` files and any `.xproj` files from RC1 format to an RC2 format. This means changes to use the `dotnet cli` tooling instead of `dnx` and also changing references to `RC1` based dependencies to be the appropriate `RC2` based dependencies / nuget packages.
 
-```
-"frameworks": {
-  "netcoreapp1.0": {
-    "imports": [
-      "dotnet5.6",
-      "dnxcore50",
-      "portable-net45+win8"
-    ]
-  }
-}
-```
+There are a host of other changes that this tool will make. Will document them all before release.
