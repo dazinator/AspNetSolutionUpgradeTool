@@ -18,7 +18,8 @@ namespace AspNetUpgrade.Actions
             JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             JObject buildOptions = (JObject)projectJsonObject["buildOptions"];
             buildOptions.Rename("compilationOptions");
-
         }
+
+
     }
 }

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectJsonAddRuntimeDependencyUpgradeTests.cs" />
     <Compile Include="ProjectJsonCompilationOptionsUpgradeTests.cs" />
     <Compile Include="ProjectJsonFrameworksUpgradeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

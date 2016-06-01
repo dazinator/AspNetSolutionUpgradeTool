@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Actions\AddRuntimeDependencyJson.cs" />
     <Compile Include="Actions\UpgradeCompilationoptionsJson.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
     <Compile Include="IJsonFileUpgradeContext.cs" />
