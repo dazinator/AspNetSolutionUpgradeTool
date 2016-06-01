@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text;
-using AspNetUpgrade.Actions;
 using AspNetUpgrade.Upgrader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
