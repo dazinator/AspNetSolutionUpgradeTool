@@ -1,23 +1,17 @@
-﻿using System.IO;
-using System.Text;
-using AspNetUpgrade.Actions;
-using AspNetUpgrade.Upgrader;
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Tests
+namespace AspNetUpgrade.Upgrader
 {
-    public class TestFileUpgradeContext : IJsonFileUpgradeContext
+    public class JsonFileUpgradeContext : IJsonFileUpgradeContext
     {
-        private readonly string _jsonContents;
+        private readonly FileInfo _fileInfo;
+        // private readonly StringBuilder _fileContents = new StringBuilder();
 
-        private StringBuilder _modifiedJsonContents;
-
-        public TestFileUpgradeContext(string jsonContents)
+        public JsonFileUpgradeContext(FileInfo fileInfo)
         {
-            _jsonContents = jsonContents;
-            _modifiedJsonContents = new StringBuilder();
-
+            _fileInfo = fileInfo;
             using (var streamReader = CreateReader())
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
@@ -25,33 +19,32 @@ namespace AspNetUpgrade.Tests
                     ProjectJsonObject = JObject.Load(reader);
                 }
             }
-
         }
 
         public TextReader CreateReader()
         {
-            return new StringReader(_jsonContents);
+            return new StreamReader(_fileInfo.FullName);
         }
+
+        // public TargetFrameworkKind TargetFrameworkKind { get; set; }
+
 
         public JObject ProjectJsonObject { get; set; }
 
+
         public void SaveChanges()
         {
-            using (var writer = new StringWriter(_modifiedJsonContents))
+            using (var writer = new StreamWriter(_fileInfo.FullName))
             {
                 using (var jsonWriter = new JsonTextWriter(writer))
                 {
-                    jsonWriter.Formatting = Formatting.Indented; 
                     JsonSerializer serializer = new JsonSerializer();
-                   
                     serializer.Serialize(jsonWriter, ProjectJsonObject);
                     jsonWriter.Flush();
                     writer.Flush();
                 }
             }
         }
-
-        public string ModifiedJsonContents { get { return _modifiedJsonContents.ToString(); } }
 
 
     }

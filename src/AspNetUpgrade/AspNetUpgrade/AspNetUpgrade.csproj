@@ -49,20 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\MicrosoftPackagesVersionUpdateAction.cs" />
-    <Compile Include="Actions\BasePackageVersionUpdateAction.cs" />
-    <Compile Include="Actions\NuGetPackageMigrationInfo.cs" />
-    <Compile Include="Actions\RenameAspNetPackagesAction.cs" />
-    <Compile Include="Actions\RenamePackagesAction.cs" />
-    <Compile Include="Actions\IAction.cs" />
-    <Compile Include="Actions\AddRuntimeDependencyJson.cs" />
-    <Compile Include="Actions\PackageType.cs" />
-    <Compile Include="MicrosoftPackageRenamingConventionHelper.cs" />
-    <Compile Include="Actions\UpgradeCompilationoptionsJson.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
+    <Compile Include="Actions\ProjectJson\BaseDependenciesUpdate.cs" />
+    <Compile Include="Model\NuGetPackageMigrationInfo.cs" />
+    <Compile Include="Actions\ProjectJson\RenameAspNetPackagesToAspNetCore.cs" />
+    <Compile Include="Actions\ProjectJson\MigrateSpecifiedPackagesAction.cs" />
+    <Compile Include="Actions\ProjectJson\IProjectJsonUpgradeAction.cs" />
+    <Compile Include="Actions\ProjectJson\AddRuntimeDependency.cs" />
+    <Compile Include="Model\PackageType.cs" />
+    <Compile Include="Model\PackageMigrationHelper.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradeCompilationoptionsJson.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
-    <Compile Include="IJsonFileUpgradeContext.cs" />
-    <Compile Include="JsonFileUpgradeContext.cs" />
-    <Compile Include="Actions\UpgradeFrameworksJson.cs" />
+    <Compile Include="Upgrader\IJsonFileUpgradeContext.cs" />
+    <Compile Include="Upgrader\JsonFileUpgradeContext.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradeFrameworksJson.cs" />
     <Compile Include="Options\UpgradeProjectJsonOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
