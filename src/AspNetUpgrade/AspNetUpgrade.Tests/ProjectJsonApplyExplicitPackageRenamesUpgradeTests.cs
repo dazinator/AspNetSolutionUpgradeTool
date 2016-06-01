@@ -31,7 +31,7 @@ namespace AspNetUpgrade.Tests
                 var targetNuGetPackages =
                     MicrosoftPackageRenamingConventionHelper.GetRc2NuGetPackagesList(MicrosoftPackageRenamingConventionHelper.ToolingVersion.Preview1);
 
-                var sut = new AspNetUpgrade.Actions.RenamePackagesAction(targetNuGetPackages);
+                var sut = new AspNetUpgrade.Actions.MigrateSpecifiedPackagesAction(targetNuGetPackages);
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -61,7 +61,7 @@ namespace AspNetUpgrade.Tests
                 var targetNuGetPackages =
                     MicrosoftPackageRenamingConventionHelper.GetRc2NuGetPackagesList(MicrosoftPackageRenamingConventionHelper.ToolingVersion.Preview1);
 
-                var sut = new AspNetUpgrade.Actions.RenamePackagesAction(targetNuGetPackages);
+                var sut = new AspNetUpgrade.Actions.MigrateSpecifiedPackagesAction(targetNuGetPackages);
 
                 // act
                 sut.Apply(testFileUpgradeContext);

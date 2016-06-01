@@ -4,14 +4,14 @@ using Newtonsoft.Json.Serialization;
 
 namespace AspNetUpgrade.Actions
 {
-    public class RenamePackagesAction : IAction
+    public class MigrateSpecifiedPackagesAction : IAction
     {
 
         private JToken _backup;
 
-        private List<NuGetPackageInfo> _targetPackages;
+        private List<NuGetPackageMigrationInfo> _targetPackages;
 
-        public RenamePackagesAction(List<NuGetPackageInfo> targetPackages)
+        public MigrateSpecifiedPackagesAction(List<NuGetPackageMigrationInfo> targetPackages)
         {
             _targetPackages = targetPackages;
         }
@@ -30,7 +30,19 @@ namespace AspNetUpgrade.Actions
                     if (dependency != null)
                     {
                         dependency.Rename(targetPackage.Name);
-                        dependencies[targetPackage.Name] = targetPackage.Version;
+                        //todo: if the type is build, need to expand the property value to be an object with version property and type property
+                        if (targetPackage.Type == PackageType.Build)
+                        {
+                            JObject depOpbject = new JObject();
+                            depOpbject.Add(new JProperty("version", targetPackage.Version));
+                            depOpbject.Add(new JProperty("type", targetPackage.Type.ToString().ToLowerInvariant()));
+                            dependencies[targetPackage.Name] = depOpbject;
+                        }
+                        else
+                        {
+                            dependencies[targetPackage.Name] = targetPackage.Version;
+                        }
+                        
                         break;
                     }
                 }

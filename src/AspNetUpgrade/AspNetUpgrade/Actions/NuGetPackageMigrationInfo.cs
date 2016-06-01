@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace AspNetUpgrade.Actions
 {
-    public class NuGetPackageInfo
+    public class NuGetPackageMigrationInfo
     {
 
-        public NuGetPackageInfo(string name, string version)
+        public NuGetPackageMigrationInfo(string name, string version)
         {
             OldNames = new List<string>();
             Name = name;
@@ -23,11 +23,4 @@ namespace AspNetUpgrade.Actions
 
 
     }
-
-    public enum PackageType
-    {
-        Default,
-        Build
-    }
-  
 }

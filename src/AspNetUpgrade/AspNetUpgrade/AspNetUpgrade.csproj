@@ -51,11 +51,12 @@
   <ItemGroup>
     <Compile Include="Actions\MicrosoftPackagesVersionUpdateAction.cs" />
     <Compile Include="Actions\BasePackageVersionUpdateAction.cs" />
+    <Compile Include="Actions\NuGetPackageMigrationInfo.cs" />
     <Compile Include="Actions\RenameAspNetPackagesAction.cs" />
     <Compile Include="Actions\RenamePackagesAction.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Actions\AddRuntimeDependencyJson.cs" />
-    <Compile Include="Actions\NuGetPackageInfo.cs" />
+    <Compile Include="Actions\PackageType.cs" />
     <Compile Include="MicrosoftPackageRenamingConventionHelper.cs" />
     <Compile Include="Actions\UpgradeCompilationoptionsJson.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
