@@ -1,16 +1,17 @@
 ﻿using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
+using AspNetUpgrade.Actions;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests
 {
     [UseReporter(typeof(DiffReporter), typeof(WinMergeReporter))]
     [TestFixture]
-    public class ProjectJsonAddRuntimeDependencyUpgradeTests
+    public class ProjectJsonApplyExplicitPackageRenamesUpgradeTests
     {
 
-        public ProjectJsonAddRuntimeDependencyUpgradeTests()
+        public ProjectJsonApplyExplicitPackageRenamesUpgradeTests()
         {
 
         }
@@ -26,7 +27,11 @@ namespace AspNetUpgrade.Tests
             {
                 // arrange
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
-                var sut = new AspNetUpgrade.Actions.AddRuntimeDependencyJson();
+                // get target nuget packages for RC2, Preview1 tooling.
+                var targetNuGetPackages =
+                    TargetNuGetPackages.GetRc2NuGetPackagesList(TargetNuGetPackages.ToolingVersion.Preview1);
+
+                var sut = new AspNetUpgrade.Actions.ApplyExplicitPackageRenames(targetNuGetPackages);
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -52,7 +57,11 @@ namespace AspNetUpgrade.Tests
             {
                 // arrange
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
-                var sut = new AspNetUpgrade.Actions.AddRuntimeDependencyJson();
+                // get target nuget packages for RC2, Preview1 tooling.
+                var targetNuGetPackages =
+                    TargetNuGetPackages.GetRc2NuGetPackagesList(TargetNuGetPackages.ToolingVersion.Preview1);
+
+                var sut = new AspNetUpgrade.Actions.ApplyExplicitPackageRenames(targetNuGetPackages);
 
                 // act
                 sut.Apply(testFileUpgradeContext);

@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ApplyExplicitPackageRenames.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Actions\AddRuntimeDependencyJson.cs" />
+    <Compile Include="Actions\NuGetPackageInfo.cs" />
+    <Compile Include="Actions\TargetNuGetPackages.cs" />
     <Compile Include="Actions\UpgradeCompilationoptionsJson.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
     <Compile Include="IJsonFileUpgradeContext.cs" />

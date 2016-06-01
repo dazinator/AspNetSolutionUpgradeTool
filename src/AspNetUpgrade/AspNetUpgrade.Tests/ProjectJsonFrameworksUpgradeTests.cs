@@ -22,6 +22,10 @@ namespace AspNetUpgrade.Tests
 
         }
 
+
+       
+
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
         [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
         [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
         [Test]
@@ -47,6 +51,7 @@ namespace AspNetUpgrade.Tests
            
         }
 
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
         [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
         [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
         [Test]

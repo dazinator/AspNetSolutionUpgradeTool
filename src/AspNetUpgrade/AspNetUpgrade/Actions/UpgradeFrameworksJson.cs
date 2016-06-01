@@ -39,12 +39,20 @@ namespace AspNetUpgrade.Actions
             JObject frameworks = (JObject)projectJsonObject["frameworks"];
             _oldFrameworks = frameworks.DeepClone();
 
-            // remove dnx451
+            // rename dnx451
             var dnx451 = frameworks.Property("dnx451");
             if (dnx451 != null)
             {
-                var renamed = dnx451.Rename(name => name == "dnx451" ? "net452" : name);
+                var renamed = dnx451.Rename(name => name == "dnx451" ? "net451" : name);
                 dnx451.Replace(renamed);
+            }
+
+            // rename dnx452
+            var dnx452 = frameworks.Property("dnx452");
+            if (dnx452 != null)
+            {
+                var renamed = dnx452.Rename(name => name == "dnx452" ? "net452" : name);
+                dnx452.Replace(renamed);
             }
 
             var dnxCore50 = frameworks.Property("dnxcore50");
