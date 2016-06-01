@@ -74,9 +74,7 @@
         
     "Autofac":  "4.0.0-rc1-177",
         
-    "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177",
-        
-    "Microsoft.Dnx.Runtime":  "1.0.0-rc1-final"
+    "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177"
   
     },
     

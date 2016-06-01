@@ -55,8 +55,12 @@ namespace AspNetUpgrade.Model
             package.OldNames.Add("Microsoft.Extensions.Configuration.FileProviderExtensions");
             list.Add(package);
 
+            // remove Microsoft.Dnx.Runtime
+            package = new NuGetPackageMigrationInfo("Microsoft.Dnx.Runtime", "1.0.0-rc1-final");
+            package.MigrationAction = PackageMigrationAction.Remove;
+            list.Add(package);
 
-           // Microsoft.VisualStudio.Web.BrowserLink.Loader
+            // Microsoft.VisualStudio.Web.BrowserLink.Loader
 
 
 
@@ -65,10 +69,10 @@ namespace AspNetUpgrade.Model
 
         }
 
-      
+
 
 
     }
 
-  
+
 }
