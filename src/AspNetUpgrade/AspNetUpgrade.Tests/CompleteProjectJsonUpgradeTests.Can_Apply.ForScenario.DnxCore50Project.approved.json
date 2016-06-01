@@ -1,0 +1,47 @@
+﻿{
+    
+  "buildOptions":  {
+        
+    "emitEntryPoint":  true
+  
+    },
+    
+  "dependencies":  {
+        
+    "Microsoft.NETCore.App":  {
+            
+      "version":  "1.0.0-rc2-3002702",
+            
+      "type":  "platform"
+    
+        }
+  
+    },
+    
+  "commands":  {
+        
+    "web":  "Microsoft.AspNet.Server.Kestrel",
+        
+    "ef":  "EntityFramework.Commands"
+  
+    },
+    
+  "frameworks":  {
+        
+    "netcoreapp1.0":  {
+            
+      "imports":  [
+                
+        "dotnet5.6",
+                
+        "dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        }
+  
+    }
+
+}

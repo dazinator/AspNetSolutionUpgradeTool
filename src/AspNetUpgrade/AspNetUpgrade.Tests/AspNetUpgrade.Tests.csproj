@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompleteProjectJsonUpgradeTests.cs" />
     <Compile Include="ProjectJsonRenameAspNetPackagesTests.cs" />
     <Compile Include="ProjectJsonUpdateMicrosoftRC1PackageVersionsTests.cs" />
     <Compile Include="ProjectJsonApplyExplicitPackageRenamesUpgradeTests.cs" />
