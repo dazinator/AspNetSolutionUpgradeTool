@@ -1,4 +1,5 @@
-﻿using ApprovalTests;
+﻿using System.Collections.Generic;
+using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions;
@@ -8,10 +9,10 @@ namespace AspNetUpgrade.Tests
 {
     [UseReporter(typeof(DiffReporter), typeof(WinMergeReporter))]
     [TestFixture]
-    public class ProjectJsonApplyExplicitPackageRenamesUpgradeTests
+    public class ProjectJsonUpdateMicrosoftRC1PackageVersionsTests
     {
 
-        public ProjectJsonApplyExplicitPackageRenamesUpgradeTests()
+        public ProjectJsonUpdateMicrosoftRC1PackageVersionsTests()
         {
 
         }
@@ -27,11 +28,7 @@ namespace AspNetUpgrade.Tests
             {
                 // arrange
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
-                // get target nuget packages for RC2, Preview1 tooling.
-                var targetNuGetPackages =
-                    MicrosoftPackageRenamingConventionHelper.GetRc2NuGetPackagesList(MicrosoftPackageRenamingConventionHelper.ToolingVersion.Preview1);
-
-                var sut = new AspNetUpgrade.Actions.RenamePackagesAction(targetNuGetPackages);
+                var sut = new AspNetUpgrade.Actions.MicrosoftPackagesVersionUpdateAction();
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -57,11 +54,7 @@ namespace AspNetUpgrade.Tests
             {
                 // arrange
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
-                // get target nuget packages for RC2, Preview1 tooling.
-                var targetNuGetPackages =
-                    MicrosoftPackageRenamingConventionHelper.GetRc2NuGetPackagesList(MicrosoftPackageRenamingConventionHelper.ToolingVersion.Preview1);
-
-                var sut = new AspNetUpgrade.Actions.RenamePackagesAction(targetNuGetPackages);
+                var sut = new AspNetUpgrade.Actions.MicrosoftPackagesVersionUpdateAction();
 
                 // act
                 sut.Apply(testFileUpgradeContext);

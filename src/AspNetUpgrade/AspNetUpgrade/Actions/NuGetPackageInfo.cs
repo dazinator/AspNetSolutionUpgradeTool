@@ -10,6 +10,7 @@ namespace AspNetUpgrade.Actions
             OldNames = new List<string>();
             Name = name;
             Version = version;
+            Type = PackageType.Default;
         }
 
         public List<string> OldNames { get; set; }
@@ -18,6 +19,15 @@ namespace AspNetUpgrade.Actions
 
         public string Name { get; set; }
 
+        public PackageType Type { get; set; }
+
 
     }
+
+    public enum PackageType
+    {
+        Default,
+        Build
+    }
+  
 }

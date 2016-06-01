@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using AspNetUpgrade.Actions;
 
-namespace AspNetUpgrade.Actions
+namespace AspNetUpgrade
 {
-    public static class TargetNuGetPackages
+    public static class MicrosoftPackageRenamingConventionHelper
     {
 
         public enum ToolingVersion
@@ -33,6 +34,7 @@ namespace AspNetUpgrade.Actions
             string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
 
             package = new NuGetPackageInfo("Microsoft.AspNetCore.Razor.Tools", $"1.0.0-{toolingVersion}-final");
+            package.Type = PackageType.Build;
             package.OldNames.Add("Microsoft.AspNet.Tooling.Razor");
             list.Add(package);
 
@@ -42,11 +44,31 @@ namespace AspNetUpgrade.Actions
 
             package = new NuGetPackageInfo("Microsoft.VisualStudio.Web.CodeGenerators.Mvc", $"1.0.0-{toolingVersion}-final");
             package.OldNames.Add("Microsoft.Extensions.CodeGenerators.Mvc");
+            package.Type = PackageType.Build;
             list.Add(package);
+
+            package = new NuGetPackageInfo("Microsoft.ApplicationInsights.AspNetCore", "1.0.0-rc2-final");
+            package.OldNames.Add("Microsoft.ApplicationInsights.AspNet");
+            list.Add(package);
+
+            package = new NuGetPackageInfo("Microsoft.Extensions.Configuration.FileExtensions", "1.0.0-rc2-final");
+            package.OldNames.Add("Microsoft.Extensions.Configuration.FileProviderExtensions");
+            list.Add(package);
+
+
+           // Microsoft.VisualStudio.Web.BrowserLink.Loader
+
+
+
 
             return list;
 
         }
 
+      
+
+
     }
+
+  
 }
