@@ -57,11 +57,13 @@ namespace AspNetUpgrade.Tests
                 var updateMicrosoftPackageVersionNumbersAction = new AspNetUpgrade.Actions.MicrosoftPackagesVersionUpdateAction();
                 upgradeActions.Add(updateMicrosoftPackageVersionNumbersAction);
 
+                // Apply these actions to the project.json file.
                 foreach (var upgradeAction in upgradeActions)
                 {
                     upgradeAction.Apply(testFileUpgradeContext);
                 }
 
+                // save the changes.
                 testFileUpgradeContext.SaveChanges();
 
                 // assert.
