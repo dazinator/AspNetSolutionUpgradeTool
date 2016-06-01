@@ -83,6 +83,7 @@
     'Microsoft.Extensions.Logging.Console': '1.0.0-rc1-final',
     'Microsoft.Extensions.Logging.Debug': '1.0.0-rc1-final',
     'Microsoft.VisualStudio.Web.BrowserLink.Loader': '14.0.0-rc1-final',
+    'EntityFramework.MicrosoftSqlServer.Design': '7.0.0-rc1-final',
     'Autofac': '4.0.0-rc1-177',
     'Autofac.Extensions.DependencyInjection': '4.0.0-rc1-177',
     'Microsoft.Dnx.Runtime': '1.0.0-rc1-final'    

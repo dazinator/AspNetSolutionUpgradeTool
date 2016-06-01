@@ -234,3 +234,17 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/AddRuntimeDependencyTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/AddRuntimeDependencyTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/MigrateSpecifiedPackagesTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/MigrateSpecifiedPackagesTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/ProjectJsonUpgradeTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeMicrosoftPackageVersionNumbersTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeMicrosoftPackageVersionNumbersTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeFrameworksJsonTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeFrameworksJsonTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeCompilationOptionsJsonTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/UpgradeCompilationOptionsJsonTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/RenameAspNetPackagesToAspNetCoreTests.Can_Undo.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/RenameAspNetPackagesToAspNetCoreTests.Can_Apply.ForScenario.WebApplicationProject.received.json
+/src/AspNetUpgrade/AspNetUpgrade.Tests/ProjectJson/ProjectJsonUpgradeTests.Can_Undo.ForScenario.WebApplicationProject.received.json
