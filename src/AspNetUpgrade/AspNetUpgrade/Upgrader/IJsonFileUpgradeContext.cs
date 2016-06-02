@@ -6,7 +6,7 @@ namespace AspNetUpgrade.Upgrader
     {
         // TextReader CreateReader();
 
-        JObject ProjectJsonObject { get; set; }
+        JObject JsonObject { get; set; }
 
         void SaveChanges();
     }

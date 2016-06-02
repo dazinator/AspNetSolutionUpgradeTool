@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace AspNetUpgrade.Actions.ProjectJson
 {
 
-    public abstract class BaseDependenciesUpdate : IProjectJsonUpgradeAction
+    public abstract class BaseDependenciesUpdate : IJsonUpgradeAction
     {
 
         private JToken _backup;
@@ -34,7 +34,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
+            JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];
             _backup = dependencies.DeepClone();
 
@@ -56,7 +56,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
         {
             // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
+            JObject projectJsonObject = fileUpgradeContext.JsonObject;
             projectJsonObject["dependencies"].Replace(_backup);
 
         }

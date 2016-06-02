@@ -16,7 +16,7 @@ namespace AspNetUpgrade.Upgrader
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
-                    ProjectJsonObject = JObject.Load(reader);
+                    JsonObject = JObject.Load(reader);
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace AspNetUpgrade.Upgrader
         // public TargetFrameworkKind TargetFrameworkKind { get; set; }
 
 
-        public JObject ProjectJsonObject { get; set; }
+        public JObject JsonObject { get; set; }
 
 
         public void SaveChanges()
@@ -39,7 +39,7 @@ namespace AspNetUpgrade.Upgrader
                 using (var jsonWriter = new JsonTextWriter(writer))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(jsonWriter, ProjectJsonObject);
+                    serializer.Serialize(jsonWriter, JsonObject);
                     jsonWriter.Flush();
                     writer.Flush();
                 }

@@ -21,7 +21,7 @@ namespace AspNetUpgrade.Tests
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
-                    ProjectJsonObject = JObject.Load(reader);
+                    JsonObject = JObject.Load(reader);
                 }
             }
 
@@ -32,7 +32,7 @@ namespace AspNetUpgrade.Tests
             return new StringReader(_jsonContents);
         }
 
-        public JObject ProjectJsonObject { get; set; }
+        public JObject JsonObject { get; set; }
 
         public void SaveChanges()
         {
@@ -43,7 +43,7 @@ namespace AspNetUpgrade.Tests
                     jsonWriter.Formatting = Formatting.Indented; 
                     JsonSerializer serializer = new JsonSerializer();
                    
-                    serializer.Serialize(jsonWriter, ProjectJsonObject);
+                    serializer.Serialize(jsonWriter, JsonObject);
                     jsonWriter.Flush();
                     writer.Flush();
                 }

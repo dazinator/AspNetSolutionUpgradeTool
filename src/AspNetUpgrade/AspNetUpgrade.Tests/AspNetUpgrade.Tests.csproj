@@ -55,7 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectJson\CompleteProjectJsonUpgradeTests.cs" />
+    <Compile Include="GlobalJson\GlobalJsonUpgradeTests.cs" />
+    <Compile Include="ProjectJson\ProjectJsonUpgradeTests.cs" />
     <Compile Include="ProjectJson\RenameAspNetPackagesToAspNetCoreTests.cs" />
     <Compile Include="ProjectJson\UpgradeMicrosoftPackageVersionNumbersTests.cs" />
     <Compile Include="ProjectJson\MigrateSpecifiedPackagesTests.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="ProjectJson\UpgradeFrameworksJsonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFileUpgradeContext.cs" />
+    <Compile Include="TestGlobalJsonContents.cs" />
     <Compile Include="TestProjectJsonContents.cs" />
   </ItemGroup>
   <ItemGroup>

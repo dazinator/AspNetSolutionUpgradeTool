@@ -49,12 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\GlobalJson\UpdateSdkVersion.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
     <Compile Include="Actions\ProjectJson\BaseDependenciesUpdate.cs" />
     <Compile Include="Model\NuGetPackageMigrationInfo.cs" />
     <Compile Include="Actions\ProjectJson\RenameAspNetPackagesToAspNetCore.cs" />
     <Compile Include="Actions\ProjectJson\MigrateSpecifiedPackagesAction.cs" />
-    <Compile Include="Actions\ProjectJson\IProjectJsonUpgradeAction.cs" />
+    <Compile Include="Actions\IJsonUpgradeAction.cs" />
     <Compile Include="Actions\ProjectJson\AddRuntimeDependency.cs" />
     <Compile Include="Model\PackageMigrationAction.cs" />
     <Compile Include="Model\PackageType.cs" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

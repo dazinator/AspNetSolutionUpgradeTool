@@ -1,8 +1,8 @@
 using AspNetUpgrade.Upgrader;
 
-namespace AspNetUpgrade.Actions.ProjectJson
+namespace AspNetUpgrade.Actions
 {
-    public interface IProjectJsonUpgradeAction
+    public interface IJsonUpgradeAction
     {
         void Apply(IJsonFileUpgradeContext fileUpgradeContext);
 

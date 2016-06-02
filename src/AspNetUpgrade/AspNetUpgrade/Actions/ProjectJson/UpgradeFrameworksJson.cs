@@ -10,7 +10,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     //}
 
 
-    public class UpgradeFrameworksJson : IProjectJsonUpgradeAction
+    public class UpgradeFrameworksJson : IJsonUpgradeAction
     {
 
         private JProperty BuildNetCoreAppFrameworkJson()
@@ -36,7 +36,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
         {
 
-            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
+            JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject frameworks = (JObject)projectJsonObject["frameworks"];
             _oldFrameworks = frameworks.DeepClone();
 
@@ -69,7 +69,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
         {
             // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
+            JObject projectJsonObject = fileUpgradeContext.JsonObject;
             projectJsonObject["frameworks"].Replace(_oldFrameworks);
 
         }

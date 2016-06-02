@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
+using AspNetUpgrade.Actions;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Model;
 using NUnit.Framework;
@@ -29,7 +30,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
 
-                var upgradeActions = new List<IProjectJsonUpgradeAction>();
+                var upgradeActions = new List<IJsonUpgradeAction>();
 
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
 
@@ -87,7 +88,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
 
-                var upgradeActions = new List<IProjectJsonUpgradeAction>();
+                var upgradeActions = new List<IJsonUpgradeAction>();
 
                 var testFileUpgradeContext = new TestFileUpgradeContext(json);
 
