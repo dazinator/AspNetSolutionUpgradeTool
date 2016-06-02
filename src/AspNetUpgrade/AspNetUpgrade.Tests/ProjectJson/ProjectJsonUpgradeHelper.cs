@@ -25,7 +25,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             upgradeActions.Add(frameworksUpgradeAction);
 
             // migrates specific nuget packages where their name has completely changed, this is currently described by a hardcoded list.
-            var nugetPackagesToMigrate = PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1);
+            var nugetPackagesToMigrate = PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var packageMigrationAction = new MigrateDependencyPackages(nugetPackagesToMigrate);
             upgradeActions.Add(packageMigrationAction);
 

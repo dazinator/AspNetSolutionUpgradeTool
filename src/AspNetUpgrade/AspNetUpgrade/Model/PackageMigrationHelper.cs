@@ -6,7 +6,7 @@ namespace AspNetUpgrade.Model
     public static class PackageMigrationHelper
     {
 
-        public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion)
+        public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion, IJsonProjectUpgradeContext projectContext)
         {
             var list = new List<DependencyPackageMigrationInfo>();
             string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
@@ -92,9 +92,15 @@ namespace AspNetUpgrade.Model
             list.Add(package);
 
             // Microsoft.VisualStudio.Web.BrowserLink.Loader
-
-
-
+            
+            // only add the web code generation tools to the project if its a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
+            if (projectContext.ToProjectJsonWrapper().IsMvcProject())
+            {
+                package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
+                package.Type = PackageType.Build;
+                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
+                list.Add(package);
+            }
 
             return list;
 
@@ -144,8 +150,7 @@ namespace AspNetUpgrade.Model
             //    var projectType = projectContext.ToProjectJsonWrapper().GetProjectType();
 
             // only add the web code generation tools to the project if its a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
-            if (projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.AspNetCore.Mvc")
-              || projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.AspNet.Mvc"))
+            if (projectContext.ToProjectJsonWrapper().IsMvcProject())
             {
                 package = new ToolPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
                 package.Imports.Add("portable-net45+win8+dnxcore50");

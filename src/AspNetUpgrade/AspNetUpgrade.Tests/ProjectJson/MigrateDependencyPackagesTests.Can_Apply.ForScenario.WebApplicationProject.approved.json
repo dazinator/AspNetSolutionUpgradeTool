@@ -76,7 +76,15 @@
         
     "Autofac":  "4.0.0-rc1-177",
         
-    "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177"
+    "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177",
+        
+    "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "type":  "build"
+    
+        }
   
     },
     

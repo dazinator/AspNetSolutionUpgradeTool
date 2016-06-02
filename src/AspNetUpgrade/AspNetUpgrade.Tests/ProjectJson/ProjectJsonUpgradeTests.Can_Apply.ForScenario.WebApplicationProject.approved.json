@@ -86,6 +86,14 @@
             
       "type":  "platform"
     
+        },
+        
+    "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "type":  "build"
+    
         }
   
     },

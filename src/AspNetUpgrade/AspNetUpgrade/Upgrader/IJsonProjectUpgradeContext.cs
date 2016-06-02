@@ -54,5 +54,12 @@ namespace AspNetUpgrade.Upgrader
             bool hasDependency = JsonObject["dependencies"]?[dependencyName] != null;
             return hasDependency;
         }
+
+        public bool IsMvcProject()
+        {
+            return HasDependency("Microsoft.AspNetCore.Mvc")
+             || HasDependency("Microsoft.AspNet.Mvc");
+        }
+
     }
 }
