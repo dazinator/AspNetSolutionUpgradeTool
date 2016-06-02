@@ -1,24 +1,24 @@
 ﻿using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
+using AspNetUpgrade.Actions;
 using AspNetUpgrade.Actions.ProjectJson;
+using AspNetUpgrade.Model;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
 {
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class UpgradeMicrosoftPackageVersionNumbersTests
+    public class RenameCommandsToToolsTests
     {
-
-        public UpgradeMicrosoftPackageVersionNumbersTests()
+        public RenameCommandsToToolsTests()
         {
 
         }
 
+      
         [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
-        [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
         [Test]
         public void Can_Apply(string scenario, string json)
         {
@@ -27,7 +27,9 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var sut = new UpgradeMicrosoftPackageVersionNumbers();
+                // get target nuget packages for RC2, Preview1 tooling.
+
+                var sut = new RenameCommandsToTools();
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -39,7 +41,11 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
             }
 
+
         }
+
+      
+      
 
 
     }

@@ -3,40 +3,56 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
+
     public class AddRuntimeDependency : IJsonUpgradeAction
     {
 
-        private JToken _backup;
+       // private JToken _backup;
 
-        private JProperty BuildNetCoreAppDependency(string netCoreAppVersion)
+        private JProperty BuildNetCoreAppDependency(ProjectType projectType, string netCoreAppVersion, string netStandardLibraryVersion)
         {
 
-            JObject netCoreAppObject = new JObject();
-            netCoreAppObject.Add(new JProperty("version", netCoreAppVersion));
-            netCoreAppObject.Add(new JProperty("type", "platform"));
+            JProperty netCoreAooProperty = null;
+            switch (projectType)
+            {
+                case ProjectType.Application:
+                    JObject netCoreAppObject = new JObject();
+                    netCoreAppObject.Add(new JProperty("version", netCoreAppVersion));
+                    netCoreAppObject.Add(new JProperty("type", "platform"));
 
-            var netCoreAooProperty = new JProperty("Microsoft.NETCore.App", netCoreAppObject);
+                    netCoreAooProperty = new JProperty("Microsoft.NETCore.App", netCoreAppObject);
+
+                    break;
+                case ProjectType.Library:
+                    netCoreAooProperty = new JProperty("NETStandard.Library", netStandardLibraryVersion);
+                    break;
+            }
+
             return netCoreAooProperty;
 
         }
+    
 
-        public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
+        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];
-            _backup = dependencies.DeepClone();
+          //  _backup = dependencies.DeepClone();
 
             // add Microsoft.NETCore.App
-            var netCoreAppDependency = BuildNetCoreAppDependency("1.0.0-rc2-3002702");
-            dependencies.Add(netCoreAppDependency);
+           
+            JProperty frameworkDepProp = BuildNetCoreAppDependency(fileUpgradeContext.ToProjectJsonWrapper().GetProjectType(),
+                "1.0.0-rc2-3002702", "1.5.0-rc2-24027");
+          
+            dependencies.Add(frameworkDepProp);
         }
 
-        public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
-        {
-            // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            projectJsonObject["dependencies"].Replace(_backup);
+        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
+        //{
+        //    // restore frameworks section
+        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
+        //    projectJsonObject["dependencies"].Replace(_backup);
 
-        }
+        //}
     }
 }

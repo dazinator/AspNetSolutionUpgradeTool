@@ -16,7 +16,7 @@ namespace AspNetUpgrade.Actions.GlobalJson
             _sdkVersion = sdkVersion;
         }
 
-        public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
+        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject jsonObject = fileUpgradeContext.JsonObject;
             JObject sdk = (JObject)jsonObject["sdk"];
@@ -32,7 +32,7 @@ namespace AspNetUpgrade.Actions.GlobalJson
             }
         }
 
-        public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
+        public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             // restore frameworks section
             JObject projectJsonObject = fileUpgradeContext.JsonObject;

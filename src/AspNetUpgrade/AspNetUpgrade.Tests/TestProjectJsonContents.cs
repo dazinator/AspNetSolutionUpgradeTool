@@ -121,6 +121,73 @@
 }
 ";
 
+        public const string ConsoleProjectRc1 = @"{
+  'version': '1.0.0-*',
+  'description': 'ConsoleApp1 Console Application',
+  'authors': [ 'daroth' ],
+  'tags': [ '' ],
+  'projectUrl': '',
+  'licenseUrl': '',
+
+  'compilationOptions': {
+    'emitEntryPoint': true
+  },
+
+  'dependencies': {
+  },
+
+  'commands': {
+    'ConsoleApp1': 'ConsoleApp1'
+  },
+
+  'frameworks': {
+    'dnx451': { },
+    'dnxcore50': {
+      'dependencies': {
+        'Microsoft.CSharp': '4.0.1-beta-23516',
+        'System.Collections': '4.0.11-beta-23516',
+        'System.Console': '4.0.0-beta-23516',
+        'System.Linq': '4.0.1-beta-23516',
+        'System.Threading': '4.0.11-beta-23516'
+      }
+    }
+  }
+}";
+
+        public const string LibraryProjectRc1 = @"{
+  'version': '1.0.0-*',
+  'webroot': 'wwwroot',
+  'description': 'Navigation Menu Module',
+  'authors': [ 'Darrell.Tunnell' ],
+  'tags': [ 'gluon-module' ],
+  'projectUrl': '',
+  'licenseUrl': '',
+  'dependencies': {
+    'Microsoft.AspNet.Mvc': '6.0.0-rc1-final',
+    'Microsoft.AspNet.Mvc.TagHelpers': '6.0.0-rc1-final',
+    'Gluon.Core': '1.0.0-*',
+    'Gluon.Module.Amd': '1.0.0-*',
+    'Gluon.Module.Bundler': '1.0.0-*',
+    'Gluon.Module.Migrator': '1.0.0-*'
+  },
+  'frameworks': {
+    'dnx451': { }
+  },
+  'packInclude': {
+    'Content/': 'wwwroot/**/*.*'
+  },
+  'resource': 'Views/**',
+  'scripts': {
+    'prebuild': 'if not exist \'%project:Directory%\\..\\..\\artifacts\\bin\\Modules\' mkdir \'%project:Directory%\\..\\..\\artifacts\\bin\\Modules',
+    'postpack': [ 'copy /y \'%project:Directory%\\..\\..\\artifacts\\bin\\%project:Name%\\%build:Configuration%\\%project:Name%.%project:Version%.nupkg\' \'%project:Directory%\\..\\..\\artifacts\\bin\\Modules\\%project:Name%.%project:Version%.nupkg' ]
+  },
+  'commands': {
+    'ef': 'EntityFramework.Commands'
+  }
+}
+";
+
+
     }
 
 

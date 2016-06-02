@@ -8,7 +8,9 @@
     
   "buildOptions":  {
         
-    "emitEntryPoint":  true
+    "emitEntryPoint":  true,
+        
+    "preserveCompilationContext":  true
   
     },
     
@@ -88,11 +90,71 @@
   
     },
     
-  "commands":  {
+  "tools":  {
         
-    "web":  "Microsoft.AspNet.Server.Kestrel",
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50"
+      
+            ]
+    
+        },
         
-    "ef":  "EntityFramework.Commands"
+    "Microsoft.EntityFrameworkCore.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        },
+        
+    "Microsoft.Extensions.SecretManager.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50"
+      
+            ]
+    
+        },
+        
+    "Microsoft.AspNetCore.Razor.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50"
+      
+            ]
+    
+        },
+        
+    "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        }
   
     },
     
@@ -107,6 +169,20 @@
         "System.Web":  "4.0.0.0"
       
             }
+    
+        },
+        
+    "netcoreapp1.0":  {
+            
+      "imports":  [
+                
+        "dotnet5.6",
+                
+        "dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
     
         }
   

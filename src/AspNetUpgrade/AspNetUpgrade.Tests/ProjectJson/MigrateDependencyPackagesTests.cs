@@ -2,21 +2,21 @@
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions.ProjectJson;
+using AspNetUpgrade.Model;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
 {
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class AddRuntimeDependencyTests
+    public class MigrateDependencyPackagesTests
     {
 
-        public AddRuntimeDependencyTests()
+        public MigrateDependencyPackagesTests()
         {
 
         }
 
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
         [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
         [Test]
         public void Can_Apply(string scenario, string json)
@@ -26,7 +26,11 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var sut = new AddRuntimeDependency();
+                // get target nuget packages for RC2, Preview1 tooling.
+                var targetNuGetPackages =
+                    PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1);
+
+                var sut = new MigrateDependencyPackages(targetNuGetPackages);
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -41,7 +45,6 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
         }
 
-        //[TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
         //[TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
         //[Test]
         //public void Can_Undo(string scenario, string json)
@@ -51,7 +54,11 @@ namespace AspNetUpgrade.Tests.ProjectJson
         //    {
         //        // arrange
         //        var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-        //        var sut = new AddRuntimeDependency();
+        //        // get target nuget packages for RC2, Preview1 tooling.
+        //        var targetNuGetPackages =
+        //            PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1);
+
+        //        var sut = new MigrateDependencyPackages(targetNuGetPackages);
 
         //        // act
         //        sut.Apply(testFileUpgradeContext);

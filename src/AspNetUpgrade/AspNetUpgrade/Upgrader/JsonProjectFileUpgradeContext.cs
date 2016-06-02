@@ -4,15 +4,15 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Upgrader
 {
-    public class JsonFileUpgradeContext : IJsonFileUpgradeContext
+    public class JsonProjectFileUpgradeContext : JsonProjectUpgradeContext
     {
         private readonly FileInfo _fileInfo;
         // private readonly StringBuilder _fileContents = new StringBuilder();
 
-        public JsonFileUpgradeContext(FileInfo fileInfo)
+        public JsonProjectFileUpgradeContext(FileInfo fileInfo)
         {
             _fileInfo = fileInfo;
-            using (var streamReader = CreateReader())
+            using (var streamReader = new StreamReader(_fileInfo.FullName))
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
@@ -21,18 +21,7 @@ namespace AspNetUpgrade.Upgrader
             }
         }
 
-        public TextReader CreateReader()
-        {
-            return new StreamReader(_fileInfo.FullName);
-        }
-
-        // public TargetFrameworkKind TargetFrameworkKind { get; set; }
-
-
-        public JObject JsonObject { get; set; }
-
-
-        public void SaveChanges()
+        public override void SaveChanges()
         {
             using (var writer = new StreamWriter(_fileInfo.FullName))
             {
@@ -45,7 +34,6 @@ namespace AspNetUpgrade.Upgrader
                 }
             }
         }
-
 
     }
 }

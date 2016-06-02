@@ -24,7 +24,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
-                var testFileUpgradeContext = new TestFileUpgradeContext(json);
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
                 var sut = new RenameAspNetPackagesToAspNetCore();
 
                 // act
@@ -40,30 +40,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
         }
 
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [Test]
-        public void Can_Undo(string scenario, string json)
-        {
-
-            using (ApprovalResults.ForScenario(scenario))
-            {
-                // arrange
-                var testFileUpgradeContext = new TestFileUpgradeContext(json);
-                var sut = new RenameAspNetPackagesToAspNetCore();
-
-                // act
-                sut.Apply(testFileUpgradeContext);
-                sut.Undo(testFileUpgradeContext);
-
-                testFileUpgradeContext.SaveChanges();
-
-                // assert.
-                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-                Approvals.VerifyJson(modifiedContents);
-
-            }
-
-        }
+      
 
 
 

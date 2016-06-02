@@ -1,0 +1,121 @@
+﻿{
+    
+  "version":  "1.0.0-*",
+    
+  "webroot":  "wwwroot",
+    
+  "description":  "Navigation Menu Module",
+    
+  "authors":  [
+        
+    "Darrell.Tunnell"
+  
+    ],
+    
+  "tags":  [
+        
+    "gluon-module"
+  
+    ],
+    
+  "projectUrl":  "",
+    
+  "licenseUrl":  "",
+    
+  "dependencies":  {
+        
+    "Microsoft.AspNetCore.Mvc":  "1.0.0-rc2-final",
+        
+    "Microsoft.AspNetCore.Mvc.TagHelpers":  "1.0.0-rc2-final",
+        
+    "Gluon.Core":  "1.0.0-*",
+        
+    "Gluon.Module.Amd":  "1.0.0-*",
+        
+    "Gluon.Module.Bundler":  "1.0.0-*",
+        
+    "Gluon.Module.Migrator":  "1.0.0-*",
+        
+    "NETStandard.Library":  "1.5.0-rc2-24027"
+  
+    },
+    
+  "frameworks":  {
+        
+    "net451":  {},
+        
+    "netstandard1.5":  {
+            
+      "imports":  [
+                
+        "dotnet5.6",
+                
+        "dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        }
+  
+    },
+    
+  "packInclude":  {
+        
+    "Content/":  "wwwroot/**/*.*"
+  
+    },
+    
+  "resource":  "Views/**",
+    
+  "scripts":  {
+        
+    "prebuild":  "if not exist '%project:Directory%\\..\\..\\artifacts\\bin\\Modules' mkdir '%project:Directory%\\..\\..\\artifacts\\bin\\Modules",
+        
+    "postpack":  [
+            
+      "copy /y '%project:Directory%\\..\\..\\artifacts\\bin\\%project:Name%\\%build:Configuration%\\%project:Name%.%project:Version%.nupkg' '%project:Directory%\\..\\..\\artifacts\\bin\\Modules\\%project:Name%.%project:Version%.nupkg"
+    
+        ]
+  
+    },
+    
+  "tools":  {
+        
+    "Microsoft.EntityFrameworkCore.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        },
+        
+    "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
+            
+      "version":  "1.0.0-preview1-final",
+            
+      "imports":  [
+                
+        "portable-net45+win8+dnxcore50",
+                
+        "portable-net45+win8"
+      
+            ]
+    
+        }
+  
+    },
+    
+  "buildOptions":  {
+        
+    "preserveCompilationContext":  true
+  
+    }
+
+}

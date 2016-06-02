@@ -2,15 +2,13 @@ using System.Collections.Generic;
 
 namespace AspNetUpgrade.Model
 {
-    public class NuGetPackageMigrationInfo
+    public abstract class PackageMigrationInfo
     {
-
-        public NuGetPackageMigrationInfo(string name, string version)
+        public PackageMigrationInfo(string name, string version)
         {
             OldNames = new List<string>();
             Name = name;
             Version = version;
-            Type = PackageType.Default;
             MigrationAction = PackageMigrationAction.Update;
         }
 
@@ -23,10 +21,6 @@ namespace AspNetUpgrade.Model
 
         public string Name { get; set; }
 
-        public PackageType Type { get; set; }
-
         public PackageMigrationAction MigrationAction { get; set; }
-
-
     }
 }

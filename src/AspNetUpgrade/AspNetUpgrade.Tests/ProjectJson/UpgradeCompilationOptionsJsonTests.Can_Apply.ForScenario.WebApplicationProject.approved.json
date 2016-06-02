@@ -8,7 +8,9 @@
     
   "buildOptions":  {
         
-    "emitEntryPoint":  true
+    "emitEntryPoint":  true,
+        
+    "preserveCompilationContext":  true
   
     },
     

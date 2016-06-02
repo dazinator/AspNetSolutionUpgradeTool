@@ -56,15 +56,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalJson\GlobalJsonUpgradeTests.cs" />
+    <Compile Include="ProjectJson\ProjectContextTests.cs" />
+    <Compile Include="ProjectJson\ProjectJsonUpgradeHelper.cs" />
+    <Compile Include="ProjectJson\RenameCommandsToToolsTests.cs" />
+    <Compile Include="ProjectJson\MigrateToolPackagesTests.cs" />
     <Compile Include="ProjectJson\ProjectJsonUpgradeTests.cs" />
     <Compile Include="ProjectJson\RenameAspNetPackagesToAspNetCoreTests.cs" />
     <Compile Include="ProjectJson\UpgradeMicrosoftPackageVersionNumbersTests.cs" />
-    <Compile Include="ProjectJson\MigrateSpecifiedPackagesTests.cs" />
+    <Compile Include="ProjectJson\MigrateDependencyPackagesTests.cs" />
     <Compile Include="ProjectJson\AddRuntimeDependencyTests.cs" />
     <Compile Include="ProjectJson\UpgradeCompilationOptionsJsonTests.cs" />
     <Compile Include="ProjectJson\UpgradeFrameworksJsonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestFileUpgradeContext.cs" />
+    <Compile Include="TestJsonProjectUpgradeContext.cs" />
     <Compile Include="TestGlobalJsonContents.cs" />
     <Compile Include="TestProjectJsonContents.cs" />
   </ItemGroup>

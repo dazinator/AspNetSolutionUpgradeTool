@@ -6,18 +6,18 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Tests
 {
-    public class TestFileUpgradeContext : IJsonFileUpgradeContext
+    public class TestJsonProjectUpgradeContext : JsonProjectUpgradeContext
     {
         private readonly string _jsonContents;
 
         private StringBuilder _modifiedJsonContents;
 
-        public TestFileUpgradeContext(string jsonContents)
+        public TestJsonProjectUpgradeContext(string jsonContents)
         {
             _jsonContents = jsonContents;
             _modifiedJsonContents = new StringBuilder();
 
-            using (var streamReader = CreateReader())
+            using (var streamReader = new StringReader(_jsonContents))
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
@@ -27,14 +27,8 @@ namespace AspNetUpgrade.Tests
 
         }
 
-        public TextReader CreateReader()
-        {
-            return new StringReader(_jsonContents);
-        }
-
-        public JObject JsonObject { get; set; }
-
-        public void SaveChanges()
+  
+        public override void SaveChanges()
         {
             using (var writer = new StringWriter(_modifiedJsonContents))
             {

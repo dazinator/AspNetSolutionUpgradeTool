@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
+using AspNetUpgrade.Model;
 using AspNetUpgrade.Upgrader;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-
     public abstract class BaseDependenciesUpdate : IJsonUpgradeAction
     {
 
-        private JToken _backup;
+      //  private JToken _backup;
 
         private string[] _excludePackageNames;
         private string _packagePrefixToUpgrade;
@@ -32,11 +32,11 @@ namespace AspNetUpgrade.Actions.ProjectJson
             //  _newVersionNumber = newVersionNumber;
         }
 
-        public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
+        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];
-            _backup = dependencies.DeepClone();
+           // _backup = dependencies.DeepClone();
 
             var dependenciesToUpdate = new List<JProperty>();
             foreach (var dependencyProp in dependencies.Properties())
@@ -53,12 +53,12 @@ namespace AspNetUpgrade.Actions.ProjectJson
             }
         }
 
-        public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
-        {
-            // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            projectJsonObject["dependencies"].Replace(_backup);
+        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
+        //{
+        //    // restore frameworks section
+        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
+        //    projectJsonObject["dependencies"].Replace(_backup);
 
-        }
+        //}
     }
 }

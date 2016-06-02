@@ -64,7 +64,7 @@
   
     },
     
-  "commands":  {
+  "tools":  {
         
     "web":  "Microsoft.AspNet.Server.Kestrel",
         

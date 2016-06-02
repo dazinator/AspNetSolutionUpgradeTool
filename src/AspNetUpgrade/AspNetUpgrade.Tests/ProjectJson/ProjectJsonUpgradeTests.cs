@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions;
-using AspNetUpgrade.Actions.ProjectJson;
-using AspNetUpgrade.Model;
+using AspNetUpgrade.Upgrader;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
@@ -20,8 +20,8 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
         [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
-        [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
+        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
+        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1)]
         [Test]
         public void Can_Apply(string scenario, string json)
         {
@@ -29,41 +29,13 @@ namespace AspNetUpgrade.Tests.ProjectJson
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
+                var upgrades = ProjectJsonUpgradeHelper.GetProjectJsonUpgrades(testFileUpgradeContext);
 
-                var upgradeActions = new List<IJsonUpgradeAction>();
+                var migrator = new ProjectMigrator(testFileUpgradeContext);
 
-                var testFileUpgradeContext = new TestFileUpgradeContext(json);
-
-                // adds the runtime to the dependencies
-                var runtimeUpgradeAction = new AddRuntimeDependency();
-                upgradeActions.Add(runtimeUpgradeAction);
-
-                // upgrades the compilation options section.
-                var compilationOptionsUpgradeAction = new UpgradeCompilationOptionsJson();
-                upgradeActions.Add(compilationOptionsUpgradeAction);
-
-                // upgrades the frameworks section.
-                var frameworksUpgradeAction = new UpgradeFrameworksJson();
-                upgradeActions.Add(frameworksUpgradeAction);
-
-                // migrates specific nuget packages where their name has completely changed, this is currently described by a hardcoded list.
-                var nugetPackagesToMigrate = PackageMigrationHelper.GetRc2PackageMigrationList(PackageMigrationHelper.ToolingVersion.Preview1);
-                var packageMigrationAction = new MigrateSpecifiedPackages(nugetPackagesToMigrate);
-                upgradeActions.Add(packageMigrationAction);
-
-                // renames microsoft.aspnet packages to be microsoft.aspnetcore.
-                var renameAspNetPackagesAction = new RenameAspNetPackagesToAspNetCore();
-                upgradeActions.Add(renameAspNetPackagesAction);
-
-                // updates microsoft. packages to be rc2 version numbers.
-                var updateMicrosoftPackageVersionNumbersAction = new UpgradeMicrosoftPackageVersionNumbers();
-                upgradeActions.Add(updateMicrosoftPackageVersionNumbersAction);
-
-                // Apply these actions to the project.json file.
-                foreach (var upgradeAction in upgradeActions)
-                {
-                    upgradeAction.Apply(testFileUpgradeContext);
-                }
+                //Act
+                migrator.Apply(upgrades);
 
                 // save the changes.
                 testFileUpgradeContext.SaveChanges();
@@ -78,57 +50,50 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
         [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project)]
-        [TestCase("Dnx451Project", TestProjectJsonContents.Dnx451Project)]
+        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
+        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1)]
         [Test]
-        public void Can_Undo(string scenario, string json)
+        public void Can_Rollback_If_Error(string scenario, string json)
         {
 
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
 
-                var upgradeActions = new List<IJsonUpgradeAction>();
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
+                var upgrades = ProjectJsonUpgradeHelper.GetProjectJsonUpgrades(testFileUpgradeContext);
+                // add an upgrade that throws an exception..
+                upgrades.Add(new ExceptionuringUpgradeAction());
 
-                var testFileUpgradeContext = new TestFileUpgradeContext(json);
-
-
-                var runtimeUpgradeAction = new AddRuntimeDependency();
-                upgradeActions.Add(runtimeUpgradeAction);
-
-                var compilationOptionsUpgradeAction = new UpgradeCompilationOptionsJson();
-                upgradeActions.Add(compilationOptionsUpgradeAction);
-
-                var frameworksUpgradeAction = new UpgradeFrameworksJson();
-                upgradeActions.Add(frameworksUpgradeAction);
-
-
-                var nugetPackagesToMigrate = PackageMigrationHelper.GetRc2PackageMigrationList(PackageMigrationHelper.ToolingVersion.Preview1);
-                var packageMigrationAction = new MigrateSpecifiedPackages(nugetPackagesToMigrate);
-                upgradeActions.Add(packageMigrationAction);
-
-
-                foreach (var upgradeAction in upgradeActions)
+                var migrator = new ProjectMigrator(testFileUpgradeContext);
+                try
                 {
-                    upgradeAction.Apply(testFileUpgradeContext);
+                    migrator.Apply(upgrades);
+                    testFileUpgradeContext.SaveChanges();
                 }
-
-                upgradeActions.Reverse();
-
-                foreach (var upgradeAction in upgradeActions)
+                catch (Exception e)
                 {
-                    upgradeAction.Undo(testFileUpgradeContext);
+                    // throw;
                 }
-
-                testFileUpgradeContext.SaveChanges();
 
                 // assert.
-                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
+                var modifiedContents = testFileUpgradeContext.JsonObject.ToString();
                 Approvals.VerifyJson(modifiedContents);
 
             }
 
         }
+
+        public class ExceptionuringUpgradeAction : IJsonUpgradeAction
+        {
+            public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+            {
+                throw new System.NotImplementedException();
+            }
+          
+        }
+
+
 
 
 

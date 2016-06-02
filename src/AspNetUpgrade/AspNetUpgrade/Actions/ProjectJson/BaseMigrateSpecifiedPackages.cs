@@ -5,23 +5,25 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public class MigrateSpecifiedPackages : IJsonUpgradeAction
+    public abstract class BaseMigrateSpecifiedPackages<T> : IJsonUpgradeAction
+        where T: PackageMigrationInfo
     {
 
-        private JToken _backup;
+       // private JToken _backup;
+        private List<T> _targetPackages;
 
-        private List<NuGetPackageMigrationInfo> _targetPackages;
-
-        public MigrateSpecifiedPackages(List<NuGetPackageMigrationInfo> targetPackages)
+        public BaseMigrateSpecifiedPackages(List<T> targetPackages)
         {
             _targetPackages = targetPackages;
         }
 
-        public void Apply(IJsonFileUpgradeContext fileUpgradeContext)
+        protected abstract JObject GetPackagesObject(IJsonProjectUpgradeContext fileUpgradeContext);
+        
+
+        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            JObject dependencies = (JObject)projectJsonObject["dependencies"];
-            _backup = dependencies.DeepClone();
+            JObject packagesObject = GetPackagesObject(fileUpgradeContext);
+        //    _backup = packagesObject.DeepClone();
 
             foreach (var targetPackage in _targetPackages)
             {
@@ -29,22 +31,22 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 switch (targetPackage.MigrationAction)
                 {
                     case PackageMigrationAction.Remove:
-                        RemovePackage(targetPackage, dependencies);
+                        RemovePackage(targetPackage, packagesObject);
                         continue;
 
                     case PackageMigrationAction.Update:
-                        UpdatePackage(targetPackage, dependencies);
+                        UpdatePackage(targetPackage, packagesObject);
                         continue;
 
                     case PackageMigrationAction.AddOrUpdate:
-                        AddOrUpdatePackage(targetPackage, dependencies);
+                        AddOrUpdatePackage(targetPackage, packagesObject);
                         continue;
                 }
 
             }
         }
 
-        private void AddOrUpdatePackage(NuGetPackageMigrationInfo targetPackage, JObject dependenciesObject)
+        protected virtual void AddOrUpdatePackage(T targetPackage, JObject dependenciesObject)
         {
             // Update package if exists.
             UpdatePackage(targetPackage, dependenciesObject);
@@ -54,32 +56,20 @@ namespace AspNetUpgrade.Actions.ProjectJson
             if (updatedPackage == null)
             {
                 // add it.
-                SetDependency(dependenciesObject, targetPackage);
+                SetPackageProperty(dependenciesObject, targetPackage);
             }
         }
 
-        private void SetDependency(JObject dependenciesObject, NuGetPackageMigrationInfo targetPackage)
-        {
-            if (targetPackage.Type == PackageType.Build)
-            {
-                JObject depOpbject = new JObject();
-                depOpbject.Add(new JProperty("version", targetPackage.Version));
-                depOpbject.Add(new JProperty("type", targetPackage.Type.ToString().ToLowerInvariant()));
-                dependenciesObject[targetPackage.Name] = depOpbject;
-            }
-            else
-            {
-                dependenciesObject[targetPackage.Name] = targetPackage.Version;
-            }
-        }
+        protected abstract void SetPackageProperty(JObject dependenciesObject, T targetPackage);
+       
 
-        private void UpdatePackage(NuGetPackageMigrationInfo targetPackage, JObject dependenciesObject)
+        private void UpdatePackage(T targetPackage, JObject dependenciesObject)
         {
             // if package is present, then update it.
             var dependency = dependenciesObject[targetPackage.Name];
             if (dependency != null)
             {
-                SetDependency(dependenciesObject, targetPackage);
+                SetPackageProperty(dependenciesObject, targetPackage);
                 return;
             }
 
@@ -92,13 +82,13 @@ namespace AspNetUpgrade.Actions.ProjectJson
                     // rename to current name.
                     dependency.Rename(targetPackage.Name);
                     //todo: if the type is build, need to expand the property value to be an object with version property and type property
-                    SetDependency(dependenciesObject, targetPackage);
+                    SetPackageProperty(dependenciesObject, targetPackage);
                     break;
                 }
             }
         }
 
-        private void RemovePackage(NuGetPackageMigrationInfo targetPackage, JObject dependenciesObject)
+        private void RemovePackage(T targetPackage, JObject dependenciesObject)
         {
             // remove this package if it is present (by its latest name or any old names).
             var dependency = dependenciesObject[targetPackage.Name];
@@ -119,12 +109,13 @@ namespace AspNetUpgrade.Actions.ProjectJson
             }
         }
 
-        public void Undo(IJsonFileUpgradeContext fileUpgradeContext)
-        {
-            // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            projectJsonObject["dependencies"].Replace(_backup);
+        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
+        //{
+        //    // restore frameworks section
+        //    var packagesObject = GetPackagesObject(fileUpgradeContext);
+        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
+        //    projectJsonObject[packagesObject.Path].Replace(_backup);
 
-        }
+        //}
     }
 }

@@ -4,9 +4,9 @@ namespace AspNetUpgrade.Actions
 {
     public interface IJsonUpgradeAction
     {
-        void Apply(IJsonFileUpgradeContext fileUpgradeContext);
+        void Apply(IJsonProjectUpgradeContext fileUpgradeContext);
 
-        void Undo(IJsonFileUpgradeContext fileUpgradeContext);
+      //  void Undo(IJsonProjectUpgradeContext fileUpgradeContext);
 
     }
 }

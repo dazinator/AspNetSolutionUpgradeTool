@@ -2,16 +2,17 @@
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions.ProjectJson;
+using AspNetUpgrade.Model;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
 {
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class AddRuntimeDependencyTests
+    public class MigrateToolPackagesTests
     {
 
-        public AddRuntimeDependencyTests()
+        public MigrateToolPackagesTests()
         {
 
         }
@@ -26,7 +27,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var sut = new AddRuntimeDependency();
+                // get target nuget packages for RC2, Preview1 tooling.
+                var toolPackageMigrations = PackageMigrationHelper.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
+
+                var sut = new MigrateToolPackages(toolPackageMigrations);
 
                 // act
                 sut.Apply(testFileUpgradeContext);
@@ -51,7 +55,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
         //    {
         //        // arrange
         //        var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-        //        var sut = new AddRuntimeDependency();
+        //        // get target nuget packages for RC2, Preview1 tooling.
+        //        var toolPackageMigrations = PackageMigrationHelper.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
+
+        //        var sut = new MigrateToolPackages(toolPackageMigrations);
 
         //        // act
         //        sut.Apply(testFileUpgradeContext);
