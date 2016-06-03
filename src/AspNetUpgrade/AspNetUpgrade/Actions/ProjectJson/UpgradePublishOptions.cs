@@ -9,16 +9,15 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            JObject exclude = (JObject)projectJsonObject["exclude"];
-            JObject publishExclude = (JObject)projectJsonObject["publishExclude"];
-            if (exclude != null)
-            {
-                exclude.Remove();
-            }
-            if (publishExclude != null)
-            {
-                publishExclude.Remove();
-            }
+
+            JArray exclude = (JArray)projectJsonObject["exclude"];
+            JArray publishExclude = (JArray)projectJsonObject["publishExclude"];
+
+            projectJsonObject.Remove("exclude");
+            projectJsonObject.Remove("publishExclude");
+
+            //  exclude?.Remove();
+            // publishExclude?.Remove();
 
             if (fileUpgradeContext.ToProjectJsonWrapper().IsMvcProject())
             {
@@ -36,7 +35,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
                 var publishOptions = new JObject(new JProperty("include", includeArray));
                 projectJsonObject["publishOptions"] = publishOptions;
-                
+
                 //              "publishOptions": {
                 //                  "include": [
                 //                    "wwwroot",

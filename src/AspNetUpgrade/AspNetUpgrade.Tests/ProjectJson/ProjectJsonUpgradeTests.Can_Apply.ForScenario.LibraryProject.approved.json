@@ -132,9 +132,7 @@
             
       "wwwroot",
             
-      "appSettings.json",
-            
-      "web.config"
+      "appSettings.json"
     
         ]
   

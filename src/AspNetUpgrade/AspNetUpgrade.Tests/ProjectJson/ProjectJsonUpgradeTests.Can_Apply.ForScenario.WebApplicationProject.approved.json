@@ -196,28 +196,6 @@
   
     },
     
-  "exclude":  [
-        
-    "wwwroot",
-        
-    "node_modules",
-        
-    "shadowed",
-        
-    "artifacts",
-        
-    "modules"
-  
-    ],
-    
-  "publishExclude":  [
-        
-    "**.user",
-        
-    "**.vspscc"
-  
-    ],
-    
   "scripts":  {
         
     "postrestore":  [
@@ -237,6 +215,20 @@
       "gulp clean",
             
       "gulp build"
+    
+        ]
+  
+    },
+    
+  "publishOptions":  {
+        
+    "include":  [
+            
+      "wwwroot",
+            
+      "appSettings.json",
+            
+      "web.config"
     
         ]
   
