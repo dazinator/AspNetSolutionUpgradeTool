@@ -28,7 +28,11 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 includeArray.Add("wwwroot");
                 //includeArray.Add("Views");
                 includeArray.Add("appSettings.json");
-                includeArray.Add("web.config");
+
+                if (fileUpgradeContext.ToProjectJsonWrapper().GetProjectType() == ProjectType.Application)
+                {
+                    includeArray.Add("web.config");
+                }
 
                 var publishOptions = new JObject(new JProperty("include", includeArray));
                 projectJsonObject["publishOptions"] = publishOptions;
