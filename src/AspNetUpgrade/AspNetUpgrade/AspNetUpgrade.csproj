@@ -52,6 +52,7 @@
     <Compile Include="Actions\GlobalJson\UpdateSdkVersion.cs" />
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradePublishOptions.cs" />
     <Compile Include="Actions\ProjectJson\RenameCommandsToTools.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
     <Compile Include="Actions\ProjectJson\BaseDependenciesUpdate.cs" />

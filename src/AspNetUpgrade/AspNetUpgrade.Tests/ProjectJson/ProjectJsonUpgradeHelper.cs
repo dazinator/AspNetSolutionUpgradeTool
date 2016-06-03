@@ -45,6 +45,9 @@ namespace AspNetUpgrade.Tests.ProjectJson
             var toolPackagestoMigrate = PackageMigrationHelper.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var migrateToolPackages = new MigrateToolPackages(toolPackagestoMigrate);
             upgradeActions.Add(migrateToolPackages);
+            
+            var upgradePublishOptions = new UpgradePublishOptions();
+            upgradeActions.Add(upgradePublishOptions);
 
             return upgradeActions;
 
