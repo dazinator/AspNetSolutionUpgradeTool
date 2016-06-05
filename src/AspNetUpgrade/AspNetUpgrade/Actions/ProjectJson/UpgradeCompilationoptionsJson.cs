@@ -6,8 +6,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
     public class UpgradeCompilationOptionsJson : IJsonUpgradeAction
     {
 
-        // private JToken _backup;
-
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
@@ -22,17 +20,20 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
             compilationOptions.Rename("buildOptions");
             projectJsonObject["buildOptions"]["preserveCompilationContext"] = true;
+
+
+            foreach (var item in ((JObject)projectJsonObject["frameworks"]).Properties())
+            {
+                var tfmCompilationOptions = ((JObject)item.Value).Property("compilationOptions");
+                if (tfmCompilationOptions != null)
+                {
+                    tfmCompilationOptions.Replace(new JProperty("buildOptions", tfmCompilationOptions.Value));
+                }
+            }
+
+
             //compilationOptions.Add("preserveCompilationContext", true);
         }
-
-        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
-        //{
-        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
-        //    JObject buildOptions = (JObject)projectJsonObject["buildOptions"];
-        //    buildOptions.Rename("compilationOptions");
-        //    fileUpgradeContext.JsonObject["compilationOptions"].Replace(_backup);
-
-        //}
 
 
     }

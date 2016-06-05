@@ -141,7 +141,11 @@
   },
 
   'frameworks': {
-    'dnx451': { },
+    'dnx451': { 
+'compilationOptions': {
+    'emitEntryPoint': true
+  }
+},
     'dnxcore50': {
       'dependencies': {
         'Microsoft.CSharp': '4.0.1-beta-23516',

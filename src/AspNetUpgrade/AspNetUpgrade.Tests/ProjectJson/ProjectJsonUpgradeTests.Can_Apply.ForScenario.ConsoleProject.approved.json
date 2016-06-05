@@ -48,7 +48,15 @@
     
   "frameworks":  {
         
-    "net451":  {},
+    "net451":  {
+            
+      "buildOptions":  {
+                
+        "emitEntryPoint":  true
+      
+            }
+    
+        },
         
     "dnxcore50":  {
             

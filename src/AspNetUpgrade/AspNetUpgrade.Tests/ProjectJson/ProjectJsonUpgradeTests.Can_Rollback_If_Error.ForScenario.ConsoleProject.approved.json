@@ -36,7 +36,15 @@
     
   "frameworks":  {
         
-    "dnx451":  {},
+    "dnx451":  {
+            
+      "compilationOptions":  {
+                
+        "emitEntryPoint":  true
+      
+            }
+    
+        },
         
     "dnxcore50":  {
             
