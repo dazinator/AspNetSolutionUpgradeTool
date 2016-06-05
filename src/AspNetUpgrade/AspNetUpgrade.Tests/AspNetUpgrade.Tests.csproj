@@ -64,7 +64,6 @@
     <Compile Include="ProjectJson\RenameAspNetPackagesToAspNetCoreTests.cs" />
     <Compile Include="ProjectJson\UpgradeMicrosoftPackageVersionNumbersTests.cs" />
     <Compile Include="ProjectJson\MigrateDependencyPackagesTests.cs" />
-    <Compile Include="ProjectJson\AddRuntimeDependencyTests.cs" />
     <Compile Include="ProjectJson\UpgradeCompilationOptionsJsonTests.cs" />
     <Compile Include="ProjectJson\UpgradeFrameworksJsonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

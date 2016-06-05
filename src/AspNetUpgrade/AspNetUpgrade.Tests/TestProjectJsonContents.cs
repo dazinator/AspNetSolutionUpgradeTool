@@ -128,7 +128,7 @@
   'tags': [ '' ],
   'projectUrl': '',
   'licenseUrl': '',
-
+  'repository': { 'type': 'git', 'url':'https://github.com/dazinator/AspNetRC1toRC2UpgradeTool' },
   'compilationOptions': {
     'emitEntryPoint': true
   },

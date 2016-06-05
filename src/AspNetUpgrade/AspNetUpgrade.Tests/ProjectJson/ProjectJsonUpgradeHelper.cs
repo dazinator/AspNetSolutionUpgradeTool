@@ -13,15 +13,25 @@ namespace AspNetUpgrade.Tests.ProjectJson
             var upgradeActions = new List<IJsonUpgradeAction>();
 
             // adds the runtime to the dependencies
-            var runtimeUpgradeAction = new AddRuntimeDependency();
-            upgradeActions.Add(runtimeUpgradeAction);
+
+            // Makes applications target .netcoreapp.
+            var addNetCoreApp = new AddNetCoreFrameworkToApplications("1.0.0-rc2-3002702");
+            upgradeActions.Add(addNetCoreApp);
+
+            // Adds the netStandard framework, with specified version of NETStandard.Library dependency, to any library project.json's.
+            var addNetStandard = new AddNetStandardFrameworkToLibrariesJson("netstandard1.5",  "1.5.0-rc2-24027");
+            upgradeActions.Add(addNetStandard);
 
             // upgrades the compilation options section.
             var compilationOptionsUpgradeAction = new UpgradeCompilationOptionsJson();
             upgradeActions.Add(compilationOptionsUpgradeAction);
 
+            // moves things to packOptions.
+            var upgradePackOptions = new UpgradePackOptions();
+            upgradeActions.Add(upgradePackOptions);
+
             // upgrades the frameworks section.
-            var frameworksUpgradeAction = new UpgradeFrameworksJson();
+            var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFrameworksJson();
             upgradeActions.Add(frameworksUpgradeAction);
 
             // migrates specific nuget packages where their name has completely changed, this is currently described by a hardcoded list.

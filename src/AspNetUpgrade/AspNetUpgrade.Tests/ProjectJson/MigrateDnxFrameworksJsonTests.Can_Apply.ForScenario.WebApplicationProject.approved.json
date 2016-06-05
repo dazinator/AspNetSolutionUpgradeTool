@@ -60,15 +60,7 @@
         
     "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177",
         
-    "Microsoft.Dnx.Runtime":  "1.0.0-rc1-final",
-        
-    "Microsoft.NETCore.App":  {
-            
-      "version":  "1.0.0-rc2-3002702",
-            
-      "type":  "platform"
-    
-        }
+    "Microsoft.Dnx.Runtime":  "1.0.0-rc1-final"
   
     },
     
@@ -82,7 +74,7 @@
     
   "frameworks":  {
         
-    "dnx451":  {
+    "net451":  {
             
       "dependencies":  {},
             

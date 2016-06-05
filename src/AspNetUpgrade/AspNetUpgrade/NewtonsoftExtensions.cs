@@ -16,21 +16,14 @@ namespace AspNetUpgrade
         //    parent.Replace(newToken);
         //}
 
-       
-            public static void Rename(this JToken token, string newName)
-            {
-                var parent = token.Parent;
-                if (parent == null)
-                    throw new InvalidOperationException("The parent is missing.");
-                var newToken = new JProperty(newName, token);
-                parent.Replace(newToken);
-            }
-       
 
-
-        public static JToken Rename(this JToken json, Dictionary<string, string> map)
+        public static void Rename(this JToken token, string newName)
         {
-            return Rename(json, name => map.ContainsKey(name) ? map[name] : name);
+            var parent = token.Parent;
+            if (parent == null)
+                throw new InvalidOperationException("The parent is missing.");
+            var newToken = new JProperty(newName, token);
+            parent.Replace(newToken);
         }
 
         public static JToken Rename(this JToken json, Func<string, string> map)
@@ -56,6 +49,26 @@ namespace AspNetUpgrade
             }
 
             return json;
+        }
+
+        public static JObject GetOrAddProperty(this JObject root, string propertyName, JProperty insertAfter)
+        {
+            var newProperty = (JObject)root[propertyName];
+            if (newProperty == null)
+            {
+                newProperty = new JObject();
+                var property = new JProperty(propertyName, newProperty);
+                if (insertAfter != null)
+                {
+                    insertAfter.AddAfterSelf(property);
+                }
+                else
+                {
+                    root.Add(property);
+                }
+            }
+
+            return newProperty;
         }
     }
 }

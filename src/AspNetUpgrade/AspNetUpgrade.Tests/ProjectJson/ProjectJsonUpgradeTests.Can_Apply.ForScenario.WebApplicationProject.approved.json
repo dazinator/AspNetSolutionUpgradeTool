@@ -80,14 +80,6 @@
         
     "Autofac.Extensions.DependencyInjection":  "4.0.0-rc1-177",
         
-    "Microsoft.NETCore.App":  {
-            
-      "version":  "1.0.0-rc2-3002702",
-            
-      "type":  "platform"
-    
-        },
-        
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
             
       "version":  "1.0.0-preview1-final",
@@ -190,7 +182,19 @@
                 
         "portable-net45+win8"
       
-            ]
+            ],
+            
+      "dependencies":  {
+                
+        "Microsoft.NETCore.App":  {
+                    
+          "version":  "1.0.0-rc2-3002702",
+                    
+          "type":  "platform"
+        
+                }
+      
+            }
     
         }
   

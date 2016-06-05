@@ -9,10 +9,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class UpgradeFrameworksJsonTests
+    public class MigrateDnxFrameworksJsonTests
     {
 
-        public UpgradeFrameworksJsonTests()
+        public MigrateDnxFrameworksJsonTests()
         {
 
         }
@@ -29,7 +29,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var sut = new UpgradeFrameworksJson();
+                var sut = new MigrateDnxFrameworksToNetFrameworksJson();
 
                 // act
                 sut.Apply(testFileUpgradeContext);

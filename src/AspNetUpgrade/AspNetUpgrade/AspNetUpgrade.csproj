@@ -50,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\GlobalJson\UpdateSdkVersion.cs" />
+    <Compile Include="Actions\ProjectJson\AddNetCoreFrameworkToApplications.cs" />
+    <Compile Include="Actions\ProjectJson\AddNetStandardFrameworkToLibrariesJson.cs" />
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradePackOptions.cs" />
     <Compile Include="Actions\ProjectJson\UpgradePublishOptions.cs" />
     <Compile Include="Actions\ProjectJson\RenameCommandsToTools.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
@@ -60,19 +63,18 @@
     <Compile Include="Actions\ProjectJson\RenameAspNetPackagesToAspNetCore.cs" />
     <Compile Include="Actions\ProjectJson\MigrateDependencyPackages.cs" />
     <Compile Include="Actions\IJsonUpgradeAction.cs" />
-    <Compile Include="Actions\ProjectJson\AddRuntimeDependency.cs" />
     <Compile Include="Model\PackageMigrationAction.cs" />
     <Compile Include="Model\PackageMigrationInfo.cs" />
     <Compile Include="Model\PackageType.cs" />
     <Compile Include="Model\PackageMigrationHelper.cs" />
-    <Compile Include="Actions\ProjectJson\UpgradeCompilationoptionsJson.cs" />
+    <Compile Include="Actions\ProjectJson\UpgradeCompilationOptionsJson.cs" />
     <Compile Include="Model\ToolingVersion.cs" />
     <Compile Include="Model\ToolPackageMigrationInfo.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
     <Compile Include="Upgrader\IJsonProjectUpgradeContext.cs" />
     <Compile Include="Upgrader\ProjectMigrator.cs" />
     <Compile Include="Upgrader\ProjectType.cs" />
-    <Compile Include="Actions\ProjectJson\UpgradeFrameworksJson.cs" />
+    <Compile Include="Actions\ProjectJson\MigrateDnxFrameworksToNetFrameworksJson.cs" />
     <Compile Include="Options\UpgradeProjectJsonOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
