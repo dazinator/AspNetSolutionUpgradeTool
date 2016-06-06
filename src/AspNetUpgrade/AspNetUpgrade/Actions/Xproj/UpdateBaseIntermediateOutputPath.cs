@@ -11,18 +11,10 @@ namespace AspNetUpgrade.Actions.Xproj
         {
             if (fileUpgradeContext.VsProjectFile != null)
             {
-                UpdatePropertyValue(fileUpgradeContext.VsProjectFile, "BaseIntermediateOutputPath", ".\\obj");
+                fileUpgradeContext.VsProjectFile.UpdatePropertyValue("BaseIntermediateOutputPath", ".\\obj");
             }
         }
 
-        public static void UpdatePropertyValue(Microsoft.Build.Evaluation.Project project, string propertyName, string value)
-        {
-            // _Logger.LogInfo(string.Format("Project Dir is: {0}", projectDir));
-            var existingProp = project.Xml.Properties.Cast<ProjectPropertyElement>().FirstOrDefault(i => i.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
-            if (existingProp != null)
-            {
-                existingProp.Value = value;
-            }
-        }
+       
     }
 }

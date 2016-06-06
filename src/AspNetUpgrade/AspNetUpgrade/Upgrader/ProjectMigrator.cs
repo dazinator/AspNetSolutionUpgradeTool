@@ -30,7 +30,7 @@ namespace AspNetUpgrade.Upgrader
             var context = this.Context;
             if (options.UpgradeProjectFilesToPreview1)
             {
-                migrations.AddRange(GetSchemaUpgrades(context));
+                migrations.AddRange(GetSchemaUpgrades(options, context));
             }
             if (options.UpgradePackagesToRC2)
             {
@@ -49,7 +49,7 @@ namespace AspNetUpgrade.Upgrader
                 migrations.Add(addNetStandard);
             }
 
-            // additional migrations to applu
+            // additional migrations to apply
             if (additionalMigrations != null && additionalMigrations.Any())
             {
                 migrations.AddRange(additionalMigrations);
@@ -58,7 +58,7 @@ namespace AspNetUpgrade.Upgrader
             this.Apply(migrations);
         }
 
-        protected virtual IList<IJsonUpgradeAction> GetSchemaUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
+        protected virtual IList<IJsonUpgradeAction> GetSchemaUpgrades(MigrationOptions options, IJsonProjectUpgradeContext projectUpgradeContext)
         {
             var upgradeActions = new List<IJsonUpgradeAction>();
 
@@ -101,6 +101,10 @@ namespace AspNetUpgrade.Upgrader
             // updates xproj baseintermediate output path
             var xprojUpdateBaseIntermediateOutputPath = new UpdateBaseIntermediateOutputPath();
             upgradeActions.Add(xprojUpdateBaseIntermediateOutputPath);
+
+            // updates xproj targetFramework 
+            var xprojUpdateTargetFramework = new SetTargetFrameworkVersion(options.TargetFrameworkVersionForXprojFile);
+            upgradeActions.Add(xprojUpdateTargetFramework);
 
             return upgradeActions;
 

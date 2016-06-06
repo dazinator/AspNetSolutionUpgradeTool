@@ -66,6 +66,7 @@
     <Compile Include="Actions\ProjectJson\RenameCommandsToTools.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
     <Compile Include="Actions\ProjectJson\BaseDependenciesUpdate.cs" />
+    <Compile Include="Actions\Xproj\SetTargetFrameworkVersion.cs" />
     <Compile Include="Actions\Xproj\UpdateBaseIntermediateOutputPath.cs" />
     <Compile Include="Actions\Xproj\MigrateProjectImportsFromDnxToDotNet.cs" />
     <Compile Include="Model\DependencyPackageMigrationInfo.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Actions\ProjectJson\UpgradeCompilationOptionsJson.cs" />
     <Compile Include="Model\ToolingVersion.cs" />
     <Compile Include="Model\ToolPackageMigrationInfo.cs" />
+    <Compile Include="ProjectExtensions.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
     <Compile Include="Upgrader\IJsonProjectUpgradeContext.cs" />
     <Compile Include="Upgrader\MigrationOptions.cs" />
