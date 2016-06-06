@@ -3,6 +3,7 @@ using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Model;
+using AspNetUpgrade.Upgrader;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
@@ -28,8 +29,8 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
                 // get target nuget packages for RC2, Preview1 tooling.
-                var toolPackageMigrations = PackageMigrationHelper.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
-
+                var toolPackageMigrations = ProjectJsonMigrator.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
+                
                 var sut = new MigrateToolPackages(toolPackageMigrations);
 
                 // act

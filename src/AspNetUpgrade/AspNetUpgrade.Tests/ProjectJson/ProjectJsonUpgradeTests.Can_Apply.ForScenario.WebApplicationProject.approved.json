@@ -10,7 +10,43 @@
         
     "emitEntryPoint":  true,
         
-    "preserveCompilationContext":  true
+    "preserveCompilationContext":  true,
+        
+    "embed":  {
+            
+      "exclude":  [
+                
+        "wwwroot",
+                
+        "node_modules",
+                
+        "shadowed",
+                
+        "artifacts",
+                
+        "modules"
+      
+            ]
+    
+        },
+        
+    "compile":  {
+            
+      "exclude":  [
+                
+        "wwwroot",
+                
+        "node_modules",
+                
+        "shadowed",
+                
+        "artifacts",
+                
+        "modules"
+      
+            ]
+    
+        }
   
     },
     

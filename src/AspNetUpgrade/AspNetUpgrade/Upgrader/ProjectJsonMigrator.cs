@@ -1,10 +1,131 @@
+using System.CodeDom;
 using System.Collections.Generic;
-using AspNetUpgrade.Upgrader;
+using System.Linq;
+using System.Security.AccessControl;
+using AspNetUpgrade.Actions;
+using AspNetUpgrade.Actions.ProjectJson;
+using AspNetUpgrade.Model;
 
-namespace AspNetUpgrade.Model
+namespace AspNetUpgrade.Upgrader
 {
-    public static class PackageMigrationHelper
+
+    
+
+    public class ProjectJsonMigrator : ProjectMigrator
     {
+
+        public ProjectJsonMigrator(JsonProjectUpgradeContext context) : base(context)
+        {
+        }
+
+        /// <summary>
+        /// Migrates the project.
+        /// </summary>
+        /// <param name="options">migration options.</param>
+        /// <param name="additionalMigrations">any additional migrations to apply.</param>
+        public void Apply(MigrationOptions options, IList<IJsonUpgradeAction> additionalMigrations = null)
+        {
+            List<IJsonUpgradeAction> migrations = new List<IJsonUpgradeAction>();
+            var context = this.Context;
+            if (options.UpgradeProjectFilesToPreview1)
+            {
+                migrations.AddRange(GetSchemaUpgrades(context));
+            }
+            if (options.UpgradePackagesToRC2)
+            {
+                migrations.AddRange(GetPackagesUpgrades(context));
+            }
+            if (options.AddNetCoreTargetToApplications)
+            {
+                //// Makes applications target .netcoreapp.
+                var addNetCoreApp = new AddNetCoreFrameworkToApplications("1.0.0-rc2-3002702");
+                migrations.Add(addNetCoreApp);
+            }
+            if (options.AddNetStandardTargetToLibraries)
+            {
+                // Adds the netStandard framework, with specified version of NETStandard.Library dependency, to any library project.json's.
+                var addNetStandard = new AddNetStandardFrameworkToLibrariesJson("netstandard1.5", "1.5.0-rc2-24027");
+                migrations.Add(addNetStandard);
+            }
+
+            // additional migrations to applu
+            if (additionalMigrations != null && additionalMigrations.Any())
+            {
+                migrations.AddRange(additionalMigrations);
+            }
+
+            this.Apply(migrations);
+        }
+
+        protected virtual IList<IJsonUpgradeAction> GetSchemaUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
+        {
+            var upgradeActions = new List<IJsonUpgradeAction>();
+
+            // upgrades the compilation options section.
+            var compilationOptionsUpgradeAction = new UpgradeCompilationOptionsJson();
+            upgradeActions.Add(compilationOptionsUpgradeAction);
+
+            // moves things to packOptions.
+            var upgradePackOptions = new UpgradePackOptions();
+            upgradeActions.Add(upgradePackOptions);
+
+            // moves content to the new packOptions and buildOptions / copyToOutput
+            var moveContent = new MoveContentToNewOptions();
+            upgradeActions.Add(moveContent);
+
+            // moves resources to buildOptions.
+            var moveResources = new MoveResourcesToBuildOptions();
+            upgradeActions.Add(moveResources);
+
+            // move compile to build options.
+            var moveCompileToBuildOptions = new MoveCompileToBuildOptions();
+            upgradeActions.Add(moveCompileToBuildOptions);
+
+            // move exclude to build options
+            var moveExcludeToBuildOptions = new MoveExcludeToBuildOptions();
+            upgradeActions.Add(moveExcludeToBuildOptions);
+
+            // moves things to publishOptions.
+            var upgradePublishOptions = new UpgradePublishOptions();
+            upgradeActions.Add(upgradePublishOptions);
+
+            // renames the old dnx4YZ TFM's to be the net4YZ Tfm's. 
+            var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFrameworksJson();
+            upgradeActions.Add(frameworksUpgradeAction);
+
+            return upgradeActions;
+
+        }
+
+        protected virtual IList<IJsonUpgradeAction> GetPackagesUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
+        {
+            var upgradeActions = new List<IJsonUpgradeAction>();
+
+            // migrates specific nuget packages where their name has completely changed, this is currently described by a hardcoded list.
+            var nugetPackagesToMigrate = ProjectJsonMigrator.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
+            var packageMigrationAction = new MigrateDependencyPackages(nugetPackagesToMigrate);
+            upgradeActions.Add(packageMigrationAction);
+
+            // renames microsoft.aspnet packages to be microsoft.aspnetcore.
+            var renameAspNetPackagesAction = new RenameAspNetPackagesToAspNetCore();
+            upgradeActions.Add(renameAspNetPackagesAction);
+
+            // updates microsoft. packages to be rc2 version numbers.
+            var updateMicrosoftPackageVersionNumbersAction = new UpgradeMicrosoftPackageVersionNumbers();
+            upgradeActions.Add(updateMicrosoftPackageVersionNumbersAction);
+
+            // renames "commands" to "tools"
+            var renameCommandstoToolsAndClear = new RenameCommandsToTools();
+            upgradeActions.Add(renameCommandstoToolsAndClear);
+
+            // migrates old command packages to the new tool nuget packages.
+            var toolPackagestoMigrate = GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
+            var migrateToolPackages = new MigrateToolPackages(toolPackagestoMigrate);
+            upgradeActions.Add(migrateToolPackages);
+
+            return upgradeActions;
+
+        }
 
         public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion, IJsonProjectUpgradeContext projectContext)
         {
@@ -92,7 +213,7 @@ namespace AspNetUpgrade.Model
             list.Add(package);
 
             // Microsoft.VisualStudio.Web.BrowserLink.Loader
-            
+
             // only add the web code generation tools to the project if its a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
             if (projectContext.ToProjectJsonWrapper().IsMvcProject())
             {
@@ -105,7 +226,6 @@ namespace AspNetUpgrade.Model
             return list;
 
         }
-
 
         public static List<ToolPackageMigrationInfo> GetRc2ToolPackageMigrationList(ToolingVersion targetToolingVersion, IJsonProjectUpgradeContext projectContext)
         {
@@ -165,8 +285,5 @@ namespace AspNetUpgrade.Model
 
 
 
-
     }
-
-
 }

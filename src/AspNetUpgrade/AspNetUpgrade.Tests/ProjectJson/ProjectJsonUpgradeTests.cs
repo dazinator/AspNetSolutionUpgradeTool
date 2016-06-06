@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ApprovalTests;
 using ApprovalTests.Namers;
@@ -30,12 +31,17 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var upgrades = ProjectJsonUpgradeHelper.GetProjectJsonUpgrades(testFileUpgradeContext);
 
-                var migrator = new ProjectMigrator(testFileUpgradeContext);
+                var migrator = new ProjectJsonMigrator(testFileUpgradeContext);
+                var options = new MigrationOptions();
 
-                //Act
-                migrator.Apply(upgrades);
+                options.UpgradeProjectFilesToPreview1 = true; // project.json files will be updated to the preview 1 schema.
+                options.UpgradePackagesToRC2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+                options.AddNetStandardTargetToLibraries = true; // libraries will have the netStandard TFM added (and dependency).
+                options.AddNetCoreTargetToApplications = true; // applications will have the netCore app TFM added (and dependency)
+
+                // migrate 
+                migrator.Apply(options);
 
                 // save the changes.
                 testFileUpgradeContext.SaveChanges();
@@ -59,16 +65,24 @@ namespace AspNetUpgrade.Tests.ProjectJson
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
-
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var upgrades = ProjectJsonUpgradeHelper.GetProjectJsonUpgrades(testFileUpgradeContext);
-                // add an upgrade that throws an exception..
-                upgrades.Add(new ExceptionuringUpgradeAction());
+                var migrator = new ProjectJsonMigrator(testFileUpgradeContext);
+                var options = new MigrationOptions();
 
-                var migrator = new ProjectMigrator(testFileUpgradeContext);
+                options.UpgradeProjectFilesToPreview1 = true; // project.json files will be updated to the preview 1 schema.
+                options.UpgradePackagesToRC2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+                options.AddNetStandardTargetToLibraries = true; // libraries will have the netStandard TFM added (and dependency).
+                options.AddNetCoreTargetToApplications = true; // applications will have the netCore app TFM added (and dependency)
+                
+                // add an upgrade that throws an exception..
+                var additionalUpgrades = new List<IJsonUpgradeAction>();
+                additionalUpgrades.Add(new ExceptionuringUpgradeAction());
+
+             
                 try
                 {
-                    migrator.Apply(upgrades);
+                    // migrate 
+                    migrator.Apply(options, additionalUpgrades);
                     testFileUpgradeContext.SaveChanges();
                 }
                 catch (Exception e)

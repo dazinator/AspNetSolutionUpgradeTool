@@ -55,6 +55,7 @@
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
     <Compile Include="Actions\ProjectJson\MoveCompileToBuildOptions.cs" />
+    <Compile Include="Actions\ProjectJson\MoveExcludeToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\MoveResourcesToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\MoveContentToNewOptions.cs" />
     <Compile Include="Actions\ProjectJson\UpgradePackOptions.cs" />
@@ -69,12 +70,13 @@
     <Compile Include="Model\PackageMigrationAction.cs" />
     <Compile Include="Model\PackageMigrationInfo.cs" />
     <Compile Include="Model\PackageType.cs" />
-    <Compile Include="Model\PackageMigrationHelper.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeCompilationOptionsJson.cs" />
     <Compile Include="Model\ToolingVersion.cs" />
     <Compile Include="Model\ToolPackageMigrationInfo.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
     <Compile Include="Upgrader\IJsonProjectUpgradeContext.cs" />
+    <Compile Include="Upgrader\MigrationOptions.cs" />
+    <Compile Include="Upgrader\ProjectJsonMigrator.cs" />
     <Compile Include="Upgrader\ProjectMigrator.cs" />
     <Compile Include="Upgrader\ProjectType.cs" />
     <Compile Include="Actions\ProjectJson\MigrateDnxFrameworksToNetFrameworksJson.cs" />

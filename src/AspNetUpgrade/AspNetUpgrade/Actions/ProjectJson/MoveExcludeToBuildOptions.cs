@@ -4,21 +4,20 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public class MoveResourcesToBuildOptions : IJsonUpgradeAction
+    public class MoveExcludeToBuildOptions : IJsonUpgradeAction
     {
 
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            MoveResourcesToBuild(projectJsonObject);
+            MoveExcludeToBuild(projectJsonObject);
         }
 
-        private static void MoveResourcesToBuild(JObject root)
+        private static void MoveExcludeToBuild(JObject root)
         {
             var resourceItems = new[]
             {
-                Tuple.Create("resource", "include"),
-                Tuple.Create("namedResource", "mappings"),
+                Tuple.Create("exclude", "exclude"),
             };
 
             foreach (var item in resourceItems)
@@ -36,10 +35,18 @@ namespace AspNetUpgrade.Actions.ProjectJson
                     }
 
                     resource[item.Item2] = property.Value;
+                  
+                    var compile = (JObject)build["compile"];
+                    if (compile == null)
+                    {
+                        compile = new JObject();
+                        build["compile"] = compile;
+                    }
+
+                    compile[item.Item2] = property.Value;
                     property.Remove();
                 }
             }
         }
     }
-
 }

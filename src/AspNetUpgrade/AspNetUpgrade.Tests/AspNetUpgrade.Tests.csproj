@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="GlobalJson\GlobalJsonUpgradeTests.cs" />
     <Compile Include="ProjectJson\ProjectContextTests.cs" />
-    <Compile Include="ProjectJson\ProjectJsonUpgradeHelper.cs" />
     <Compile Include="ProjectJson\RenameCommandsToToolsTests.cs" />
     <Compile Include="ProjectJson\MigrateToolPackagesTests.cs" />
     <Compile Include="ProjectJson\ProjectJsonUpgradeTests.cs" />

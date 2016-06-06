@@ -3,6 +3,7 @@ using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Model;
+using AspNetUpgrade.Upgrader;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
@@ -28,7 +29,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
                 // get target nuget packages for RC2, Preview1 tooling.
                 var targetNuGetPackages =
-                    PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
+                    ProjectJsonMigrator.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1,
+                        testFileUpgradeContext);
+
+                //  PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);
 
                 var sut = new MigrateDependencyPackages(targetNuGetPackages);
 
@@ -45,34 +49,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
         }
 
-        //[TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        //[Test]
-        //public void Can_Undo(string scenario, string json)
-        //{
-
-        //    using (ApprovalResults.ForScenario(scenario))
-        //    {
-        //        // arrange
-        //        var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-        //        // get target nuget packages for RC2, Preview1 tooling.
-        //        var targetNuGetPackages =
-        //            PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1);
-
-        //        var sut = new MigrateDependencyPackages(targetNuGetPackages);
-
-        //        // act
-        //        sut.Apply(testFileUpgradeContext);
-        //        sut.Undo(testFileUpgradeContext);
-
-        //        testFileUpgradeContext.SaveChanges();
-
-        //        // assert.
-        //        var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-        //        Approvals.VerifyJson(modifiedContents);
-
-        //    }
-
-        //}
+     
 
 
 

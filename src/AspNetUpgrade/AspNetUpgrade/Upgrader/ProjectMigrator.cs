@@ -7,11 +7,9 @@ namespace AspNetUpgrade.Upgrader
     public class ProjectMigrator
     {
 
-        private JsonProjectUpgradeContext _context;
-
         public ProjectMigrator(JsonProjectUpgradeContext context)
         {
-            _context = context;
+            Context = context;
             AppliedActions = new List<IJsonUpgradeAction>();
         }
 
@@ -19,11 +17,11 @@ namespace AspNetUpgrade.Upgrader
         {
             try
             {
-                _context.BeginUpgrade(() =>
+                Context.BeginUpgrade(() =>
                 {
                     foreach (var action in actions)
                     {
-                        action.Apply(_context);
+                        action.Apply(Context);
                         AppliedActions.Add(action);
                     }
                 });
@@ -37,5 +35,10 @@ namespace AspNetUpgrade.Upgrader
 
         public List<IJsonUpgradeAction> AppliedActions { get; set; }
 
+        public JsonProjectUpgradeContext Context { get; set; }
+
+
     }
+
+
 }
