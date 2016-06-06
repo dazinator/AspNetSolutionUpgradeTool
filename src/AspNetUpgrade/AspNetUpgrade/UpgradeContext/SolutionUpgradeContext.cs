@@ -37,7 +37,7 @@ namespace AspNetUpgrade.UpgradeContext
         public void LoadProjects(DirectoryInfo solutionDir)
         {
             var projFiles = solutionDir.GetFiles("project.json", SearchOption.AllDirectories);
-            var projects = projFiles.Select(file => new BaseProjectFileUpgradeContext(file)).ToList();
+            var projects = projFiles.Select(file => new ProjectUpgradeContext(file)).ToList();
             this.Projects.AddRange(projects);
         }
 

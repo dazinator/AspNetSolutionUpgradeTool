@@ -6,7 +6,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
 {
     public class MoveResourcesToBuildOptions : IProjectUpgradeAction
     {
-
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;

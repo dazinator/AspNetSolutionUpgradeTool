@@ -17,13 +17,9 @@ namespace AspNetUpgrade.Actions.ProjectJson
             projectJsonObject.Remove("exclude");
             projectJsonObject.Remove("publishExclude");
 
-            //  exclude?.Remove();
-            // publishExclude?.Remove();
-
             if (fileUpgradeContext.ToProjectJsonWrapper().IsMvcProject())
             {
                 // add default publishing options
-
                 JArray includeArray = new JArray();
                 includeArray.Add("wwwroot");
                 //includeArray.Add("Views");
@@ -40,7 +36,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 //              "publishOptions": {
                 //                  "include": [
                 //                    "wwwroot",
-                //                    "Views",
                 //                    "appsettings.json",
                 //                    "web.config"
                 //]

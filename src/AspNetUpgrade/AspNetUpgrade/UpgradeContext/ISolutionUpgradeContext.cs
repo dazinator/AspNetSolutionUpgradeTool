@@ -8,9 +8,7 @@ namespace AspNetUpgrade.UpgradeContext
     {
         JObject GlobalJsonObject { get; set; }
         void SaveChanges();
-
         List<BaseProjectUpgradeContext> Projects { get; }
-
         void BeginUpgrade(Action callback);
     }
 }

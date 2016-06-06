@@ -8,9 +8,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 {
     public abstract class BaseDependenciesUpdate : IProjectUpgradeAction
     {
-
-      //  private JToken _backup;
-
+        
         private string[] _excludePackageNames;
         private string _packagePrefixToUpgrade;
 
@@ -25,18 +23,12 @@ namespace AspNetUpgrade.Actions.ProjectJson
         {
             _dependencyFilter = dependencyPredicate;
             _updateDependencyCallback = updateDependencyCallback;
-
-            //  _packagePrefixToUpgrade = packageNameStartsWith;
-            // _oldVersionLabelContainsThis = packageVersionNumberContains;
-            //  _excludePackageNames = excludePackageNames ?? new[] { "" };
-            //  _newVersionNumber = newVersionNumber;
         }
 
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];
-           // _backup = dependencies.DeepClone();
 
             var dependenciesToUpdate = new List<JProperty>();
             foreach (var dependencyProp in dependencies.Properties())
@@ -52,13 +44,5 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 _updateDependencyCallback(dependencies, dependencyForUpdate);
             }
         }
-
-        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
-        //{
-        //    // restore frameworks section
-        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
-        //    projectJsonObject["dependencies"].Replace(_backup);
-
-        //}
     }
 }

@@ -4,13 +4,13 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.UpgradeContext
 {
-    public class BaseProjectFileUpgradeContext : BaseProjectUpgradeContext
+    public class ProjectUpgradeContext : BaseProjectUpgradeContext
     {
         private readonly FileInfo _projectJsonFileInfo;
         private FileInfo _xprojFileInfo;
         // private readonly StringBuilder _fileContents = new StringBuilder();
 
-        public BaseProjectFileUpgradeContext(FileInfo jsonProjectFile)
+        public ProjectUpgradeContext(FileInfo jsonProjectFile)
         {
             _projectJsonFileInfo = jsonProjectFile;
             using (var streamReader = new StreamReader(_projectJsonFileInfo.FullName))
@@ -23,12 +23,9 @@ namespace AspNetUpgrade.UpgradeContext
             LoadVsProjectFile();
         }
 
-        public virtual void LoadVsProjectFile()
+        private void LoadVsProjectFile()
         {
-            // check for vsproj file in same dir and load.
-
-           // Microsoft.Build.Evaluation.Project project
-
+            // check for xproj file in same dir and load.
             Microsoft.Build.Evaluation.ProjectCollection collection = new Microsoft.Build.Evaluation.ProjectCollection();
             var xprojFiles = _projectJsonFileInfo.Directory.GetFiles("*.xproj", SearchOption.TopDirectoryOnly);
             if (xprojFiles.Length == 1)

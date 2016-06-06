@@ -11,7 +11,6 @@ namespace AspNetUpgrade
         public static Project LoadTestProject(string xprojContents)
         {
             Microsoft.Build.Evaluation.ProjectCollection collection = new Microsoft.Build.Evaluation.ProjectCollection();
-            //Microsoft.Build.Evaluation.Project x== new Microsoft.Build.Evaluation.Project()
             using (var stringReader = new StringReader(xprojContents))
             {
                 using (var reader = new XmlTextReader(stringReader))

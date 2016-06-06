@@ -28,7 +28,7 @@ namespace AspNetUpgrade.Migrator
             {
                 migrations.AddRange(GetSchemaUpgrades(options, context));
             }
-            if (options.UpgradePackagesToRC2)
+            if (options.UpgradePackagesToRc2)
             {
                 migrations.AddRange(GetPackagesUpgrades(context));
             }

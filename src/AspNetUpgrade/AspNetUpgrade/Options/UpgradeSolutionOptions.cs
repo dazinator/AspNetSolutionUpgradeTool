@@ -13,10 +13,6 @@ namespace AspNetUpgrade.Options
         [Option(
           HelpText = "Prints all messages to standard output.")]
         public bool Verbose { get; set; }
-
-        //[Option('s', "targetVersion", Required = true, Default = "RC2",
-        //  HelpText = "The target version to migrate projects too.")]
-        //public bool TargetVersion { get; set; }
        
     }
 

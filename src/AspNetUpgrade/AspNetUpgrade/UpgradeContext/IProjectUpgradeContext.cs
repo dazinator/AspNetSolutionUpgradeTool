@@ -4,16 +4,9 @@ namespace AspNetUpgrade.UpgradeContext
 {
     public interface IProjectUpgradeContext
     {
-        // TextReader CreateReader();
-
         JObject JsonObject { get; set; }
-
         Microsoft.Build.Evaluation.Project VsProjectFile { get; set; }
-
-
         void SaveChanges();
-
-        // bool IsWebApplicationProject();
         ProjectJsonWrapper ToProjectJsonWrapper();
 
 

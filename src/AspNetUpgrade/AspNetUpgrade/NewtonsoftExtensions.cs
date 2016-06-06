@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +14,6 @@ namespace AspNetUpgrade
         //    var newToken = new JProperty(newName, token);
         //    parent.Replace(newToken);
         //}
-
 
         public static void Rename(this JToken token, string newName)
         {

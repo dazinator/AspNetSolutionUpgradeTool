@@ -22,10 +22,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         protected override void SetPackageProperty(JObject dependenciesObject, ToolPackageMigrationInfo targetPackage)
         {
-
-           // var importsObj = new JObject(new JProperty("imports", importsArray));
-            //importsObj.Add(importsArray);
-          //  return new JProperty("netcoreapp1.0", importsObj);
             JObject depOpbject = new JObject();
             depOpbject.Add(new JProperty("version", targetPackage.Version));
             if (targetPackage.Imports.Any())
@@ -35,7 +31,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 {
                     importsArray.Add(import);
                 }
-                //var importsString = string.Join("+", targetPackage.Imports);
                 depOpbject.Add(new JProperty("imports", importsArray));
             }
 

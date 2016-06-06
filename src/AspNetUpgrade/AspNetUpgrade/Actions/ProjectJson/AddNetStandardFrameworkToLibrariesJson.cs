@@ -9,7 +9,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
     {
         private string _netStandardLibraryVersion;
         private string _netStandardTfm;
-
         private string[] _imports = new[] { "dnxcore50", "portable-net45+win8" };
 
 
@@ -17,7 +16,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
         {
             _netStandardLibraryVersion = netStandardLibraryVersion;
             _netStandardTfm = netStandardTfm;
-            //  _netCoreAppVersion = netCoreAppVersion;
         }
 
 
@@ -28,9 +26,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
             {
                 AddNetStandardFramework(fileUpgradeContext);
             }
-
-            //  JProperty frameworkDepProp = new JProperty("NETStandard.Library", _netStandardLibraryVersion);
-            //dependencies.Add(frameworkDepProp);
         }
 
         private void AddNetStandardFramework(IProjectUpgradeContext fileUpgradeContext)
@@ -53,8 +48,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
             }
 
             JObject netStadardDependencies = netStadardTfm.GetOrAddProperty("dependencies", null);
-
-            //  _backup = dependencies.DeepClone();
             netStadardDependencies["NETStandard.Library"] = _netStandardLibraryVersion;
 
         }

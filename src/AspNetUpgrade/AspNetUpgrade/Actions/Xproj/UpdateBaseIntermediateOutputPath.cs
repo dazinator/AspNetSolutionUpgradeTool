@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using AspNetUpgrade.UpgradeContext;
-using Microsoft.Build.Construction;
+﻿using AspNetUpgrade.UpgradeContext;
 
 namespace AspNetUpgrade.Actions.Xproj
 {

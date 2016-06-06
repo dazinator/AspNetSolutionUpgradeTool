@@ -8,8 +8,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     public abstract class BaseMigrateSpecifiedPackages<T> : IProjectUpgradeAction
         where T: PackageMigrationInfo
     {
-
-       // private JToken _backup;
+       
         private List<T> _targetPackages;
 
         public BaseMigrateSpecifiedPackages(List<T> targetPackages)
@@ -23,7 +22,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject packagesObject = GetPackagesObject(fileUpgradeContext);
-        //    _backup = packagesObject.DeepClone();
 
             foreach (var targetPackage in _targetPackages)
             {
@@ -66,10 +64,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
         private void UpdatePackage(T targetPackage, JObject dependenciesObject)
         {
             // if package is present, then update it.
-            //if (dependenciesObject == null)
-            //{
-                
-            //}
             var dependency = dependenciesObject[targetPackage.Name];
             if (dependency != null)
             {
@@ -112,14 +106,5 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 }
             }
         }
-
-        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
-        //{
-        //    // restore frameworks section
-        //    var packagesObject = GetPackagesObject(fileUpgradeContext);
-        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
-        //    projectJsonObject[packagesObject.Path].Replace(_backup);
-
-        //}
     }
 }

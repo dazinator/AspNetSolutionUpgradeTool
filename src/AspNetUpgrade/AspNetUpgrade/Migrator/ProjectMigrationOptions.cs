@@ -6,14 +6,14 @@ namespace AspNetUpgrade.Migrator
         {
             TargetFrameworkVersionForXprojFile = "v4.5";
             UpgradeToPreview1 = true;
-            UpgradePackagesToRC2 = true;
+            UpgradePackagesToRc2 = true;
            // AddNetCoreTargetForApplications = true;
            // AddNetStandardTargetForLibraries = true;
         }
 
         public bool UpgradeToPreview1 { get; set; }
 
-        public bool UpgradePackagesToRC2 { get; set; }
+        public bool UpgradePackagesToRc2 { get; set; }
 
         public bool AddNetCoreTargetForApplications { get; set; }
 

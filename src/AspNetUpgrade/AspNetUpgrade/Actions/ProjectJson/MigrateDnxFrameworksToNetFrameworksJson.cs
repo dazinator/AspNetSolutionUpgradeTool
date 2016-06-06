@@ -11,10 +11,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     /// </summary>
     public class MigrateDnxFrameworksToNetFrameworksJson : IProjectUpgradeAction
     {
-        //private JToken _oldFrameworks;
-
-
-
+       
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
 
@@ -44,19 +41,10 @@ namespace AspNetUpgrade.Actions.ProjectJson
             var dnx = frameworks.Property(oldName);
             if (dnx != null)
             {
-                //  dnx451.Remove();
                 // consider auto migrating dnx451 to net452 - See comments on https://github.com/aspnet/Home/issues/1381
                 var renamed = dnx.Rename(name => name == oldName ? newName : name);
                 dnx.Replace(renamed);
             }
         }
-
-        //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
-        //{
-        //    // restore frameworks section
-        //    JObject projectJsonObject = fileUpgradeContext.JsonObject;
-        //    projectJsonObject["frameworks"].Replace(_oldFrameworks);
-
-        //}
     }
 }

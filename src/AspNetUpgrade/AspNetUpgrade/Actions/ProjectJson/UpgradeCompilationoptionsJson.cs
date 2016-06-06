@@ -16,11 +16,8 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 projectJsonObject["compilationOptions"] = compilationOptions;
             }
 
-            //_backup = compilationOptions.DeepClone();
-
             compilationOptions.Rename("buildOptions");
             projectJsonObject["buildOptions"]["preserveCompilationContext"] = true;
-
 
             foreach (var item in ((JObject)projectJsonObject["frameworks"]).Properties())
             {
@@ -30,9 +27,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
                     tfmCompilationOptions.Replace(new JProperty("buildOptions", tfmCompilationOptions.Value));
                 }
             }
-
-
-            //compilationOptions.Add("preserveCompilationContext", true);
+          
         }
 
 

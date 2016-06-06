@@ -7,7 +7,6 @@ namespace AspNetUpgrade.Migrator
 {
     public class BaseProjectMigrator
     {
-
         public BaseProjectMigrator(BaseProjectUpgradeContext context)
         {
             Context = context;

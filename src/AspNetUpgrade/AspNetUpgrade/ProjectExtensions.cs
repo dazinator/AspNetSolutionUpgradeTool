@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using Microsoft.Build.Construction;
-using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade
 {

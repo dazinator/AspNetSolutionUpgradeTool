@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using AspNetUpgrade.Actions;
 using AspNetUpgrade.Actions.GlobalJson;
-using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.UpgradeContext;
 
 namespace AspNetUpgrade.Migrator

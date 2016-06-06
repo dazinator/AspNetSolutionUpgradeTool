@@ -4,7 +4,7 @@ namespace AspNetUpgrade.Model
 {
     public abstract class PackageMigrationInfo
     {
-        public PackageMigrationInfo(string name, string version)
+        protected PackageMigrationInfo(string name, string version)
         {
             OldNames = new List<string>();
             Name = name;

@@ -1,5 +1,4 @@
-﻿using AspNetUpgrade;
-using AspNetUpgrade.Model;
+﻿using AspNetUpgrade.Model;
 using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
@@ -24,49 +23,6 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         }
 
-        private JProperty BuildNetStandardJson(IProjectUpgradeContext fileUpgradeContext)
-        {
-            // think these imports may only be needed temporarily for RC2 and may be disappearing after RC2?
-            // applications should depend upon netcoreapp1.0
-            JArray importsArray = new JArray();
-            importsArray.Add("dotnet5.6");
-            importsArray.Add("dnxcore50");
-            importsArray.Add("portable-net45+win8");
-
-            var importsProperty = new JProperty("imports", importsArray);
-            var netCoreAppObj = new JObject(importsProperty);
-            // var tfmName = "netcoreapp1.0";
-
-            // Add the netCoreAppDependency dependency.
-            // as per: https://github.com/dotnet/cli/issues/3171
-            JObject netCoreAppDependencyObject = new JObject();
-            netCoreAppDependencyObject.Add(new JProperty("version", _netCoreAppVersion));
-            netCoreAppDependencyObject.Add(new JProperty("type", "platform"));
-            // JProperty netCoreAppProperty = new JProperty("Microsoft.NETCore.App", netCoreAppObject);
-
-            var deps = netCoreAppObj.GetOrAddProperty("dependencies", importsProperty);
-            deps["Microsoft.NETCore.App"] = netCoreAppDependencyObject;
-
-            return new JProperty(_netCoreAppTfmName, netCoreAppObj);
-
-            //switch (projType)
-            //{
-            //    case ProjectType.Application:
-            //        tfmName = "netcoreapp1.0";
-            //        break;
-            //    case ProjectType.Library:
-            //        tfmName = "netstandard1.5";
-            //        break;
-            //    default:
-            //        throw new NotSupportedException("Unsupported projecttype " + projType.ToString());
-            //}
-
-            //importsObj.Add(importsArray);
-
-
-        }
-
-
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
@@ -80,5 +36,32 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
             }
         }
+
+        private JProperty BuildNetStandardJson(IProjectUpgradeContext fileUpgradeContext)
+        {
+            // think these imports may only be needed temporarily for RC2 and may be disappearing after RC2?
+            // applications should depend upon netcoreapp1.0
+            JArray importsArray = new JArray();
+            importsArray.Add("dotnet5.6");
+            importsArray.Add("dnxcore50");
+            importsArray.Add("portable-net45+win8");
+
+            var importsProperty = new JProperty("imports", importsArray);
+            var netCoreAppObj = new JObject(importsProperty);
+
+            // Add the netCoreAppDependency dependency.
+            // as per: https://github.com/dotnet/cli/issues/3171
+            JObject netCoreAppDependencyObject = new JObject();
+            netCoreAppDependencyObject.Add(new JProperty("version", _netCoreAppVersion));
+            netCoreAppDependencyObject.Add(new JProperty("type", "platform"));
+           
+
+            var deps = netCoreAppObj.GetOrAddProperty("dependencies", importsProperty);
+            deps["Microsoft.NETCore.App"] = netCoreAppDependencyObject;
+
+            return new JProperty(_netCoreAppTfmName, netCoreAppObj);
+
+        }
+       
     }
 }

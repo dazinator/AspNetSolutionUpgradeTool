@@ -41,7 +41,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var options = new ProjectMigrationOptions();
 
                 options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
-                options.UpgradePackagesToRC2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+                options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
                 options.AddNetStandardTargetForLibraries = true; // libraries will have the netStandard TFM added (and dependency).
                 options.AddNetCoreTargetForApplications = true; // applications will have the netCore app TFM added (and dependency)
 
@@ -85,7 +85,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var options = new ProjectMigrationOptions();
 
                 options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
-                options.UpgradePackagesToRC2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+                options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
                 options.AddNetStandardTargetForLibraries = true; // libraries will have the netStandard TFM added (and dependency).
                 options.AddNetCoreTargetForApplications = true; // applications will have the netCore app TFM added (and dependency)
                 

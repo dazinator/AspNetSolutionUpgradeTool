@@ -9,7 +9,7 @@ namespace AspNetUpgrade.UpgradeContext
 
         private JObject _globalJsonClone;
 
-        public BaseSolutionUpgradeContext()
+        protected BaseSolutionUpgradeContext()
         {
             this.Projects = new List<BaseProjectUpgradeContext>();
         }
