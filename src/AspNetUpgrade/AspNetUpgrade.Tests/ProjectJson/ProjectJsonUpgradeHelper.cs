@@ -19,7 +19,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             upgradeActions.Add(addNetCoreApp);
 
             // Adds the netStandard framework, with specified version of NETStandard.Library dependency, to any library project.json's.
-            var addNetStandard = new AddNetStandardFrameworkToLibrariesJson("netstandard1.5",  "1.5.0-rc2-24027");
+            var addNetStandard = new AddNetStandardFrameworkToLibrariesJson("netstandard1.5", "1.5.0-rc2-24027");
             upgradeActions.Add(addNetStandard);
 
             // upgrades the compilation options section.
@@ -29,6 +29,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
             // moves things to packOptions.
             var upgradePackOptions = new UpgradePackOptions();
             upgradeActions.Add(upgradePackOptions);
+
+            // moves content to the new packOptions and buildOptions / copyToOutput
+            var moveContent = new MoveContentToNewOptions();
+            upgradeActions.Add(moveContent);
 
             // upgrades the frameworks section.
             var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFrameworksJson();
@@ -55,7 +59,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             var toolPackagestoMigrate = PackageMigrationHelper.GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var migrateToolPackages = new MigrateToolPackages(toolPackagestoMigrate);
             upgradeActions.Add(migrateToolPackages);
-            
+
             var upgradePublishOptions = new UpgradePublishOptions();
             upgradeActions.Add(upgradePublishOptions);
 
