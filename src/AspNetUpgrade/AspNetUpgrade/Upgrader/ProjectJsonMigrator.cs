@@ -14,7 +14,7 @@ namespace AspNetUpgrade.Upgrader
     public class ProjectJsonMigrator : ProjectMigrator
     {
 
-        public ProjectJsonMigrator(JsonProjectUpgradeContext context) : base(context)
+        public  ProjectJsonMigrator(JsonProjectUpgradeContext context) : base(context)
         {
         }
 
@@ -101,7 +101,8 @@ namespace AspNetUpgrade.Upgrader
         {
             var upgradeActions = new List<IJsonUpgradeAction>();
 
-            // migrates specific nuget packages where their name has completely changed, this is currently described by a hardcoded list.
+            // migrates specific nuget packages where their name has completely changed, and also adds new ones that the project may require.
+            // this is currently described by a hardcoded list.
             var nugetPackagesToMigrate = ProjectJsonMigrator.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var packageMigrationAction = new MigrateDependencyPackages(nugetPackagesToMigrate);
             upgradeActions.Add(packageMigrationAction);
@@ -214,11 +215,15 @@ namespace AspNetUpgrade.Upgrader
 
             // Microsoft.VisualStudio.Web.BrowserLink.Loader
 
-            // only add the web code generation tools to the project if its a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
+            // only add the following new nuget packlages if the project is a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
             if (projectContext.ToProjectJsonWrapper().IsMvcProject())
             {
                 package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
                 package.Type = PackageType.Build;
+                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
+                list.Add(package);
+
+                package = new DependencyPackageMigrationInfo("Microsoft.Extensions.Options.ConfigurationExtensions", $"1.0.0-rc2-final");
                 package.MigrationAction = PackageMigrationAction.AddOrUpdate;
                 list.Add(package);
             }

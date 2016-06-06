@@ -32,7 +32,9 @@
             
       "type":  "build"
     
-        }
+        },
+        
+    "Microsoft.Extensions.Options.ConfigurationExtensions":  "1.0.0-rc2-final"
   
     },
     
