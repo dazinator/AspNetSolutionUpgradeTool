@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public abstract class BaseMigrateSpecifiedPackages<T> : IJsonUpgradeAction
+    public abstract class BaseMigrateSpecifiedPackages<T> : IProjectUpgradeAction
         where T: PackageMigrationInfo
     {
 

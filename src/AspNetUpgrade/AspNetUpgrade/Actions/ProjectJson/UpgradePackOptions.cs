@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 namespace AspNetUpgrade.Actions.ProjectJson
 {
 
-    public class UpgradePackOptions : IJsonUpgradeAction
+    public class UpgradePackOptions : IProjectUpgradeAction
     {
 
         private static readonly string[] _packOptionProps = new[] { "repository", "tags", "licenseUrl", "projectUrl" };

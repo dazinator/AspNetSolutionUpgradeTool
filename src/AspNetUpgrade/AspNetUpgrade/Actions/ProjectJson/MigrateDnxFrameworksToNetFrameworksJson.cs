@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     /// <summary>
     /// Renames dnx TFM's in project.json to be the .net TFM equivalent.
     /// </summary>
-    public class MigrateDnxFrameworksToNetFrameworksJson : IJsonUpgradeAction
+    public class MigrateDnxFrameworksToNetFrameworksJson : IProjectUpgradeAction
     {
         //private JToken _oldFrameworks;
 

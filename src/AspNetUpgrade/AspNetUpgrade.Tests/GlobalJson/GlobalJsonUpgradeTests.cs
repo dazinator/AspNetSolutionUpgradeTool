@@ -22,22 +22,21 @@ namespace AspNetUpgrade.Tests.GlobalJson
 
         [TestCase("Rc1Update1", TestGlobalJsonContents.Rc1Update1GlobalJson)]
         [Test]
-        public void Can_Apply(string scenario, string json)
+        public void Can_Apply(string scenario, string globalJson)
         {
 
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
 
-                var upgradeActions = new List<IJsonUpgradeAction>();
-
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, null);
+                var upgradeActions = new List<ISolutionUpgradeAction>();
+                var testFileUpgradeContext = new TestSolutionUpgradeContext(globalJson);
 
                 // updates the sdk version in global json.
                 var runtimeUpgradeAction = new UpdateSdkVersion("1.0.0-preview1-002702");
                 upgradeActions.Add(runtimeUpgradeAction);
 
-                // Apply these actions to the project.json file.
+                // Apply these actions to the global.json file.
                 foreach (var upgradeAction in upgradeActions)
                 {
                     upgradeAction.Apply(testFileUpgradeContext);
@@ -54,47 +53,6 @@ namespace AspNetUpgrade.Tests.GlobalJson
 
 
         }
-
-        //[TestCase("Rc1Update1", TestGlobalJsonContents.Rc1Update1GlobalJson)]
-        //[Test]
-        //public void Can_Undo(string scenario, string json)
-        //{
-
-        //    using (ApprovalResults.ForScenario(scenario))
-        //    {
-        //        // arrange
-
-        //        var upgradeActions = new List<IJsonUpgradeAction>();
-
-        //        var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-
-        //        // updates the sdk version in global json.
-        //        var runtimeUpgradeAction = new UpdateSdkVersion("1.0.0-preview1-002702");
-        //        upgradeActions.Add(runtimeUpgradeAction);
-
-        //        foreach (var upgradeAction in upgradeActions)
-        //        {
-        //            upgradeAction.Apply(testFileUpgradeContext);
-        //        }
-
-        //        upgradeActions.Reverse();
-
-        //        foreach (var upgradeAction in upgradeActions)
-        //        {
-        //            upgradeAction.Undo(testFileUpgradeContext);
-        //        }
-
-        //        testFileUpgradeContext.SaveChanges();
-
-        //        // assert.
-        //        var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-        //        Approvals.VerifyJson(modifiedContents);
-
-        //    }
-
-        //}
-
-
-
+        
     }
 }

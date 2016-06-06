@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace AspNetUpgrade.Actions.ProjectJson
 {
 
-    public class RenameCommandsToTools : IJsonUpgradeAction
+    public class RenameCommandsToTools : IProjectUpgradeAction
     {
 
        // private JToken _backup;

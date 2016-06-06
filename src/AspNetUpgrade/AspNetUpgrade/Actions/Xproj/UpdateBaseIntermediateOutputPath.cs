@@ -5,7 +5,7 @@ using Microsoft.Build.Construction;
 
 namespace AspNetUpgrade.Actions.Xproj
 {
-    public class UpdateBaseIntermediateOutputPath : IJsonUpgradeAction
+    public class UpdateBaseIntermediateOutputPath : IProjectUpgradeAction
     {
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {

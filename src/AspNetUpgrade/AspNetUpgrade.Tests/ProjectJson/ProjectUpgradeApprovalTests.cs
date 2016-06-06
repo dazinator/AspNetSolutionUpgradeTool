@@ -87,7 +87,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 options.AddNetCoreTargetToApplications = true; // applications will have the netCore app TFM added (and dependency)
                 
                 // add an upgrade that throws an exception..
-                var additionalUpgrades = new List<IJsonUpgradeAction>();
+                var additionalUpgrades = new List<IProjectUpgradeAction>();
                 additionalUpgrades.Add(new ExceptionuringUpgradeAction());
 
              
@@ -116,7 +116,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
         }
 
-        public class ExceptionuringUpgradeAction : IJsonUpgradeAction
+        public class ExceptionuringUpgradeAction : IProjectUpgradeAction
         {
             public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
             {

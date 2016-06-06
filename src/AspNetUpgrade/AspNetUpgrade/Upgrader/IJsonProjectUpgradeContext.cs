@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Upgrader
         JObject JsonObject { get; set; }
 
         Microsoft.Build.Evaluation.Project VsProjectFile { get; set; }
-        
+
 
         void SaveChanges();
 

@@ -13,7 +13,6 @@ namespace AspNetUpgrade.Upgrader
         private JObject _clone;
         private StringBuilder _xprojBackup;
 
-
         public JObject JsonObject { get; set; }
 
         public Project VsProjectFile { get; set; }
@@ -68,7 +67,7 @@ namespace AspNetUpgrade.Upgrader
             {
                 VsProjectFile = VsProjectHelper.LoadTestProject(_xprojBackup.ToString());
             }
-           
+
         }
     }
 }

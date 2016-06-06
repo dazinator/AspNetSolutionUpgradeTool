@@ -4,11 +4,10 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.GlobalJson
 {
-    public class UpdateSdkVersion : IJsonUpgradeAction
+
+    
+    public class UpdateSdkVersion : ISolutionUpgradeAction
     {
-
-        private JToken _backup;
-
         private string _sdkVersion;
 
         public UpdateSdkVersion(string sdkVersion)
@@ -16,13 +15,12 @@ namespace AspNetUpgrade.Actions.GlobalJson
             _sdkVersion = sdkVersion;
         }
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(ISolutionUpgradeContext upgradeContext)
         {
-            JObject jsonObject = fileUpgradeContext.JsonObject;
+            JObject jsonObject = upgradeContext.GlobalJsonObject;
             JObject sdk = (JObject)jsonObject["sdk"];
             if (sdk != null)
             {
-                _backup = sdk.DeepClone();
                 var versionprop = sdk.Property("version");
                 if (versionprop != null && versionprop.Value != null)
                 {
@@ -30,14 +28,6 @@ namespace AspNetUpgrade.Actions.GlobalJson
                 }
 
             }
-        }
-
-        public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)
-        {
-            // restore frameworks section
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            projectJsonObject["sdk"].Replace(_backup);
-
         }
     }
 }

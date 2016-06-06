@@ -10,10 +10,10 @@ namespace AspNetUpgrade.Upgrader
         public BaseProjectMigrator(JsonProjectUpgradeContext context)
         {
             Context = context;
-            AppliedActions = new List<IJsonUpgradeAction>();
+            AppliedActions = new List<IProjectUpgradeAction>();
         }
 
-        public void Apply(IList<IJsonUpgradeAction> actions)
+        public void Apply(IList<IProjectUpgradeAction> actions)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace AspNetUpgrade.Upgrader
             }
         }
 
-        public List<IJsonUpgradeAction> AppliedActions { get; set; }
+        public List<IProjectUpgradeAction> AppliedActions { get; set; }
 
         public JsonProjectUpgradeContext Context { get; set; }
 

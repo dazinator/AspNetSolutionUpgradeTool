@@ -24,9 +24,9 @@ namespace AspNetUpgrade.Upgrader
         /// </summary>
         /// <param name="options">migration options.</param>
         /// <param name="additionalMigrations">any additional migrations to apply.</param>
-        public void Apply(MigrationOptions options, IList<IJsonUpgradeAction> additionalMigrations = null)
+        public void Apply(MigrationOptions options, IList<IProjectUpgradeAction> additionalMigrations = null)
         {
-            List<IJsonUpgradeAction> migrations = new List<IJsonUpgradeAction>();
+            List<IProjectUpgradeAction> migrations = new List<IProjectUpgradeAction>();
             var context = this.Context;
             if (options.UpgradeProjectFilesToPreview1)
             {
@@ -58,9 +58,9 @@ namespace AspNetUpgrade.Upgrader
             this.Apply(migrations);
         }
 
-        protected virtual IList<IJsonUpgradeAction> GetSchemaUpgrades(MigrationOptions options, IJsonProjectUpgradeContext projectUpgradeContext)
+        protected virtual IList<IProjectUpgradeAction> GetSchemaUpgrades(MigrationOptions options, IJsonProjectUpgradeContext projectUpgradeContext)
         {
-            var upgradeActions = new List<IJsonUpgradeAction>();
+            var upgradeActions = new List<IProjectUpgradeAction>();
 
             // upgrades the compilation options section.
             var compilationOptionsUpgradeAction = new UpgradeCompilationOptionsJson();
@@ -110,9 +110,9 @@ namespace AspNetUpgrade.Upgrader
 
         }
 
-        protected virtual IList<IJsonUpgradeAction> GetPackagesUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
+        protected virtual IList<IProjectUpgradeAction> GetPackagesUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
         {
-            var upgradeActions = new List<IJsonUpgradeAction>();
+            var upgradeActions = new List<IProjectUpgradeAction>();
 
             // migrates specific nuget packages where their name has completely changed, and also adds new ones that the project may require.
             // this is currently described by a hardcoded list.

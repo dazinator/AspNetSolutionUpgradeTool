@@ -5,7 +5,7 @@ using Microsoft.Build.Construction;
 
 namespace AspNetUpgrade.Actions.Xproj
 {
-    public class MigrateProjectImportsFromDnxToDotNet : IJsonUpgradeAction
+    public class MigrateProjectImportsFromDnxToDotNet : IProjectUpgradeAction
     {
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
         {

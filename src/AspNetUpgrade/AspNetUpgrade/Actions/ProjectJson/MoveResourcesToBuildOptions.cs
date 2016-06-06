@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public class MoveResourcesToBuildOptions : IJsonUpgradeAction
+    public class MoveResourcesToBuildOptions : IProjectUpgradeAction
     {
 
         public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)

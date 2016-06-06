@@ -72,9 +72,5 @@ namespace AspNetUpgrade.Tests
 
         public string ModifiedJsonContents { get { return _modifiedJsonContents.ToString(); } }
 
-      
-
-
-
     }
 }

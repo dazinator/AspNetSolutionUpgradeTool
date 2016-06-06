@@ -7,7 +7,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     /// <summary>
     /// Ensures any applications target .NET Core, by adding .NET Core to the frameworks.
     /// </summary>
-    public class AddNetCoreFrameworkToApplications : IJsonUpgradeAction
+    public class AddNetCoreFrameworkToApplications : IProjectUpgradeAction
     {
 
         private const string _netCoreAppTfmName = "netcoreapp1.0";

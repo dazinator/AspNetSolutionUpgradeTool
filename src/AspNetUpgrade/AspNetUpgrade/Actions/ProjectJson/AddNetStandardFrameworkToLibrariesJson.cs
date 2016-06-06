@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public class AddNetStandardFrameworkToLibrariesJson : IJsonUpgradeAction
+    public class AddNetStandardFrameworkToLibrariesJson : IProjectUpgradeAction
     {
         private string _netStandardLibraryVersion;
         private string _netStandardTfm;

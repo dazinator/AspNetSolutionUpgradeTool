@@ -30,7 +30,7 @@ namespace AspNetUpgrade.Tests.XProj
             {
                 // arrange
 
-                var upgradeActions = new List<IJsonUpgradeAction>();
+                var upgradeActions = new List<IProjectUpgradeAction>();
                 var testXProj = VsProjectFactory.LoadTestProject(xproj);
 
                 var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, testXProj);

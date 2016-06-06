@@ -5,7 +5,7 @@ using Microsoft.Build.Construction;
 
 namespace AspNetUpgrade.Actions.Xproj
 {
-    public class SetTargetFrameworkVersion : IJsonUpgradeAction
+    public class SetTargetFrameworkVersion : IProjectUpgradeAction
     {
         private string _targetFramework;
 

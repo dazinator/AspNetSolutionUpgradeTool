@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
 {
-    public abstract class BaseDependenciesUpdate : IJsonUpgradeAction
+    public abstract class BaseDependenciesUpdate : IProjectUpgradeAction
     {
 
       //  private JToken _backup;
