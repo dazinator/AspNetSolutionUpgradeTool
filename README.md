@@ -1,5 +1,5 @@
 # AspNetRC1toRC2UpgradeTool
-A utility that can be used to upgrade ASP.NET 5 RC1 based projects.
+A utility that can be used to upgrade ASP.NET 5 RC1 based projects / solutions.
 
 This tool provides options to:
 
