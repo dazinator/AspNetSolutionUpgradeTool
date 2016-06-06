@@ -60,9 +60,27 @@
   
     },
     
-  "packInclude":  {
+  "packOptions":  {
         
-    "Content/":  "wwwroot/**/*.*"
+    "files":  {
+            
+      "mappings":  {
+                
+        "Content/":  "wwwroot/**/*.*"
+      
+            }
+    
+        },
+        
+    "tags":  [
+            
+      "gluon-module"
+    
+        ],
+        
+    "licenseUrl":  "",
+        
+    "projectUrl":  ""
   
     },
     
@@ -115,20 +133,6 @@
   "buildOptions":  {
         
     "preserveCompilationContext":  true
-  
-    },
-    
-  "packOptions":  {
-        
-    "tags":  [
-            
-      "gluon-module"
-    
-        ],
-        
-    "licenseUrl":  "",
-        
-    "projectUrl":  ""
   
     },
     

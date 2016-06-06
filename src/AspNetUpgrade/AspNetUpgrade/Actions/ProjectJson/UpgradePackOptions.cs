@@ -28,6 +28,20 @@ namespace AspNetUpgrade.Actions.ProjectJson
                 property.Remove();
                 packOptions.Add(property);
             }
+
+            MovePackIncludeToPackOptions(root);
+        }
+
+        private static void MovePackIncludeToPackOptions(JObject root)
+        {
+            var packInclude = root.Property("packInclude");
+            if (packInclude != null)
+            {
+                var packOptions = root.GetOrAddProperty("packOptions", packInclude);
+                var files = packOptions.GetOrAddProperty("files", null);
+                files.Add(new JProperty("mappings", packInclude.Value));
+                packInclude.Remove();
+            }
         }
 
     }
