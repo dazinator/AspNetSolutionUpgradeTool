@@ -12,7 +12,8 @@ NOTE: This tool will not refactor any code, or perform any backups. Those things
 
 # Thanks
 
-A variety of sources are being used to build this tool.
+A variety of sources are being used to build this tool:
+
 1. Shaun's blog: https://wildermuth.com/2016/05/17/Converting-an-ASP-NET-Core-RC1-Project-to-RC2
 2. @Pranavkm's tool that does project.json schema changes: https://github.com/pranavkm/FixProjectJsonWarnings
 
