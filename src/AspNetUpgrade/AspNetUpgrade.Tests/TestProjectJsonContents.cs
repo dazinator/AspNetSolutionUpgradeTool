@@ -169,6 +169,7 @@
   'dependencies': {
     'Microsoft.AspNet.Mvc': '6.0.0-rc1-final',
     'Microsoft.AspNet.Mvc.TagHelpers': '6.0.0-rc1-final',
+    'Microsoft.Extensions.PlatformAbstractions': '1.0.0-rc1-final',
     'Gluon.Core': '1.0.0-*',
     'Gluon.Module.Amd': '1.0.0-*',
     'Gluon.Module.Bundler': '1.0.0-*',

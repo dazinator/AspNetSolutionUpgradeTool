@@ -228,6 +228,15 @@ namespace AspNetUpgrade.Upgrader
                 list.Add(package);
             }
 
+            // If Microsoft.Extensions.PlatformAbstractions package is referenced, it was split out in RC2 so add the new package as well, in case you were using classes from it.
+            if (projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.Extensions.PlatformAbstractions"))
+            {
+                package = new DependencyPackageMigrationInfo("Microsoft.Extensions.DependencyModel", "1.0.0-rc2-final");
+                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
+                list.Add(package);
+            }
+
+
             return list;
 
         }
