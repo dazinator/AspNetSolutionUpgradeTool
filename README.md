@@ -7,7 +7,7 @@ This tool provides options to:
 2. Upgrade RC1 packages (dependencies and commands) to the appropriate RC2 packages / tools. (lot' sof renaming occured).
 3. Add NET Core App target to applications. (This is the new framework you need to target + plus a package dependency, in order to build for .NET Core)
 4. Add Net Standard target to Libraries. (This is the new framework TFM you need to target + package dependency, if you want build your library for .net standard)
-5. 
+ 
 NOTE: This tool will not refactor any code, or perform any backups. Those things will require you to do. Your mileage may vary.
 
 # Thanks
