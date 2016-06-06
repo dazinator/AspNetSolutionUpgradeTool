@@ -97,7 +97,10 @@ namespace AspNetUpgrade.Upgrader
             // upgrades xproj file, by updating old dnx imports to new dotnet ones.
             var xprojImportsUpgrade = new MigrateProjectImportsFromDnxToDotNet();
             upgradeActions.Add(xprojImportsUpgrade);
-            
+
+            // updates xproj baseintermediate output path
+            var xprojUpdateBaseIntermediateOutputPath = new UpdateBaseIntermediateOutputPath();
+            upgradeActions.Add(xprojUpdateBaseIntermediateOutputPath);
 
             return upgradeActions;
 

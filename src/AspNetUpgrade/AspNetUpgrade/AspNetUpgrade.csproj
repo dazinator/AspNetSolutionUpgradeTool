@@ -66,7 +66,7 @@
     <Compile Include="Actions\ProjectJson\RenameCommandsToTools.cs" />
     <Compile Include="Actions\ProjectJson\UpgradeMicrosoftPackageVersionNumbers.cs" />
     <Compile Include="Actions\ProjectJson\BaseDependenciesUpdate.cs" />
-    <Compile Include="Actions\Xproj\InstallTargetsHelper.cs" />
+    <Compile Include="Actions\Xproj\UpdateBaseIntermediateOutputPath.cs" />
     <Compile Include="Actions\Xproj\MigrateProjectImportsFromDnxToDotNet.cs" />
     <Compile Include="Model\DependencyPackageMigrationInfo.cs" />
     <Compile Include="Actions\ProjectJson\RenameAspNetPackagesToAspNetCore.cs" />

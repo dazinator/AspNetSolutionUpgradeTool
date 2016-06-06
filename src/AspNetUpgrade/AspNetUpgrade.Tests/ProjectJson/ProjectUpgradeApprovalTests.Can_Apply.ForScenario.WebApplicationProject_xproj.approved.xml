@@ -7,7 +7,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>383226b6-9abc-407b-964a-33e0c3ca9534</ProjectGuid>
     <RootNamespace>Reach.GCv3.Mvc.WebApplication</RootNamespace>
-    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
