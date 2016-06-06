@@ -33,7 +33,7 @@ namespace AspNetUpgrade.Tests.XProj
                 var upgradeActions = new List<IProjectUpgradeAction>();
                 var testXProj = VsProjectFactory.LoadTestProject(xproj);
 
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, testXProj);
+                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj);
 
                 // updates the sdk version in global json.
                 var runtimeUpgradeAction = new MigrateProjectImportsFromDnxToDotNet();

@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -11,12 +11,16 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
        // private JToken _backup;
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject commands = (JObject)projectJsonObject["commands"];
+            if (commands != null)
+            {
+                commands.Rename("tools");
+            }
            // _backup = commands.DeepClone();
-            commands.Rename("tools");
+           
         }
 
         //public void Undo(IJsonProjectUpgradeContext fileUpgradeContext)

@@ -1,4 +1,5 @@
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.Model;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -6,7 +7,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
     public class UpgradePublishOptions : IProjectUpgradeAction
     {
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
 

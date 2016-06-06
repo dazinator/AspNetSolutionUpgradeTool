@@ -2,12 +2,11 @@ using System;
 using System.IO;
 using System.Text;
 using Microsoft.Build.Evaluation;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
-    public abstract class JsonProjectUpgradeContext : IJsonProjectUpgradeContext
+    public abstract class BaseProjectUpgradeContext : IProjectUpgradeContext
     {
 
         private JObject _clone;

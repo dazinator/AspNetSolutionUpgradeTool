@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -15,7 +15,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
 
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
 
             JObject projectJsonObject = fileUpgradeContext.JsonObject;

@@ -1,10 +1,10 @@
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 
 namespace AspNetUpgrade.Actions
 {
     public interface IProjectUpgradeAction
     {
-        void Apply(IJsonProjectUpgradeContext fileUpgradeContext);
+        void Apply(IProjectUpgradeContext fileUpgradeContext);
 
       //  void Undo(IJsonProjectUpgradeContext fileUpgradeContext);
 

@@ -1,5 +1,6 @@
 ﻿using AspNetUpgrade;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.Model;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -23,7 +24,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         }
 
-        private JProperty BuildNetStandardJson(IJsonProjectUpgradeContext fileUpgradeContext)
+        private JProperty BuildNetStandardJson(IProjectUpgradeContext fileUpgradeContext)
         {
             // think these imports may only be needed temporarily for RC2 and may be disappearing after RC2?
             // applications should depend upon netcoreapp1.0
@@ -66,7 +67,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         }
 
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject frameworks = (JObject)projectJsonObject["frameworks"];

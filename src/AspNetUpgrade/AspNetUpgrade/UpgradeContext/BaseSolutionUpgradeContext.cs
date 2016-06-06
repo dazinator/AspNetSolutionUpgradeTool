@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
     public abstract class BaseSolutionUpgradeContext : ISolutionUpgradeContext
     {
@@ -13,13 +11,13 @@ namespace AspNetUpgrade.Upgrader
 
         public BaseSolutionUpgradeContext()
         {
-            this.Projects = new List<JsonProjectUpgradeContext>();
+            this.Projects = new List<BaseProjectUpgradeContext>();
         }
 
         public JObject GlobalJsonObject { get; set; }
         public abstract void SaveChanges();
 
-        public List<JsonProjectUpgradeContext> Projects { get; }
+        public List<BaseProjectUpgradeContext> Projects { get; }
 
         public void BeginUpgrade(Action callback)
         {
@@ -50,6 +48,6 @@ namespace AspNetUpgrade.Upgrader
             GlobalJsonObject = _globalJsonClone;
         }
 
-
+        
     }
 }

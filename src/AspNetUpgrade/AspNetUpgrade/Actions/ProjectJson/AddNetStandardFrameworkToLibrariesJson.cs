@@ -1,4 +1,5 @@
-﻿using AspNetUpgrade.Upgrader;
+﻿using AspNetUpgrade.Model;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
@@ -20,7 +21,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         }
 
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             var projType = fileUpgradeContext.ToProjectJsonWrapper().GetProjectType();
             if (projType == ProjectType.Library)
@@ -32,7 +33,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
             //dependencies.Add(frameworkDepProp);
         }
 
-        private void AddNetStandardFramework(IJsonProjectUpgradeContext fileUpgradeContext)
+        private void AddNetStandardFramework(IProjectUpgradeContext fileUpgradeContext)
         {
 
             JObject projectJsonObject = fileUpgradeContext.JsonObject;

@@ -70,6 +70,9 @@
     <Compile Include="Actions\Xproj\SetTargetFrameworkVersion.cs" />
     <Compile Include="Actions\Xproj\UpdateBaseIntermediateOutputPath.cs" />
     <Compile Include="Actions\Xproj\MigrateProjectImportsFromDnxToDotNet.cs" />
+    <Compile Include="Migrator\BaseSolutionMigrator.cs" />
+    <Compile Include="Migrator\SolutionMigrationOptions.cs" />
+    <Compile Include="Migrator\SolutionMigrator.cs" />
     <Compile Include="Model\DependencyPackageMigrationInfo.cs" />
     <Compile Include="Actions\ProjectJson\RenameAspNetPackagesToAspNetCore.cs" />
     <Compile Include="Actions\ProjectJson\MigrateDependencyPackages.cs" />
@@ -82,21 +85,21 @@
     <Compile Include="Model\ToolPackageMigrationInfo.cs" />
     <Compile Include="ProjectExtensions.cs" />
     <Compile Include="NewtonsoftExtensions.cs" />
-    <Compile Include="Upgrader\IJsonProjectUpgradeContext.cs" />
-    <Compile Include="Upgrader\ISolutionUpgradeContext.cs" />
-    <Compile Include="Upgrader\MigrationOptions.cs" />
-    <Compile Include="Upgrader\ProjectMigrator.cs" />
-    <Compile Include="Upgrader\ProjectJsonWrapper.cs" />
-    <Compile Include="Upgrader\BaseProjectMigrator.cs" />
-    <Compile Include="Upgrader\ProjectType.cs" />
+    <Compile Include="UpgradeContext\IProjectUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\ISolutionUpgradeContext.cs" />
+    <Compile Include="Migrator\ProjectMigrationOptions.cs" />
+    <Compile Include="Migrator\ProjectMigrator.cs" />
+    <Compile Include="UpgradeContext\ProjectJsonWrapper.cs" />
+    <Compile Include="Migrator\BaseProjectMigrator.cs" />
+    <Compile Include="Model\ProjectType.cs" />
     <Compile Include="Actions\ProjectJson\MigrateDnxFrameworksToNetFrameworksJson.cs" />
-    <Compile Include="Options\UpgradeProjectJsonOptions.cs" />
+    <Compile Include="Options\UpgradeSolutionOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Upgrader\JsonProjectFileUpgradeContext.cs" />
-    <Compile Include="Upgrader\JsonProjectUpgradeContext.cs" />
-    <Compile Include="Upgrader\SolutionUpgradeContext.cs" />
-    <Compile Include="Upgrader\BaseSolutionUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\ProjectFileUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\BaseProjectUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\SolutionUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\BaseSolutionUpgradeContext.cs" />
     <Compile Include="VsProjectHelper.cs" />
   </ItemGroup>
   <ItemGroup>

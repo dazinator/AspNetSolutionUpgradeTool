@@ -1,4 +1,4 @@
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 
 namespace AspNetUpgrade.Actions
 {

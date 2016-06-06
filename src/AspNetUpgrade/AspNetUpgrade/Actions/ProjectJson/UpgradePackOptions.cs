@@ -1,4 +1,4 @@
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         private static readonly string[] _packOptionProps = new[] { "repository", "tags", "licenseUrl", "projectUrl" };
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
 

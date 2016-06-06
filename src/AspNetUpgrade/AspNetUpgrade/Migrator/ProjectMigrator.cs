@@ -1,21 +1,17 @@
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using AspNetUpgrade.Actions;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Actions.Xproj;
 using AspNetUpgrade.Model;
+using AspNetUpgrade.UpgradeContext;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.Migrator
 {
-
-    
-
     public class ProjectMigrator : BaseProjectMigrator
     {
 
-        public  ProjectMigrator(JsonProjectUpgradeContext context) : base(context)
+        public  ProjectMigrator(BaseProjectUpgradeContext context) : base(context)
         {
         }
 
@@ -24,11 +20,11 @@ namespace AspNetUpgrade.Upgrader
         /// </summary>
         /// <param name="options">migration options.</param>
         /// <param name="additionalMigrations">any additional migrations to apply.</param>
-        public void Apply(MigrationOptions options, IList<IProjectUpgradeAction> additionalMigrations = null)
+        public void Apply(ProjectMigrationOptions options, IList<IProjectUpgradeAction> additionalMigrations = null)
         {
             List<IProjectUpgradeAction> migrations = new List<IProjectUpgradeAction>();
             var context = this.Context;
-            if (options.UpgradeProjectFilesToPreview1)
+            if (options.UpgradeToPreview1)
             {
                 migrations.AddRange(GetSchemaUpgrades(options, context));
             }
@@ -36,13 +32,13 @@ namespace AspNetUpgrade.Upgrader
             {
                 migrations.AddRange(GetPackagesUpgrades(context));
             }
-            if (options.AddNetCoreTargetToApplications)
+            if (options.AddNetCoreTargetForApplications)
             {
                 //// Makes applications target .netcoreapp.
                 var addNetCoreApp = new AddNetCoreFrameworkToApplications("1.0.0-rc2-3002702");
                 migrations.Add(addNetCoreApp);
             }
-            if (options.AddNetStandardTargetToLibraries)
+            if (options.AddNetStandardTargetForLibraries)
             {
                 // Adds the netStandard framework, with specified version of NETStandard.Library dependency, to any library project.json's.
                 var addNetStandard = new AddNetStandardFrameworkToLibrariesJson("netstandard1.5", "1.5.0-rc2-24027");
@@ -58,7 +54,7 @@ namespace AspNetUpgrade.Upgrader
             this.Apply(migrations);
         }
 
-        protected virtual IList<IProjectUpgradeAction> GetSchemaUpgrades(MigrationOptions options, IJsonProjectUpgradeContext projectUpgradeContext)
+        protected virtual IList<IProjectUpgradeAction> GetSchemaUpgrades(ProjectMigrationOptions options, IProjectUpgradeContext projectUpgradeContext)
         {
             var upgradeActions = new List<IProjectUpgradeAction>();
 
@@ -110,7 +106,7 @@ namespace AspNetUpgrade.Upgrader
 
         }
 
-        protected virtual IList<IProjectUpgradeAction> GetPackagesUpgrades(IJsonProjectUpgradeContext projectUpgradeContext)
+        protected virtual IList<IProjectUpgradeAction> GetPackagesUpgrades(IProjectUpgradeContext projectUpgradeContext)
         {
             var upgradeActions = new List<IProjectUpgradeAction>();
 
@@ -141,7 +137,7 @@ namespace AspNetUpgrade.Upgrader
 
         }
 
-        public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion, IJsonProjectUpgradeContext projectContext)
+        public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
             var list = new List<DependencyPackageMigrationInfo>();
             string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
@@ -254,7 +250,7 @@ namespace AspNetUpgrade.Upgrader
 
         }
 
-        public static List<ToolPackageMigrationInfo> GetRc2ToolPackageMigrationList(ToolingVersion targetToolingVersion, IJsonProjectUpgradeContext projectContext)
+        public static List<ToolPackageMigrationInfo> GetRc2ToolPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
             var list = new List<ToolPackageMigrationInfo>();
             string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();

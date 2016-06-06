@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Microsoft.Build.Construction;
 
 namespace AspNetUpgrade.Actions.Xproj
@@ -14,7 +14,7 @@ namespace AspNetUpgrade.Actions.Xproj
             _targetFramework = targetFramework;
         }
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             if (fileUpgradeContext.VsProjectFile != null)
             {

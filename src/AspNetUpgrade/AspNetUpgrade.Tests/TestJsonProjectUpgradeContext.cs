@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Text;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace AspNetUpgrade.Tests
 {
-    public class TestJsonProjectUpgradeContext : JsonProjectUpgradeContext
+    public class TestJsonBaseProjectUpgradeContext : BaseProjectUpgradeContext
     {
         private readonly string _jsonContents;
 
@@ -15,7 +15,7 @@ namespace AspNetUpgrade.Tests
 
         private StringBuilder _modifiedXprojContents;
 
-        public TestJsonProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project)
+        public TestJsonBaseProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project)
         {
 
             _jsonContents = jsonContents;

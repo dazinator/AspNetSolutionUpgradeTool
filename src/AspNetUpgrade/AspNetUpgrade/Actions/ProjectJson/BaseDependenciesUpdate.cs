@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AspNetUpgrade.Model;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -32,7 +32,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
             //  _newVersionNumber = newVersionNumber;
         }
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];

@@ -1,6 +1,4 @@
-using System;
-
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.Model
 {
     public enum ProjectType
     {

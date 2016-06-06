@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using AspNetUpgrade.Model;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -12,10 +13,15 @@ namespace AspNetUpgrade.Actions.ProjectJson
         {
         }
 
-        protected override JObject GetPackagesObject(IJsonProjectUpgradeContext fileUpgradeContext)
+        protected override JObject GetPackagesObject(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            JObject dependencies = (JObject)projectJsonObject["dependencies"];
+            var dependencies = projectJsonObject.GetOrAddProperty("dependencies", null);
+            if (dependencies == null)
+            {
+                Debugger.Break();
+            }
+           // JObject dependencies = (JObject)projectJsonObject["dependencies"];
             return dependencies;
         }
 

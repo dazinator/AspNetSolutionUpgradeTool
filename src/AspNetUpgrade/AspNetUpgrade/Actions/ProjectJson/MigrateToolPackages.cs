@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AspNetUpgrade.Model;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -13,10 +13,10 @@ namespace AspNetUpgrade.Actions.ProjectJson
         {
         }
 
-        protected override JObject GetPackagesObject(IJsonProjectUpgradeContext fileUpgradeContext)
+        protected override JObject GetPackagesObject(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
-            JObject tools = (JObject)(projectJsonObject["tools"] ?? projectJsonObject["commands"]);
+            JObject tools = (JObject)(projectJsonObject["tools"] ?? projectJsonObject["commands"] ?? projectJsonObject.GetOrAddProperty("tools", null));
             return tools;
         }
 

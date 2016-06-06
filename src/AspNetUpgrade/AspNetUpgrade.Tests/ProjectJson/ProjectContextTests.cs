@@ -3,7 +3,6 @@ using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Model;
-using AspNetUpgrade.Upgrader;
 using NUnit.Framework;
 
 namespace AspNetUpgrade.Tests.ProjectJson
@@ -26,7 +25,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
         public void Can_Detect_Application_Versus_Library_Projects(ProjectType projectType, string json)
         {
             // arrange
-            var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, null);
+            var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null);
             Assert.AreEqual(testFileUpgradeContext.ToProjectJsonWrapper().GetProjectType(), projectType);
         }
 

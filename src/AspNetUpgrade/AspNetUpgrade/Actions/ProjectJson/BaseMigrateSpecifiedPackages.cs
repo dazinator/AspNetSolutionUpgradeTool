@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using AspNetUpgrade.Model;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -17,10 +17,10 @@ namespace AspNetUpgrade.Actions.ProjectJson
             _targetPackages = targetPackages;
         }
 
-        protected abstract JObject GetPackagesObject(IJsonProjectUpgradeContext fileUpgradeContext);
+        protected abstract JObject GetPackagesObject(IProjectUpgradeContext fileUpgradeContext);
         
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject packagesObject = GetPackagesObject(fileUpgradeContext);
         //    _backup = packagesObject.DeepClone();
@@ -66,6 +66,10 @@ namespace AspNetUpgrade.Actions.ProjectJson
         private void UpdatePackage(T targetPackage, JObject dependenciesObject)
         {
             // if package is present, then update it.
+            //if (dependenciesObject == null)
+            //{
+                
+            //}
             var dependency = dependenciesObject[targetPackage.Name];
             if (dependency != null)
             {

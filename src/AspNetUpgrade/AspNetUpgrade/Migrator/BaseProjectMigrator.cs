@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using AspNetUpgrade.Actions;
+using AspNetUpgrade.UpgradeContext;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.Migrator
 {
     public class BaseProjectMigrator
     {
 
-        public BaseProjectMigrator(JsonProjectUpgradeContext context)
+        public BaseProjectMigrator(BaseProjectUpgradeContext context)
         {
             Context = context;
             AppliedActions = new List<IProjectUpgradeAction>();
@@ -35,10 +36,8 @@ namespace AspNetUpgrade.Upgrader
 
         public List<IProjectUpgradeAction> AppliedActions { get; set; }
 
-        public JsonProjectUpgradeContext Context { get; set; }
+        public BaseProjectUpgradeContext Context { get; set; }
 
 
     }
-
-
 }

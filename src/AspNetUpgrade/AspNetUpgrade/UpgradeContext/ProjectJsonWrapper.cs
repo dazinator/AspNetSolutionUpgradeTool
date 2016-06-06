@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AspNetUpgrade.Model;
+using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
     public class ProjectJsonWrapper
     {

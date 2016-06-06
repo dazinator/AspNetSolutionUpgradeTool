@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
-    public interface IJsonProjectUpgradeContext
+    public interface IProjectUpgradeContext
     {
         // TextReader CreateReader();
 

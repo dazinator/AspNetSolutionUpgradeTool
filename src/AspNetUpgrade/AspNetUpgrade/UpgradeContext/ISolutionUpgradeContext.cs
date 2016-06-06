@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
     public interface ISolutionUpgradeContext
     {
         JObject GlobalJsonObject { get; set; }
         void SaveChanges();
 
-        List<JsonProjectUpgradeContext> Projects { get; }
+        List<BaseProjectUpgradeContext> Projects { get; }
 
         void BeginUpgrade(Action callback);
     }

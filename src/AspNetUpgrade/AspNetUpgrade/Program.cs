@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using AspNetUpgrade.Migrator;
+using AspNetUpgrade.UpgradeContext;
 using CommandLine;
 
 namespace AspNetUpgrade
@@ -10,13 +13,34 @@ namespace AspNetUpgrade
     {
         static int Main(string[] args)
         {
-            var result = CommandLine.Parser.Default.ParseArguments<Options.UpgradeProjectJsonOptions>(args);
+            var result = CommandLine.Parser.Default.ParseArguments<Options.UpgradeSolutionOptions>(args);
             var exitCode = result
               .MapResult((options) =>
               {
+
+                  var solutionDir = new DirectoryInfo(options.SolutionDir);
+                  var solutionUpgradeContext = new SolutionUpgradeContext(solutionDir);
+                  var solutionMigrator = new SolutionMigrator(solutionUpgradeContext);
+
+                  var solutionMigratorOptions = new SolutionMigrationOptions();
+                  solutionMigrator.Apply(solutionMigratorOptions);
+
+                  // upgrade projects.
+                  foreach (var project in solutionUpgradeContext.Projects)
+                  {
+                      Console.WriteLine("Upgrading " + project.ToString());
+                      var projectMigrator = new ProjectMigrator(project);
+                      // using default options for each project, but should probably extend command line to set these.
+                      var projectUpgradeOptions = new ProjectMigrationOptions();
+                      projectMigrator.Apply(projectUpgradeOptions);
+                  }
+
+                  // save changes to disk.
+                  solutionUpgradeContext.SaveChanges();
+
                   if (options.Verbose)
                   {
-                      Console.WriteLine("Filenames: {0}", string.Join(",", options.InputFiles.ToArray()));
+                      Console.WriteLine("Upgrade finished.");
                   }
                   return 0;
               },

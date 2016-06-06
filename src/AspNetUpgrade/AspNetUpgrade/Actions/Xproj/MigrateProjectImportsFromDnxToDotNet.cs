@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Microsoft.Build.Construction;
 
 namespace AspNetUpgrade.Actions.Xproj
 {
     public class MigrateProjectImportsFromDnxToDotNet : IProjectUpgradeAction
     {
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             if (fileUpgradeContext.VsProjectFile != null)
             {

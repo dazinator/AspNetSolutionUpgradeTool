@@ -2,15 +2,15 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
-    public class JsonProjectFileUpgradeContext : JsonProjectUpgradeContext
+    public class BaseProjectFileUpgradeContext : BaseProjectUpgradeContext
     {
         private readonly FileInfo _projectJsonFileInfo;
         private FileInfo _xprojFileInfo;
         // private readonly StringBuilder _fileContents = new StringBuilder();
 
-        public JsonProjectFileUpgradeContext(FileInfo jsonProjectFile)
+        public BaseProjectFileUpgradeContext(FileInfo jsonProjectFile)
         {
             _projectJsonFileInfo = jsonProjectFile;
             using (var streamReader = new StreamReader(_projectJsonFileInfo.FullName))
@@ -55,5 +55,9 @@ namespace AspNetUpgrade.Upgrader
             VsProjectFile?.Save(_xprojFileInfo.FullName);
         }
 
+        public override string ToString()
+        {
+            return _projectJsonFileInfo.FullName;
+        }
     }
 }

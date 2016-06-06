@@ -1,5 +1,5 @@
 using System;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -8,7 +8,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     public class MoveCompileToBuildOptions : IProjectUpgradeAction
     {
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             MoveCompile(projectJsonObject);

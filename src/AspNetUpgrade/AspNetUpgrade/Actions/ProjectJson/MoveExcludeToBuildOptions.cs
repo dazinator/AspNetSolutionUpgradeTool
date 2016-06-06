@@ -1,5 +1,5 @@
 using System;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -7,7 +7,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     public class MoveExcludeToBuildOptions : IProjectUpgradeAction
     {
 
-        public void Apply(IJsonProjectUpgradeContext fileUpgradeContext)
+        public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             MoveExcludeToBuild(projectJsonObject);

@@ -1,5 +1,5 @@
 using AspNetUpgrade.Actions.ProjectJson;
-using AspNetUpgrade.Upgrader;
+using AspNetUpgrade.UpgradeContext;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.GlobalJson

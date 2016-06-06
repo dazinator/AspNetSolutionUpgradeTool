@@ -3,7 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AspNetUpgrade.Upgrader
+namespace AspNetUpgrade.UpgradeContext
 {
     public class SolutionUpgradeContext : BaseSolutionUpgradeContext
     {
@@ -37,7 +37,7 @@ namespace AspNetUpgrade.Upgrader
         public void LoadProjects(DirectoryInfo solutionDir)
         {
             var projFiles = solutionDir.GetFiles("project.json", SearchOption.AllDirectories);
-            var projects = projFiles.Select(file => new JsonProjectFileUpgradeContext(file)).ToList();
+            var projects = projFiles.Select(file => new BaseProjectFileUpgradeContext(file)).ToList();
             this.Projects.AddRange(projects);
         }
 
@@ -61,6 +61,11 @@ namespace AspNetUpgrade.Upgrader
                     writer.Flush();
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return _globalJsonFileInfo.FullName;
         }
 
     }
