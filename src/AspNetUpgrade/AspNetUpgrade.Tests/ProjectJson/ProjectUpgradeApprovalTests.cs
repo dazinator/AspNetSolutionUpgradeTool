@@ -5,6 +5,7 @@ using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using AspNetUpgrade.Actions;
+using AspNetUpgrade.Tests.XProj;
 using AspNetUpgrade.Upgrader;
 using NUnit.Framework;
 
@@ -12,27 +13,29 @@ namespace AspNetUpgrade.Tests.ProjectJson
 {
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class ProjectJsonUpgradeTests
+    public class ProjectUpgradeApprovalTests
     {
 
-        public ProjectJsonUpgradeTests()
+        public ProjectUpgradeApprovalTests()
         {
 
         }
 
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
-        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1)]
+
+        //[TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.WebApplication)]
+        //[TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.WebApplication)]
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication)]
         [Test]
-        public void Can_Apply(string scenario, string json)
+        public void Can_Apply(string scenario, string json, string xproj)
         {
 
-            using (ApprovalResults.ForScenario(scenario))
+            using (ApprovalResults.ForScenario(scenario + "_project_json"))
             {
                 // arrange
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
+                var testXProj = VsProjectHelper.LoadTestProject(xproj);
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, testXProj);
 
-                var migrator = new ProjectJsonMigrator(testFileUpgradeContext);
+                var migrator = new ProjectMigrator(testFileUpgradeContext);
                 var options = new MigrationOptions();
 
                 options.UpgradeProjectFilesToPreview1 = true; // project.json files will be updated to the preview 1 schema.
@@ -50,23 +53,32 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
                 Approvals.VerifyJson(modifiedContents);
 
+
+                using (ApprovalResults.ForScenario(scenario + "_xproj"))
+                {
+                    var projContents = VsProjectHelper.ToString(testFileUpgradeContext.VsProjectFile);
+                    Approvals.VerifyXml(projContents);
+                }
+
             }
 
 
         }
 
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject)]
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
-        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1)]
+       
+        //[TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1)]
+        //[TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1)]
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication)]
         [Test]
-        public void Can_Rollback_If_Error(string scenario, string json)
+        public void Can_Rollback_If_Error(string scenario, string json, string xproj)
         {
 
-            using (ApprovalResults.ForScenario(scenario))
+            using (ApprovalResults.ForScenario(scenario + "_project_json"))
             {
                 // arrange
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
-                var migrator = new ProjectJsonMigrator(testFileUpgradeContext);
+                var testXProj = VsProjectHelper.LoadTestProject(xproj);
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, testXProj);
+                var migrator = new ProjectMigrator(testFileUpgradeContext);
                 var options = new MigrationOptions();
 
                 options.UpgradeProjectFilesToPreview1 = true; // project.json files will be updated to the preview 1 schema.
@@ -94,6 +106,12 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var modifiedContents = testFileUpgradeContext.JsonObject.ToString();
                 Approvals.VerifyJson(modifiedContents);
 
+                using (ApprovalResults.ForScenario(scenario + "_xproj"))
+                {
+                    var projContents = VsProjectHelper.ToString(testFileUpgradeContext.VsProjectFile);
+                    Approvals.VerifyXml(projContents);
+                }
+
             }
 
         }
@@ -106,9 +124,6 @@ namespace AspNetUpgrade.Tests.ProjectJson
             }
           
         }
-
-
-
 
 
     }

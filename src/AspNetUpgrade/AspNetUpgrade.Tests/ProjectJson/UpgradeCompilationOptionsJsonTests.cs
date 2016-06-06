@@ -24,7 +24,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, null);
                 var sut = new UpgradeCompilationOptionsJson();
 
                 // act

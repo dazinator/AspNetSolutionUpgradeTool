@@ -31,7 +31,7 @@ namespace AspNetUpgrade.Tests.GlobalJson
 
                 var upgradeActions = new List<IJsonUpgradeAction>();
 
-                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json);
+                var testFileUpgradeContext = new TestJsonProjectUpgradeContext(json, null);
 
                 // updates the sdk version in global json.
                 var runtimeUpgradeAction = new UpdateSdkVersion("1.0.0-preview1-002702");

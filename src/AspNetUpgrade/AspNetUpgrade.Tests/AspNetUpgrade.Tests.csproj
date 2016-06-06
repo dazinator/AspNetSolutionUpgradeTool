@@ -38,6 +38,9 @@
       <HintPath>..\packages\ApprovalUtilities.3.0.11\lib\net35\ApprovalUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1-beta1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -59,7 +62,7 @@
     <Compile Include="ProjectJson\ProjectContextTests.cs" />
     <Compile Include="ProjectJson\RenameCommandsToToolsTests.cs" />
     <Compile Include="ProjectJson\MigrateToolPackagesTests.cs" />
-    <Compile Include="ProjectJson\ProjectJsonUpgradeTests.cs" />
+    <Compile Include="ProjectJson\ProjectUpgradeApprovalTests.cs" />
     <Compile Include="ProjectJson\RenameAspNetPackagesToAspNetCoreTests.cs" />
     <Compile Include="ProjectJson\UpgradeMicrosoftPackageVersionNumbersTests.cs" />
     <Compile Include="ProjectJson\MigrateDependencyPackagesTests.cs" />
@@ -69,6 +72,8 @@
     <Compile Include="TestJsonProjectUpgradeContext.cs" />
     <Compile Include="TestGlobalJsonContents.cs" />
     <Compile Include="TestProjectJsonContents.cs" />
+    <Compile Include="XProj\VsProjectHelper.cs" />
+    <Compile Include="XProj\XProjUpgradeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

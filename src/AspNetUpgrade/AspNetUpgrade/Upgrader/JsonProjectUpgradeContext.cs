@@ -1,11 +1,22 @@
 using System;
+using System.IO;
+using System.Text;
+using Microsoft.Build.Evaluation;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Upgrader
 {
     public abstract class JsonProjectUpgradeContext : IJsonProjectUpgradeContext
     {
+
+        private JObject _clone;
+        private StringBuilder _xprojBackup;
+
+
         public JObject JsonObject { get; set; }
+
+        public Project VsProjectFile { get; set; }
 
         public abstract void SaveChanges();
 
@@ -13,8 +24,6 @@ namespace AspNetUpgrade.Upgrader
         {
             return new ProjectJsonWrapper(JsonObject);
         }
-
-        private JObject _clone;
 
         public void BeginUpgrade(Action callback)
         {
@@ -34,6 +43,17 @@ namespace AspNetUpgrade.Upgrader
         private void Clone()
         {
             _clone = (JObject)JsonObject.DeepClone();
+
+            if (VsProjectFile != null)
+            {
+                _xprojBackup = new StringBuilder();
+                using (var writer = new StringWriter(_xprojBackup))
+                {
+                    VsProjectFile.Xml.Save(writer);
+                    writer.Flush();
+                }
+            }
+
         }
 
         private void RestoreClone()
@@ -43,6 +63,12 @@ namespace AspNetUpgrade.Upgrader
                 throw new InvalidOperationException("must call clone first");
             }
             JsonObject = _clone;
+
+            if (VsProjectFile != null)
+            {
+                VsProjectFile = VsProjectHelper.LoadTestProject(_xprojBackup.ToString());
+            }
+           
         }
     }
 }
