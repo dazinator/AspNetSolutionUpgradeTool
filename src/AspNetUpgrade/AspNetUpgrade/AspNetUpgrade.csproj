@@ -54,6 +54,8 @@
     <Compile Include="Actions\ProjectJson\AddNetStandardFrameworkToLibrariesJson.cs" />
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
+    <Compile Include="Actions\ProjectJson\MoveCompileToBuildOptions.cs" />
+    <Compile Include="Actions\ProjectJson\MoveResourcesToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\MoveContentToNewOptions.cs" />
     <Compile Include="Actions\ProjectJson\UpgradePackOptions.cs" />
     <Compile Include="Actions\ProjectJson\UpgradePublishOptions.cs" />

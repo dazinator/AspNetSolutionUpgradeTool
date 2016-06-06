@@ -84,8 +84,6 @@
   
     },
     
-  "resource":  "Views/**",
-    
   "scripts":  {
         
     "prebuild":  "if not exist '%project:Directory%\\..\\..\\artifacts\\bin\\Modules' mkdir '%project:Directory%\\..\\..\\artifacts\\bin\\Modules",
@@ -132,7 +130,13 @@
     
   "buildOptions":  {
         
-    "preserveCompilationContext":  true
+    "preserveCompilationContext":  true,
+        
+    "embed":  {
+            
+      "include":  "Views/**"
+    
+        }
   
     },
     

@@ -34,6 +34,14 @@ namespace AspNetUpgrade.Tests.ProjectJson
             var moveContent = new MoveContentToNewOptions();
             upgradeActions.Add(moveContent);
 
+            // moves resources to buildOptions
+            var moveResources = new MoveResourcesToBuildOptions();
+            upgradeActions.Add(moveResources);
+
+            // move compile to build options
+            var moveCompileToBuildOptions = new MoveCompileToBuildOptions();
+            upgradeActions.Add(moveCompileToBuildOptions);
+
             // upgrades the frameworks section.
             var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFrameworksJson();
             upgradeActions.Add(frameworksUpgradeAction);
