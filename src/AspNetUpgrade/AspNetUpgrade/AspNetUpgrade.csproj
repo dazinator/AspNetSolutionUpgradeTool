@@ -70,7 +70,14 @@
     <Compile Include="Actions\Xproj\SetTargetFrameworkVersion.cs" />
     <Compile Include="Actions\Xproj\UpdateBaseIntermediateOutputPath.cs" />
     <Compile Include="Actions\Xproj\MigrateProjectImportsFromDnxToDotNet.cs" />
+    <Compile Include="Migrator\DependencyMigrations\EntityFrameworkPackageMigrationProvider.cs" />
+    <Compile Include="Migrator\DependencyMigrations\AspNetPackageMigrationProvider.cs" />
     <Compile Include="Migrator\BaseSolutionMigrator.cs" />
+    <Compile Include="Migrator\DependencyMigrations\IPackageMigrationProvider.cs" />
+    <Compile Include="Migrator\DependencyMigrations\FileProviderPackageMigrationProvider.cs" />
+    <Compile Include="Migrator\ToolMigrations\CommonToolPackagesMigration.cs" />
+    <Compile Include="Migrator\ToolMigrations\IToolPackageMigrationProvider.cs" />
+    <Compile Include="Migrator\DependencyMigrations\MicrosoftExtensionsPackageMigrationProvider.cs" />
     <Compile Include="Migrator\SolutionMigrationOptions.cs" />
     <Compile Include="Migrator\SolutionMigrator.cs" />
     <Compile Include="Model\DependencyPackageMigrationInfo.cs" />
@@ -105,7 +112,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PackageMigrationProvider\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

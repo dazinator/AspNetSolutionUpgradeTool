@@ -3,6 +3,8 @@ using System.Linq;
 using AspNetUpgrade.Actions;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Actions.Xproj;
+using AspNetUpgrade.Migrator.DependencyMigrations;
+using AspNetUpgrade.Migrator.ToolMigrations;
 using AspNetUpgrade.Model;
 using AspNetUpgrade.UpgradeContext;
 
@@ -11,7 +13,7 @@ namespace AspNetUpgrade.Migrator
     public class ProjectMigrator : BaseProjectMigrator
     {
 
-        public  ProjectMigrator(BaseProjectUpgradeContext context) : base(context)
+        public ProjectMigrator(BaseProjectUpgradeContext context) : base(context)
         {
         }
 
@@ -110,9 +112,10 @@ namespace AspNetUpgrade.Migrator
         {
             var upgradeActions = new List<IProjectUpgradeAction>();
 
+
             // migrates specific nuget packages where their name has completely changed, and also adds new ones that the project may require.
             // this is currently described by a hardcoded list.
-            var nugetPackagesToMigrate = ProjectMigrator.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
+            var nugetPackagesToMigrate = ProjectMigrator.GetDependencyPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var packageMigrationAction = new MigrateDependencyPackages(nugetPackagesToMigrate);
             upgradeActions.Add(packageMigrationAction);
 
@@ -129,7 +132,7 @@ namespace AspNetUpgrade.Migrator
             upgradeActions.Add(renameCommandstoToolsAndClear);
 
             // migrates old command packages to the new tool nuget packages.
-            var toolPackagestoMigrate = GetRc2ToolPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
+            var toolPackagestoMigrate = GetToolPackageMigrationList(ToolingVersion.Preview1, projectUpgradeContext);
             var migrateToolPackages = new MigrateToolPackages(toolPackagestoMigrate);
             upgradeActions.Add(migrateToolPackages);
 
@@ -137,197 +140,42 @@ namespace AspNetUpgrade.Migrator
 
         }
 
-        public static List<DependencyPackageMigrationInfo> GetRc2DependencyPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
+        public static List<DependencyPackageMigrationInfo> GetDependencyPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
-            var list = new List<DependencyPackageMigrationInfo>();
-            string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
 
-            // ef packages..
-            var package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.MicrosoftSqlServer");
-            package.OldNames.Add("EntityFramework.SqlServer");
-            list.Add(package);
+            var packageMigrationProviders = new List<IDependencyPackageMigrationProvider>();
+            packageMigrationProviders.Add(new AspNetDependencyPackageMigrationProvider());
+            packageMigrationProviders.Add(new EntityFrameworkDependencyPackageMigrationProvider());
+            packageMigrationProviders.Add(new FileProviderDependencyPackageMigrationProvider());
+            packageMigrationProviders.Add(new MicrosoftExtensionsDependencyPackageMigrationProvider());
 
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SQLite", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.SQLite");
-            list.Add(package);
+            
 
-            //package = new NuGetPackageMigrationInfo("NpgSql.EntityFrameworkCore.Postgres", "1.0.0-rc2-final");
-            //package.OldNames.Add("EntityFramework7.Npgsql");
-            //list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact35", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.SqlServerCompact35");
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact40", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.SqlServerCompact40");
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.InMemory", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.InMemory");
-            list.Add(package);
-
-
-            //package = new NuGetPackageMigrationInfo("EntityFramework.IBMDataServer", "1.0.0-rc2-final");
-            //package.OldNames.Add("EntityFramework.IBMDataServer");
-            //list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.Tools", $"1.0.0-{toolingVersion}-final");
-            package.Type = PackageType.Build;
-            package.OldNames.Add("EntityFramework.Commands");
-            list.Add(package);
-
-
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer.Design", "1.0.0-rc2-final");
-            package.OldNames.Add("EntityFramework.MicrosoftSqlServer.Design");
-            list.Add(package);
-
-
-            // aspnet packages
-            package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Identity.EntityFrameworkCore", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.Identity.EntityFramework");
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Server.IISIntegration", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.IISPlatformHandler");
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.Diagnostics.Entity");
-            list.Add(package);
-
-
-            package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Razor.Tools", $"1.0.0-{toolingVersion}-final");
-            package.Type = PackageType.Build;
-            package.OldNames.Add("Microsoft.AspNet.Tooling.Razor");
-            list.Add(package);
-
-
-            package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGenerators.Mvc", $"1.0.0-{toolingVersion}-final");
-            package.OldNames.Add("Microsoft.Extensions.CodeGenerators.Mvc");
-            package.Type = PackageType.Build;
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.ApplicationInsights.AspNetCore", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.ApplicationInsights.AspNet");
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.Extensions.Configuration.FileExtensions", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.Extensions.Configuration.FileProviderExtensions");
-            list.Add(package);
-
-            // remove Microsoft.Dnx.Runtime
-            package = new DependencyPackageMigrationInfo("Microsoft.Dnx.Runtime", "1.0.0-rc1-final");
-            package.MigrationAction = PackageMigrationAction.Remove;
-            list.Add(package);
-
-            // Microsoft.VisualStudio.Web.BrowserLink.Loader
-
-            // only add the following new nuget packlages if the project is a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
-            if (projectContext.ToProjectJsonWrapper().IsMvcProject())
+            var migrations = new List<DependencyPackageMigrationInfo>();
+            foreach (var provider in packageMigrationProviders)
             {
-                package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
-                package.Type = PackageType.Build;
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
-
-                package = new DependencyPackageMigrationInfo("Microsoft.Extensions.Options.ConfigurationExtensions", $"1.0.0-rc2-final");
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
+                var packageMigrations = provider.GetPackageMigrations(targetToolingVersion, projectContext);
+                migrations.AddRange(packageMigrations);
             }
 
-            // If Microsoft.Extensions.PlatformAbstractions package is referenced, it was split out in RC2 so add the new package as well, in case you were using classes from it.
-            if (projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.Extensions.PlatformAbstractions"))
-            {
-                package = new DependencyPackageMigrationInfo("Microsoft.Extensions.DependencyModel", "1.0.0-rc2-final");
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
-            }
-
-            // file providers were renamed.
-            package = new DependencyPackageMigrationInfo("Microsoft.Extensions.FileProviders.Abstractions", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.FileProviders");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.Extensions.FileProviders.Composite", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.FileProviders.Composite");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.Extensions.FileProviders.Embedded", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.FileProviders.Embedded");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-            package = new DependencyPackageMigrationInfo("Microsoft.Extensions.FileProviders.Physical", "1.0.0-rc2-final");
-            package.OldNames.Add("Microsoft.AspNet.FileProviders.Physical");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-
-            return list;
-
+            return migrations;
+            // Microsoft.VisualStudio.Web.BrowserLink.Loader?
         }
 
-        public static List<ToolPackageMigrationInfo> GetRc2ToolPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
+        public static List<ToolPackageMigrationInfo> GetToolPackageMigrationList(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
-            var list = new List<ToolPackageMigrationInfo>();
-            string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
+            var toolMigrationProviders = new List<IToolPackageMigrationProvider>();
+            toolMigrationProviders.Add(new CommonToolPackagesMigration());
 
-            // Updates the old web command if it is found, to be the new tool.
-            var package = new ToolPackageMigrationInfo("Microsoft.AspNetCore.Server.IISIntegration.Tools", $"1.0.0-{toolingVersion}-final");
-            package.OldNames.Add("web");
-            package.Imports.Add("portable-net45+win8+dnxcore50");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-            // Updates the old ef command if it is found, to be the new tool.
-            package = new ToolPackageMigrationInfo("Microsoft.EntityFrameworkCore.Tools", $"1.0.0-{toolingVersion}-final");
-            package.OldNames.Add("ef");
-            package.Imports.Add("portable-net45+win8+dnxcore50");
-            package.Imports.Add("portable-net45+win8");
-            package.MigrationAction = PackageMigrationAction.Update;
-            list.Add(package);
-
-            // Adds / updates the user secrets tool - if the project.json has a userSecretsId present.
-            if (projectContext.JsonObject["userSecretsId"] != null)
+            var migrations = new List<ToolPackageMigrationInfo>();
+            foreach (var provider in toolMigrationProviders)
             {
-                package = new ToolPackageMigrationInfo("Microsoft.Extensions.SecretManager.Tools", $"1.0.0-{toolingVersion}-final");
-                package.Imports.Add("portable-net45+win8+dnxcore50");
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
+                var packageMigrations = provider.GetPackageMigrations(targetToolingVersion, projectContext);
+                migrations.AddRange(packageMigrations);
             }
 
-            // only add the razor tools tool if project allready references razor tools package as a dependency (either as new or old name) in case we havent updated it yet)
-            if (projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.AspNetCore.Razor.Tools")
-                || projectContext.ToProjectJsonWrapper().HasDependency("Microsoft.AspNet.Tooling.Razor"))
-            {
-                package = new ToolPackageMigrationInfo("Microsoft.AspNetCore.Razor.Tools", $"1.0.0-{toolingVersion}-final");
-                package.Imports.Add("portable-net45+win8+dnxcore50");
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
-            }
-
-
-            //    var projectType = projectContext.ToProjectJsonWrapper().GetProjectType();
-
-            // only add the web code generation tools to the project if its a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
-            if (projectContext.ToProjectJsonWrapper().IsMvcProject())
-            {
-                package = new ToolPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
-                package.Imports.Add("portable-net45+win8+dnxcore50");
-                package.Imports.Add("portable-net45+win8");
-                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
-                list.Add(package);
-            }
-
-            return list;
-
+            return migrations;
         }
-
-
 
     }
 }
