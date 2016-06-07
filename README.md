@@ -1,13 +1,21 @@
 # AspNetRC1toRC2UpgradeTool
-A utility that can be used to upgrade ASP.NET 5 RC1 based projects / solutions.
 
-This tool provides options to:
+This tool upgrades an RC1 / Dnx solution to RC2 / Preview1.
 
-1. Upgrade the `project.json`, `.xproj`, and `global.json` files to the new `Preview1` format which is based on `dotnet cli` and not `dnx`. This includes also renaming the old `dnx4YZ` TFM's in project.json to be the equivalent `net4YZ` TFM.
-2. Upgrade RC1 packages (dependencies and commands) to the appropriate RC2 packages / tools. (lot' sof renaming occured).
-3. Add NET Core App target to applications. (This is the new framework you need to target + plus a package dependency, in order to build for .NET Core)
-4. Add Net Standard target to Libraries. (This is the new framework TFM you need to target + package dependency, if you want build your library for .net standard)
- 
+```
+
+AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
+
+```
+
+
+
+1. Upgrades the `project.json` files, `.xproj` files, and `global.json` files to the new schema's versions. This tool handles a tonne of things. so you don't have to.
+
+2. Upgrades RC1 dependencies / packages (and commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
+
+This tool *can* also upgrade Applications and Libraries to target `netcoreapp1.0` / `netstandard1.5` but I haven't enabled that feature by default even though it works.. could possible introduce a command line option to turn this on if people think it is useful.
+
 NOTE: This tool will not refactor any code, or perform any backups. Those things will require you to do. Your mileage may vary.
 
 # Thanks
