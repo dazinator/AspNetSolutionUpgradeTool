@@ -8,7 +8,13 @@ namespace AspNetUpgrade.Actions.ProjectJson
     public class RenameAspNetPackagesToAspNetCore : BaseDependenciesUpdate
     {
 
-        private static string[] packagesToExclude = new[] { "Microsoft.AspNet.WebApi.Client" };
+        private static string[] packagesToExclude = new[] 
+        { "Microsoft.AspNet.WebApi.Client",
+          "Microsoft.AspNet.FileProviders.Abstractions",
+          "Microsoft.AspNet.FileProviders.Composite",
+          "Microsoft.AspNet.FileProviders.Embedded",
+          "Microsoft.AspNet.FileProviders.Physical"
+        };
         private const string newVersion = "1.0.0-rc2-final";
 
         /// <summary>
