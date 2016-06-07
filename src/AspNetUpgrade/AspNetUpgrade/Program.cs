@@ -38,6 +38,10 @@ namespace AspNetUpgrade
                   // save changes to disk.
                   solutionUpgradeContext.SaveChanges();
 
+                  // perform refactorings?
+
+                  Refactor(solutionUpgradeContext);
+
                   Console.WriteLine("Deleting project.lock.json files..");
                   var projectLockFiles = solutionDir.GetFileSystemInfos("project.lock.json", SearchOption.AllDirectories);
                   foreach (var projectLock in projectLockFiles)
@@ -59,6 +63,15 @@ namespace AspNetUpgrade
               });
 
             return exitCode;
+        }
+
+        private static void Refactor(SolutionUpgradeContext solutionUpgradeContext)
+        {
+
+           
+           
+
+
         }
     }
 }

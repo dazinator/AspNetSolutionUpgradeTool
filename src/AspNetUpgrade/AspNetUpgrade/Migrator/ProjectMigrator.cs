@@ -148,9 +148,7 @@ namespace AspNetUpgrade.Migrator
             packageMigrationProviders.Add(new EntityFrameworkDependencyPackageMigrationProvider());
             packageMigrationProviders.Add(new FileProviderDependencyPackageMigrationProvider());
             packageMigrationProviders.Add(new MicrosoftExtensionsDependencyPackageMigrationProvider());
-
             
-
             var migrations = new List<DependencyPackageMigrationInfo>();
             foreach (var provider in packageMigrationProviders)
             {
