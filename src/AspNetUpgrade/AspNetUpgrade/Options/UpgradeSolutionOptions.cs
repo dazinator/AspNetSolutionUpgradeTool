@@ -13,7 +13,12 @@ namespace AspNetUpgrade.Options
         [Option(
           HelpText = "Prints all messages to standard output.")]
         public bool Verbose { get; set; }
-       
+
+
+        [Option(HelpText = "Disables csharp code refactoring.", Default = false)]
+        public bool NoCsharpRefactoring { get; set; }
+
+
     }
 
 

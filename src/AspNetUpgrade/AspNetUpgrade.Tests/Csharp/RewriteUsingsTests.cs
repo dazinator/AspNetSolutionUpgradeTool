@@ -4,6 +4,7 @@ using System.Reflection;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
+using AspNetUpgrade.Actions.Csharp;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -14,7 +15,7 @@ namespace AspNetUpgrade.Tests.Refactor
 
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
-    public class RefactorTest
+    public class RewriteUsingsTests
     {
 
         [TestCase("CsharpFile", "TestCsharpFiles\\TestCsharpFile.cs")]

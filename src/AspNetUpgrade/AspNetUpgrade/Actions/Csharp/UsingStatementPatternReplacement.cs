@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace AspNetUpgrade.Tests.Refactor
+namespace AspNetUpgrade.Actions.Csharp
 {
     public class UsingStatementPatternReplacement
     {
@@ -25,17 +25,11 @@ namespace AspNetUpgrade.Tests.Refactor
 
         public bool IsPattern { get; set; }
 
-        //public string[] MatchSegments { get; set; }
-
-        //public string[] ReplaceSegments { get; set; }
-
-
         public Regex MatchRegex { get; set; }
 
         public string MatchPattern { get; set; }
 
         public string ReplacePattern { get; set; }
-
 
         public bool TryMapReplacement(string usingStatementName, out NameSyntax outReplacementUsingName)
         {

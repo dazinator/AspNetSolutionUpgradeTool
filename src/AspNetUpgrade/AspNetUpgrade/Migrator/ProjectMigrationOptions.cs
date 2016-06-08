@@ -7,8 +7,8 @@ namespace AspNetUpgrade.Migrator
             TargetFrameworkVersionForXprojFile = "v4.5";
             UpgradeToPreview1 = true;
             UpgradePackagesToRc2 = true;
-           // AddNetCoreTargetForApplications = true;
-           // AddNetStandardTargetForLibraries = true;
+            // AddNetCoreTargetForApplications = true;
+            // AddNetStandardTargetForLibraries = true;
         }
 
         public bool UpgradeToPreview1 { get; set; }

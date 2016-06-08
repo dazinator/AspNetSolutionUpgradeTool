@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.UpgradeContext
 {
@@ -8,6 +9,8 @@ namespace AspNetUpgrade.UpgradeContext
         Microsoft.Build.Evaluation.Project VsProjectFile { get; set; }
         void SaveChanges();
         ProjectJsonWrapper ToProjectJsonWrapper();
+
+        List<BaseCsharpFileUpgradeContext> CsharpFiles { get; set; }
 
 
     }

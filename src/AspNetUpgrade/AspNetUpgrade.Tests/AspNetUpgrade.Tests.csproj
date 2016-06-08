@@ -124,12 +124,10 @@
     <Compile Include="ProjectJson\UpgradeCompilationOptionsJsonTests.cs" />
     <Compile Include="ProjectJson\UpgradeFrameworksJsonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Refactor\Rc2Rewriter.cs" />
-    <Compile Include="Refactor\Refactor.cs" />
+    <Compile Include="Csharp\RewriteUsingsTests.cs" />
     <Content Include="TestCsharpFiles\TestCsharpFile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Refactor\UsingStatementPatternReplacement.cs" />
     <Compile Include="TestJsonProjectUpgradeContext.cs" />
     <Compile Include="TestGlobalJsonContents.cs" />
     <Compile Include="TestProjectJsonContents.cs" />

@@ -3,14 +3,14 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace AspNetUpgrade.Tests.Refactor
+namespace AspNetUpgrade.Actions.Csharp
 {
     public class Rc2Rewriter : CSharpSyntaxRewriter
     {
 
         public Rc2Rewriter()
         {
-            // matches using statements to a pattern, and replaces them using a replacement pattern.
+            // Populate patterns for using statements we want to replace.
             UsingStatementPatternReplacements = new List<UsingStatementPatternReplacement>();
             var fileProviderReplacement = new UsingStatementPatternReplacement("Microsoft.AspNet.FileProviders.*", "Microsoft.Extensions.FileProviders.*");
             UsingStatementPatternReplacements.Add(fileProviderReplacement);
@@ -21,9 +21,19 @@ namespace AspNetUpgrade.Tests.Refactor
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Mvc", "Microsoft.AspNetCore.Mvc"));
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.StaticFiles", "Microsoft.AspNetCore.StaticFiles"));
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Hosting", "Microsoft.AspNetCore.Hosting"));
-            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Builder", "Microsoft.AspNet.Builder"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Builder", "Microsoft.AspNetCore.Builder"));
 
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Extensions.OptionsModel", "Microsoft.Extensions.Options"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Extensions.WebEncoders", "System.Text.Encodings.Web"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Razor", "Microsoft.AspNetCore.Razor"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Razor.*", "Microsoft.AspNetCore.Razor.*"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Http", "Microsoft.AspNetCore.Http"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Http.*", "Microsoft.AspNetCore.Http.*"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Data.Entity", "Microsoft.EntityFrameworkCore"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Data.Entity.*", "Microsoft.EntityFrameworkCore.*"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Authorization", "Microsoft.AspNetCore.Authorization"));
         }
+        
 
         public List<UsingStatementPatternReplacement> UsingStatementPatternReplacements { get; set; }
 

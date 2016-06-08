@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Build.Evaluation;
@@ -51,7 +52,6 @@ namespace AspNetUpgrade.UpgradeContext
                     writer.Flush();
                 }
             }
-
         }
 
         private void RestoreClone()
@@ -68,7 +68,9 @@ namespace AspNetUpgrade.UpgradeContext
             }
 
         }
+
+        public List<BaseCsharpFileUpgradeContext> CsharpFiles { get; set; }
     }
 
-   
+
 }

@@ -10,14 +10,21 @@ namespace AspNetUpgrade.Actions.ProjectJson
         {
             JObject projectJsonObject = fileUpgradeContext.JsonObject;
             JObject compilationOptions = (JObject)projectJsonObject["compilationOptions"];
-            if (compilationOptions == null)
+            if (compilationOptions != null)
             {
-                compilationOptions = new JObject();
-                projectJsonObject["compilationOptions"] = compilationOptions;
+                compilationOptions.Rename("buildOptions");
+               // compilationOptions = new JObject();
+               // projectJsonObject["compilationOptions"] = compilationOptions;
             }
 
-            compilationOptions.Rename("buildOptions");
-            projectJsonObject["buildOptions"]["preserveCompilationContext"] = true;
+            var buildOptions = projectJsonObject["buildOptions"];
+            if (buildOptions == null)
+            {
+                buildOptions = new JObject();
+                projectJsonObject["buildOptions"] = buildOptions;
+            }
+
+            buildOptions["preserveCompilationContext"] = true;
 
             foreach (var item in ((JObject)projectJsonObject["frameworks"]).Properties())
             {

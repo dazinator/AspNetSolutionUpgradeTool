@@ -5,18 +5,18 @@ using AspNetUpgrade.UpgradeContext;
 
 namespace AspNetUpgrade.Migrator
 {
-    public class BaseProjectMigrator
+    public class BaseCsharpCodeMigrator
     {
-        public BaseProjectMigrator(BaseProjectUpgradeContext context)
+        public BaseCsharpCodeMigrator()
         {
-            Context = context;
-            AppliedActions = new List<IProjectUpgradeAction>();
+            AppliedActions = new List<ICsharpCodeUpgradeAction>();
         }
 
-        public void Apply(IList<IProjectUpgradeAction> actions)
+        public virtual void Apply(BaseCsharpFileUpgradeContext context, IList<ICsharpCodeUpgradeAction> actions)
         {
             try
             {
+                Context = context;
                 Context.BeginUpgrade(() =>
                 {
                     foreach (var action in actions)
@@ -33,9 +33,10 @@ namespace AspNetUpgrade.Migrator
             }
         }
 
-        public List<IProjectUpgradeAction> AppliedActions { get; set; }
+        public List<ICsharpCodeUpgradeAction> AppliedActions { get; set; }
 
-        public BaseProjectUpgradeContext Context { get; set; }
+        public BaseCsharpFileUpgradeContext Context { get; set; }
+
 
     }
 }

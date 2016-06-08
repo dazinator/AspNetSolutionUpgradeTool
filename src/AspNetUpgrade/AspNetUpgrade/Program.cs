@@ -21,7 +21,7 @@ namespace AspNetUpgrade
                   var solutionDir = new DirectoryInfo(options.SolutionDir);
                   var solutionUpgradeContext = new SolutionUpgradeContext(solutionDir);
                   var solutionMigrator = new SolutionMigrator(solutionUpgradeContext);
-
+                  
                   var solutionMigratorOptions = new SolutionMigrationOptions();
                   solutionMigrator.Apply(solutionMigratorOptions);
 
@@ -33,6 +33,20 @@ namespace AspNetUpgrade
                       // using default options for each project, but should probably extend command line to set these.
                       var projectUpgradeOptions = new ProjectMigrationOptions();
                       projectMigrator.Apply(projectUpgradeOptions);
+
+                      // upgrade csharp files in project if enabled.
+                      if (!options.NoCsharpRefactoring)
+                      {
+                          var codeMigrationoptions = new CsharpCodeMigrationOptions() { RewriteUsings = true };
+                          var csharpMigrator = new CsharpCodeMigrator(codeMigrationoptions);
+
+                          foreach (var csharpFileUpgradeContext in project.CsharpFiles)
+                          {
+                              Console.WriteLine("Refactoring: {0}", csharpFileUpgradeContext.ToString());
+                              csharpMigrator.Apply(csharpFileUpgradeContext, null);
+                          }
+                      }
+
                   }
 
                   // save changes to disk.
@@ -40,7 +54,7 @@ namespace AspNetUpgrade
 
                   // perform refactorings?
 
-                  Refactor(solutionUpgradeContext);
+                  //Refactor(solutionUpgradeContext);
 
                   Console.WriteLine("Deleting project.lock.json files..");
                   var projectLockFiles = solutionDir.GetFileSystemInfos("project.lock.json", SearchOption.AllDirectories);
@@ -68,8 +82,8 @@ namespace AspNetUpgrade
         private static void Refactor(SolutionUpgradeContext solutionUpgradeContext)
         {
 
-           
-           
+
+
 
 
         }

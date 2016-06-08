@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -10,17 +12,16 @@ namespace AspNetUpgrade.UpgradeContext
         private FileInfo _xprojFileInfo;
         // private readonly StringBuilder _fileContents = new StringBuilder();
 
-        public ProjectUpgradeContext(FileInfo jsonProjectFile)
+        public ProjectUpgradeContext(FileInfo projectJsonFile)
         {
-            _projectJsonFileInfo = jsonProjectFile;
-            using (var streamReader = new StreamReader(_projectJsonFileInfo.FullName))
-            {
-                using (JsonTextReader reader = new JsonTextReader(streamReader))
-                {
-                    JsonObject = JObject.Load(reader);
-                }
-            }
+            _projectJsonFileInfo = projectJsonFile;
+            LoadProjectJsonFile();
+
             LoadVsProjectFile();
+
+            CsharpFiles = new List<BaseCsharpFileUpgradeContext>();
+            LoadCsharpFiles();
+
         }
 
         private void LoadVsProjectFile()
@@ -48,13 +49,39 @@ namespace AspNetUpgrade.UpgradeContext
                     writer.Flush();
                 }
             }
-          
+
             VsProjectFile?.Save(_xprojFileInfo.FullName);
+
+            foreach (var csharpFile in CsharpFiles)
+            {
+                csharpFile.SaveChanges();
+            }
         }
 
         public override string ToString()
         {
             return _projectJsonFileInfo.FullName;
         }
+
+        private void LoadProjectJsonFile()
+        {
+            using (var streamReader = new StreamReader(_projectJsonFileInfo.FullName))
+            {
+                using (JsonTextReader reader = new JsonTextReader(streamReader))
+                {
+                    JsonObject = JObject.Load(reader);
+                }
+            }
+        }
+
+        private void LoadCsharpFiles()
+        {
+            // get csharp files in project directory.
+            var csharpFiles = _projectJsonFileInfo.Directory.GetFiles("*.cs", SearchOption.AllDirectories);
+            var csharpFileUpgrades = csharpFiles.Select(file => new CsharpFileUpgradeContext(file)).ToList();
+            this.CsharpFiles.AddRange(csharpFileUpgrades);
+        }
+
+
     }
 }
