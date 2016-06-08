@@ -32,6 +32,7 @@ namespace AspNetUpgrade.Actions.Csharp
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Data.Entity", "Microsoft.EntityFrameworkCore"));
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.Data.Entity.*", "Microsoft.EntityFrameworkCore.*"));
             UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.Authorization", "Microsoft.AspNetCore.Authorization"));
+            UsingStatementPatternReplacements.Add(new UsingStatementPatternReplacement("Microsoft.AspNet.DataProtection", "Microsoft.AspNetCore.DataProtection"));
         }
         
 
