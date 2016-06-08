@@ -10,13 +10,13 @@ AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
 
 
 
-1. Upgrades the `project.json` files, `.xproj` files, and `global.json` files to the new schema's versions. This tool handles a tonne of things. so you don't have to.
+1. Upgrades the `project.json` files, `.xproj` files, and `global.json` files to the new schema's versions.
+2. Uses Roslyn, to correct some old RC1 using statements in csharp code files for you. (Based on a common list I have put together from various sources and via trial and error on my own solution)
+3. Upgrades RC1 based NuGet packages, (and some commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
 
-2. Upgrades RC1 dependencies / packages (and commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
+NOTE: This tool only does some simple code refactoring at present - i.e using statement rewrites, all the rest is still left to you, however as this tool has access to the full `SyntaxTree` it's fairly easy to add new analysis / refactorings into the tool if you know what you are doing with Roslyn ;)
 
-This tool *can* also upgrade Applications and Libraries to target `netcoreapp1.0` / `netstandard1.5` but I haven't enabled that feature by default even though it works.. could possible introduce a command line option to turn this on if people think it is useful.
-
-NOTE: This tool will not refactor any code, or perform any backups. Those things will require you to do. Your mileage may vary.
+Your mileage may vary.
 
 # Thanks
 
