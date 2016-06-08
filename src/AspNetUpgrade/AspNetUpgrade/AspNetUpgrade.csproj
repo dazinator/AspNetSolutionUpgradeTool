@@ -134,6 +134,7 @@
     <Compile Include="Migrator\BaseCsharpMigrator.cs" />
     <Compile Include="Migrator\CsharpCodeMigrationOptions.cs" />
     <Compile Include="Migrator\CsharpCodeMigrator.cs" />
+    <Compile Include="Migrator\DependencyMigrations\AutofacPackageMigrationProvider.cs" />
     <Compile Include="Migrator\DependencyMigrations\EntityFrameworkPackageMigrationProvider.cs" />
     <Compile Include="Migrator\DependencyMigrations\AspNetPackageMigrationProvider.cs" />
     <Compile Include="Migrator\BaseSolutionMigrator.cs" />
