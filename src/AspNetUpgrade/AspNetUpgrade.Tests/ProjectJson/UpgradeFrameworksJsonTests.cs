@@ -29,7 +29,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null);
-                var sut = new MigrateDnxFrameworksToNetFrameworksJson();
+                var sut = new MigrateDnxFrameworksToNetFramework452Json();
 
                 // act
                 sut.Apply(testFileUpgradeContext);

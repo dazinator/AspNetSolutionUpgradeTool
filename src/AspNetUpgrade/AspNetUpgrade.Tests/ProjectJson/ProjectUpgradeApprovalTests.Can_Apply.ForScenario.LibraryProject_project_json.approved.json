@@ -44,7 +44,7 @@
     
   "frameworks":  {
         
-    "net451":  {},
+    "net452":  {},
         
     "netstandard1.5":  {
             

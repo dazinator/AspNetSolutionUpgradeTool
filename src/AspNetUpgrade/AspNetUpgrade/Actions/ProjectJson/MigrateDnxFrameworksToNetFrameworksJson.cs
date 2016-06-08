@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     /// <summary>
     /// Renames dnx TFM's in project.json to be the .net TFM equivalent.
     /// </summary>
-    public class MigrateDnxFrameworksToNetFrameworksJson : IProjectUpgradeAction
+    public class MigrateDnxFrameworksToNetFramework452Json : IProjectUpgradeAction
     {
        
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
@@ -20,9 +20,9 @@ namespace AspNetUpgrade.Actions.ProjectJson
             //_oldFrameworks = frameworks.DeepClone();
 
             // dnx451
-            RenameFramework(frameworks, "dnx", "net45");
-            RenameFramework(frameworks, "dnx45", "net45");
-            RenameFramework(frameworks, "dnx451", "net451");
+            RenameFramework(frameworks, "dnx", "net452");
+            RenameFramework(frameworks, "dnx45", "net452");
+            RenameFramework(frameworks, "dnx451", "net452");
             RenameFramework(frameworks, "dnx452", "net452");
 
             // dnxCore

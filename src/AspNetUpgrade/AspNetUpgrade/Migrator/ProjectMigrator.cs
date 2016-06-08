@@ -89,7 +89,7 @@ namespace AspNetUpgrade.Migrator
             upgradeActions.Add(upgradePublishOptions);
 
             // renames the old dnx4YZ TFM's to be the net4YZ Tfm's. 
-            var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFrameworksJson();
+            var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFramework452Json();
             upgradeActions.Add(frameworksUpgradeAction);
 
             // upgrades xproj file, by updating old dnx imports to new dotnet ones.
