@@ -14,7 +14,8 @@ AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
 2. Uses Roslyn, to correct some old RC1 using statements in csharp code files for you. (Based on a common list I have put together from various sources and via trial and error on my own solution)
 3. Upgrades RC1 based NuGet packages, (and some commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
 
-NOTE: This tool only does some simple code refactoring at present - i.e using statement rewrites, all the rest is still left to you. 
+NOTE: This tool only does some simple code refactoring at present - i.e using statement rewrites, all the rest is still left to you, however as this tool has access to the full `SyntaxTree` it's fairly easy to add new analysis / refactorings into the tool if you know what you are doing with Roslyn ;)
+
 Your mileage may vary.
 
 # Thanks
