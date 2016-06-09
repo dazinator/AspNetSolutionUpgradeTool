@@ -30,9 +30,9 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
             package.OldNames.Add("Microsoft.AspNet.Tooling.Razor");
             list.Add(package);
 
-
+            var projectWrapper = projectContext.ToProjectJsonWrapper();
             // only add the following new nuget packlages if the project is a web project. We use a heuristic - if MVC is there as a dependency then its a web project.
-            if (projectContext.ToProjectJsonWrapper().IsMvcProject())
+            if (projectWrapper.IsMvcProject())
             {
                 package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGeneration.Tools", $"1.0.0-{toolingVersion}-final");
                 package.Type = PackageType.Build;
@@ -51,6 +51,14 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
             package.OldNames.Add("Microsoft.ApplicationInsights.AspNet");
             list.Add(package);
 
+            // Ensure following package is present if depending on IISPlatformHandler
+            if (projectWrapper.HasDependency("Microsoft.AspNet.IISPlatformHandler") ||
+                projectWrapper.HasDependency("Microsoft.AspNetCore.Server.IISIntegration"))
+            {
+                package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Hosting", $"1.0.0-rc2-final");
+                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
+                list.Add(package);
+            }
 
             // remove Microsoft.Dnx.Runtime
             package = new DependencyPackageMigrationInfo("Microsoft.Dnx.Runtime", "1.0.0-rc1-final");
