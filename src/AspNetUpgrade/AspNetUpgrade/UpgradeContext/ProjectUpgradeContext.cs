@@ -43,6 +43,7 @@ namespace AspNetUpgrade.UpgradeContext
             {
                 using (var jsonWriter = new JsonTextWriter(writer))
                 {
+                    jsonWriter.Formatting = Formatting.Indented;
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(jsonWriter, JsonObject);
                     jsonWriter.Flush();

@@ -53,7 +53,8 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
                 // assert.
                 var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
-                Approvals.VerifyJson(modifiedContents);
+                Approvals.Verify(modifiedContents);
+               // Approvals.VerifyJson(modifiedContents);
 
 
                 using (ApprovalResults.ForScenario(scenario + "_xproj"))
@@ -107,7 +108,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
 
                 // assert.
                 var modifiedContents = testFileUpgradeContext.JsonObject.ToString();
-                Approvals.VerifyJson(modifiedContents);
+                Approvals.Verify(modifiedContents);
 
                 using (ApprovalResults.ForScenario(scenario + "_xproj"))
                 {
