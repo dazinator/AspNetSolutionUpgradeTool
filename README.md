@@ -10,7 +10,7 @@ AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
 
 
 
-1. Upgrades the `project.json` files, `.xproj` files, and `global.json` files to the new schema's versions.
+1. Upgrades the `project.json` files, `.xproj` files, `launchSettings.json` files and  `global.json` file to the new schema's versions.
 2. Uses Roslyn, to detect old RC1 using statements, and corrects them for you in your csharp code files. 
 3. Upgrades RC1 based NuGet packages, (and some commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
 
