@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Build.Evaluation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -9,26 +10,26 @@ namespace AspNetUpgrade.UpgradeContext
     public class ProjectUpgradeContext : BaseProjectUpgradeContext
     {
         private readonly FileInfo _projectJsonFileInfo;
+        private FileInfo _launchSettingsFileInfo;
         private FileInfo _xprojFileInfo;
         // private readonly StringBuilder _fileContents = new StringBuilder();
 
         public ProjectUpgradeContext(FileInfo projectJsonFile)
         {
             _projectJsonFileInfo = projectJsonFile;
+            var projectDir = _projectJsonFileInfo.Directory;
             LoadProjectJsonFile();
-
-            LoadVsProjectFile();
-
+            LoadLaunchSettingsJson(projectDir);
+            LoadVsProjectFile(projectDir);
             CsharpFiles = new List<BaseCsharpFileUpgradeContext>();
-            LoadCsharpFiles();
-
+            LoadCsharpFiles(projectDir);
         }
 
-        private void LoadVsProjectFile()
+        private void LoadVsProjectFile(DirectoryInfo projectDir)
         {
             // check for xproj file in same dir and load.
             Microsoft.Build.Evaluation.ProjectCollection collection = new Microsoft.Build.Evaluation.ProjectCollection();
-            var xprojFiles = _projectJsonFileInfo.Directory.GetFiles("*.xproj", SearchOption.TopDirectoryOnly);
+            var xprojFiles = projectDir.GetFiles("*.xproj", SearchOption.TopDirectoryOnly);
             if (xprojFiles.Length == 1)
             {
                 _xprojFileInfo = xprojFiles[0];
@@ -36,6 +37,32 @@ namespace AspNetUpgrade.UpgradeContext
             }
 
         }
+
+        private void LoadLaunchSettingsJson(DirectoryInfo projectDir)
+        {
+            _launchSettingsFileInfo = projectDir.GetFiles("launchSettings.json", SearchOption.AllDirectories).FirstOrDefault();
+            if (_launchSettingsFileInfo != null)
+            {
+                if (_launchSettingsFileInfo.Exists)
+                {
+                    // _launchSettingsFileInfo = new FileInfo(globalJsonFile);
+                    using (var streamReader = new StreamReader(_launchSettingsFileInfo.FullName))
+                    {
+                        using (JsonTextReader reader = new JsonTextReader(streamReader))
+                        {
+                            LaunchSettingsObject = JObject.Load(reader);
+                        }
+                    }
+                }
+            }
+            //  var globalJsonFile = Path.Combine(solutionDir.FullName, "launchSettings.json");
+
+
+        }
+
+        public override JObject ProjectJsonObject { get; set; }
+        public override JObject LaunchSettingsObject { get; set; }
+        public override Project VsProjectFile { get; set; }
 
         public override void SaveChanges()
         {
@@ -45,9 +72,24 @@ namespace AspNetUpgrade.UpgradeContext
                 {
                     jsonWriter.Formatting = Formatting.Indented;
                     JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(jsonWriter, JsonObject);
+                    serializer.Serialize(jsonWriter, ProjectJsonObject);
                     jsonWriter.Flush();
                     writer.Flush();
+                }
+            }
+
+            if (LaunchSettingsObject != null)
+            {
+                using (var writer = new StreamWriter(_launchSettingsFileInfo.FullName))
+                {
+                    using (var jsonWriter = new JsonTextWriter(writer))
+                    {
+                        jsonWriter.Formatting = Formatting.Indented;
+                        JsonSerializer serializer = new JsonSerializer();
+                        serializer.Serialize(jsonWriter, LaunchSettingsObject);
+                        jsonWriter.Flush();
+                        writer.Flush();
+                    }
                 }
             }
 
@@ -56,6 +98,32 @@ namespace AspNetUpgrade.UpgradeContext
             foreach (var csharpFile in CsharpFiles)
             {
                 csharpFile.SaveChanges();
+            }
+        }
+
+        public override string ProjectName()
+        {
+            if (VsProjectFile != null)
+            {
+                var path = VsProjectFile.FullPath;
+                var name = System.IO.Path.GetFileNameWithoutExtension(path);
+                return name;
+            }
+            else
+            {
+                //just use project dir name.
+                var projectFolder = _projectJsonFileInfo.Directory;
+                if (projectFolder != null)
+                {
+                    var projectFolderName = projectFolder.Name;
+                    return projectFolderName;
+                }
+                else
+                {
+                    // no idea.
+                    return "ProjectName";
+                }
+
             }
         }
 
@@ -70,18 +138,20 @@ namespace AspNetUpgrade.UpgradeContext
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
-                    JsonObject = JObject.Load(reader);
+                    ProjectJsonObject = JObject.Load(reader);
                 }
             }
         }
 
-        private void LoadCsharpFiles()
+        private void LoadCsharpFiles(DirectoryInfo projectDir)
         {
             // get csharp files in project directory.
-            var csharpFiles = _projectJsonFileInfo.Directory.GetFiles("*.cs", SearchOption.AllDirectories);
+            var csharpFiles = projectDir.GetFiles("*.cs", SearchOption.AllDirectories);
             var csharpFileUpgrades = csharpFiles.Select(file => new CsharpFileUpgradeContext(file)).ToList();
             this.CsharpFiles.AddRange(csharpFileUpgrades);
         }
+
+
 
 
     }

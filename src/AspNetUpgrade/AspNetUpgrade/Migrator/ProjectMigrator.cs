@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AspNetUpgrade.Actions;
+using AspNetUpgrade.Actions.LaunchSettings;
 using AspNetUpgrade.Actions.ProjectJson;
 using AspNetUpgrade.Actions.Xproj;
 using AspNetUpgrade.Migrator.DependencyMigrations;
@@ -103,6 +104,10 @@ namespace AspNetUpgrade.Migrator
             // updates xproj targetFramework 
             var xprojUpdateTargetFramework = new SetTargetFrameworkVersion(options.TargetFrameworkVersionForXprojFile);
             upgradeActions.Add(xprojUpdateTargetFramework);
+
+            // updates launch settings 
+            var updateLaunchSettings = new UpdateLaunchSettings();
+            upgradeActions.Add(updateLaunchSettings);
 
             return upgradeActions;
 

@@ -1,0 +1,33 @@
+﻿namespace AspNetUpgrade.Tests
+{
+    public static class TestLaunchSettingsContents
+    {
+        public const string Rc1LaunchSettings = @"{
+  'iisSettings': {
+    'windowsAuthentication': false,
+    'anonymousAuthentication': true,
+    'iisExpress': {
+      'applicationUrl': 'http://localhost:57349/',
+      'sslPort': 0
+    }
+  },
+  'profiles': {
+    'IIS Express': {
+      'commandName': 'IISExpress',
+      'launchBrowser': true,
+      'environmentVariables': {
+        'Hosting:Environment': 'Local'
+      },
+      'sdkVersion': 'dnx-clr-win-x86.1.0.0-rc1-final'
+    },
+    'web': {
+      'commandName': 'Project',
+      'launchBrowser': true,
+      'environmentVariables': {
+        'Hosting:Environment': 'Development'
+      }
+    }
+  }
+}";
+    }
+}

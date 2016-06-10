@@ -31,7 +31,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         private void AddNetStandardFramework(IProjectUpgradeContext fileUpgradeContext)
         {
 
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
+            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             var frameworks = projectJsonObject.GetOrAddProperty("frameworks", null);
             var netStadardTfm = frameworks.GetOrAddProperty(_netStandardTfm, null);
             var netStandardImports = netStadardTfm["imports"];

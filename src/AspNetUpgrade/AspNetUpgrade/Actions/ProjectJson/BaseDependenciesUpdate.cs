@@ -27,7 +27,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
+            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             JObject dependencies = (JObject)projectJsonObject["dependencies"];
 
             var dependenciesToUpdate = new List<JProperty>();

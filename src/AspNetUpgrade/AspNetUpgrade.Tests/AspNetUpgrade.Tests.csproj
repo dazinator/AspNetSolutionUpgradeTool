@@ -113,6 +113,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LaunchSettings\LaunchJsonUpgradeTests.cs" />
     <Compile Include="GlobalJson\GlobalJsonUpgradeTests.cs" />
     <Compile Include="ProjectJson\ProjectContextTests.cs" />
     <Compile Include="ProjectJson\RenameCommandsToToolsTests.cs" />
@@ -130,8 +131,10 @@
     </Content>
     <Compile Include="TestJsonProjectUpgradeContext.cs" />
     <Compile Include="TestGlobalJsonContents.cs" />
+    <Compile Include="TestLaunchSettingsContents.cs" />
     <Compile Include="TestProjectJsonContents.cs" />
     <Compile Include="TestSolutionUpgradeContext.cs" />
+    <Compile Include="TestXProjContents.cs" />
     <Compile Include="XProj\VsProjectHelper.cs" />
     <Compile Include="XProj\XProjUpgradeTests.cs" />
   </ItemGroup>

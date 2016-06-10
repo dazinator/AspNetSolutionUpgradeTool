@@ -25,7 +25,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
         public void Can_Detect_Application_Versus_Library_Projects(ProjectType projectType, string json)
         {
             // arrange
-            var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null);
+            var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null, null);
             Assert.AreEqual(testFileUpgradeContext.ToProjectJsonWrapper().GetProjectType(), projectType);
         }
 

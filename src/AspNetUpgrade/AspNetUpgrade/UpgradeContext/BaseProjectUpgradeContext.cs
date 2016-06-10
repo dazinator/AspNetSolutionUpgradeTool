@@ -10,18 +10,21 @@ namespace AspNetUpgrade.UpgradeContext
     public abstract class BaseProjectUpgradeContext : IProjectUpgradeContext
     {
 
-        private JObject _clone;
+        private JObject _projectJsonClone;
+        private JObject _launchSettingsJsonClone;
         private StringBuilder _xprojBackup;
 
-        public JObject JsonObject { get; set; }
+        public abstract JObject ProjectJsonObject { get; set; }
 
-        public Project VsProjectFile { get; set; }
+        public abstract JObject LaunchSettingsObject { get; set; }
+
+        public abstract Project VsProjectFile { get; set; }
 
         public abstract void SaveChanges();
 
         public ProjectJsonWrapper ToProjectJsonWrapper()
         {
-            return new ProjectJsonWrapper(JsonObject);
+            return new ProjectJsonWrapper(ProjectJsonObject);
         }
 
         public void BeginUpgrade(Action callback)
@@ -41,7 +44,8 @@ namespace AspNetUpgrade.UpgradeContext
 
         private void Clone()
         {
-            _clone = (JObject)JsonObject.DeepClone();
+            _projectJsonClone = (JObject)ProjectJsonObject.DeepClone();
+            _launchSettingsJsonClone = (JObject)LaunchSettingsObject.DeepClone();
 
             if (VsProjectFile != null)
             {
@@ -56,11 +60,12 @@ namespace AspNetUpgrade.UpgradeContext
 
         private void RestoreClone()
         {
-            if (_clone == null)
+            if (_projectJsonClone == null)
             {
                 throw new InvalidOperationException("must call clone first");
             }
-            JsonObject = _clone;
+            ProjectJsonObject = _projectJsonClone;
+            LaunchSettingsObject = _launchSettingsJsonClone;
 
             if (VsProjectFile != null)
             {
@@ -70,6 +75,9 @@ namespace AspNetUpgrade.UpgradeContext
         }
 
         public List<BaseCsharpFileUpgradeContext> CsharpFiles { get; set; }
+        public abstract string ProjectName();
+
+
     }
 
 

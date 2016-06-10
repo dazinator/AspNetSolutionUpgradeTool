@@ -8,7 +8,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
+            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             JObject compilationOptions = (JObject)projectJsonObject["compilationOptions"];
             if (compilationOptions != null)
             {

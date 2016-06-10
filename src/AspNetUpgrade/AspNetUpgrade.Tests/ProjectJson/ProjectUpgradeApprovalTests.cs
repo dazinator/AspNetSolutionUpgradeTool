@@ -23,19 +23,19 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
 
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication)]
-        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication)]
-        [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication)]
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication)]
+        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [Test]
-        public void Can_Apply(string scenario, string json, string xproj)
+        public void Can_Apply(string scenario, string json, string xproj, string launchSettings)
         {
 
             using (ApprovalResults.ForScenario(scenario + "_project_json"))
             {
                 // arrange
                 var testXProj = VsProjectHelper.LoadTestProject(xproj);
-                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj);
+                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettings);
 
                 var migrator = new ProjectMigrator(testFileUpgradeContext);
                 var options = new ProjectMigrationOptions();
@@ -52,9 +52,9 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 testFileUpgradeContext.SaveChanges();
 
                 // assert.
-                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
+                var modifiedContents = testFileUpgradeContext.ModifiedProjectJsonContents;
                 Approvals.Verify(modifiedContents);
-               // Approvals.VerifyJson(modifiedContents);
+                // Approvals.VerifyJson(modifiedContents);
 
 
                 using (ApprovalResults.ForScenario(scenario + "_xproj"))
@@ -63,25 +63,31 @@ namespace AspNetUpgrade.Tests.ProjectJson
                     Approvals.VerifyXml(projContents);
                 }
 
+                using (ApprovalResults.ForScenario(scenario + "_launchSettings"))
+                {
+                    var modifiedLaunchSettingsContents = testFileUpgradeContext.ModifiedLaunchSettingsJsonContents;
+                    Approvals.Verify(modifiedLaunchSettingsContents);
+                }
+
             }
 
 
         }
 
-       
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication)]
-        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication)]
-        [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication)]
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication)]
+
+        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [Test]
-        public void Can_Rollback_If_Error(string scenario, string json, string xproj)
+        public void Can_Rollback_If_Error(string scenario, string json, string xproj, string launchSettingsJson)
         {
 
             using (ApprovalResults.ForScenario(scenario + "_project_json"))
             {
                 // arrange
                 var testXProj = VsProjectHelper.LoadTestProject(xproj);
-                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj);
+                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettingsJson);
                 var migrator = new ProjectMigrator(testFileUpgradeContext);
                 var options = new ProjectMigrationOptions();
 
@@ -89,12 +95,12 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
                 options.AddNetStandardTargetForLibraries = true; // libraries will have the netStandard TFM added (and dependency).
                 options.AddNetCoreTargetForApplications = true; // applications will have the netCore app TFM added (and dependency)
-                
+
                 // add an upgrade that throws an exception..
                 var additionalUpgrades = new List<IProjectUpgradeAction>();
                 additionalUpgrades.Add(new ExceptionuringUpgradeAction());
 
-             
+
                 try
                 {
                     // migrate 
@@ -107,7 +113,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 }
 
                 // assert.
-                var modifiedContents = testFileUpgradeContext.JsonObject.ToString();
+                var modifiedContents = testFileUpgradeContext.ProjectJsonObject.ToString();
                 Approvals.Verify(modifiedContents);
 
                 using (ApprovalResults.ForScenario(scenario + "_xproj"))
@@ -115,6 +121,13 @@ namespace AspNetUpgrade.Tests.ProjectJson
                     var projContents = VsProjectHelper.ToString(testFileUpgradeContext.VsProjectFile);
                     Approvals.VerifyXml(projContents);
                 }
+
+                using (ApprovalResults.ForScenario(scenario + "_launchSettings"))
+                {
+                    var modifiedLaunchSettingsContents = testFileUpgradeContext.LaunchSettingsObject.ToString();
+                    Approvals.Verify(modifiedLaunchSettingsContents);
+                }
+
 
             }
 
@@ -126,7 +139,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 throw new System.NotImplementedException();
             }
-          
+
         }
 
 

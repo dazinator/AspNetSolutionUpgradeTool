@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using AspNetUpgrade.UpgradeContext;
+using Microsoft.Build.Evaluation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Formatting = Newtonsoft.Json.Formatting;
@@ -15,12 +17,15 @@ namespace AspNetUpgrade.Tests
 
         private StringBuilder _modifiedXprojContents;
 
-        public TestJsonBaseProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project)
+        private StringBuilder _modifiedLaunchSettingsContents;
+
+        public TestJsonBaseProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project, string launchSettingsJson)
         {
 
             _jsonContents = jsonContents;
             _modifiedJsonContents = new StringBuilder();
             _modifiedXprojContents = new StringBuilder();
+            _modifiedLaunchSettingsContents = new StringBuilder();
 
             VsProjectFile = project;
 
@@ -28,12 +33,27 @@ namespace AspNetUpgrade.Tests
             {
                 using (JsonTextReader reader = new JsonTextReader(streamReader))
                 {
-                    JsonObject = JObject.Load(reader);
+                    ProjectJsonObject = JObject.Load(reader);
                 }
             }
+            if (!string.IsNullOrWhiteSpace(launchSettingsJson))
+            {
+                using (var streamReader = new StringReader(launchSettingsJson))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(streamReader))
+                    {
+                        LaunchSettingsObject = JObject.Load(reader);
+                    }
+                }
+            }
+           
 
         }
 
+
+        public override JObject ProjectJsonObject { get; set; }
+        public override JObject LaunchSettingsObject { get; set; }
+        public override Project VsProjectFile { get; set; }
 
         public override void SaveChanges()
         {
@@ -44,7 +64,7 @@ namespace AspNetUpgrade.Tests
                     jsonWriter.Formatting = Formatting.Indented;
                     JsonSerializer serializer = new JsonSerializer();
 
-                    serializer.Serialize(jsonWriter, JsonObject);
+                    serializer.Serialize(jsonWriter, ProjectJsonObject);
                     jsonWriter.Flush();
                     writer.Flush();
                 }
@@ -68,9 +88,34 @@ namespace AspNetUpgrade.Tests
                 }
             }
 
+            if (LaunchSettingsObject != null)
+            {
+                using (var writer = new StringWriter(_modifiedLaunchSettingsContents))
+                {
+                    using (var jsonWriter = new JsonTextWriter(writer))
+                    {
+                        jsonWriter.Formatting = Formatting.Indented;
+                        JsonSerializer serializer = new JsonSerializer();
+
+                        serializer.Serialize(jsonWriter, LaunchSettingsObject);
+                        jsonWriter.Flush();
+                        writer.Flush();
+                    }
+                }
+
+            }
+
+
         }
 
-        public string ModifiedJsonContents { get { return _modifiedJsonContents.ToString(); } }
+        public override string ProjectName()
+        {
+            return "TestProject";
+        }
+
+        public string ModifiedProjectJsonContents { get { return _modifiedJsonContents.ToString(); } }
+
+        public string ModifiedLaunchSettingsJsonContents { get { return _modifiedLaunchSettingsContents.ToString(); } }
 
     }
 }

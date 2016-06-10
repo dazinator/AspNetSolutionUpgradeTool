@@ -15,7 +15,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
 
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
+            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             JObject frameworks = (JObject)projectJsonObject["frameworks"];
             //_oldFrameworks = frameworks.DeepClone();
 

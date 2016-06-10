@@ -24,7 +24,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             using (ApprovalResults.ForScenario(scenario))
             {
                 // arrange
-                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null);
+                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null, null);
                 var sut = new UpgradeCompilationOptionsJson();
 
                 // act
@@ -32,7 +32,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 testFileUpgradeContext.SaveChanges();
 
                 // assert.
-                var modifiedContents = testFileUpgradeContext.ModifiedJsonContents;
+                var modifiedContents = testFileUpgradeContext.ModifiedProjectJsonContents;
                 Approvals.VerifyJson(modifiedContents);
 
             }

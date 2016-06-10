@@ -15,7 +15,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         protected override JObject GetPackagesObject(IProjectUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.JsonObject;
+            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
             var dependencies = projectJsonObject.GetOrAddProperty("dependencies", null);
             if (dependencies == null)
             {

@@ -20,7 +20,7 @@ namespace AspNetUpgrade.Migrator.ToolMigrations
 
 
             // Adds / updates the user secrets tool - if the project.json has a userSecretsId present.
-            if (projectContext.JsonObject["userSecretsId"] != null)
+            if (projectContext.ProjectJsonObject["userSecretsId"] != null)
             {
                 package = new ToolPackageMigrationInfo("Microsoft.Extensions.SecretManager.Tools", $"1.0.0-{toolingVersion}-final");
                 package.Imports.Add("portable-net45+win8+dnxcore50");

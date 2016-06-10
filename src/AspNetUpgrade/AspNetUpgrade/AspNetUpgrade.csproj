@@ -115,6 +115,7 @@
     <Compile Include="Actions\GlobalJson\UpdateSdkVersion.cs" />
     <Compile Include="Actions\ICsharpCodeUpgradeAction.cs" />
     <Compile Include="Actions\ISolutionUpgradeAction.cs" />
+    <Compile Include="Actions\LaunchSettings\UpdateLaunchSettings.cs" />
     <Compile Include="Actions\ProjectJson\AddNetCoreFrameworkToApplications.cs" />
     <Compile Include="Actions\ProjectJson\AddNetStandardFrameworkToLibrariesJson.cs" />
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
