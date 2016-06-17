@@ -45,7 +45,12 @@ namespace AspNetUpgrade.UpgradeContext
         private void Clone()
         {
             _projectJsonClone = (JObject)ProjectJsonObject.DeepClone();
-            _launchSettingsJsonClone = (JObject)LaunchSettingsObject.DeepClone();
+
+            if (LaunchSettingsObject != null)
+            {
+                _launchSettingsJsonClone = (JObject)LaunchSettingsObject.DeepClone();
+            }
+          
 
             if (VsProjectFile != null)
             {

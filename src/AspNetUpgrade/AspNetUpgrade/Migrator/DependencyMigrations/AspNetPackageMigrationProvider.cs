@@ -41,6 +41,7 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
 
                 // ensure Microsoft.AspNetCore.Diagnostics is brought in
                 package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Diagnostics", "1.0.0-rc2-final");
+                package.OldNames.Add("Microsoft.AspNet.Diagnostics");
                 package.MigrationAction = PackageMigrationAction.AddOrUpdate;
                 list.Add(package);
             }
