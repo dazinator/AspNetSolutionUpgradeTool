@@ -2,6 +2,8 @@
 
 This tool upgrades an RC1 / Dnx solution to RC2 / Preview1.
 
+If this tool has helped you upgrade your project, please consider leaving an entry on the wiki - https://github.com/dazinator/AspNetRC1toRC2UpgradeTool/wiki/Usages
+
 
 ```
 
