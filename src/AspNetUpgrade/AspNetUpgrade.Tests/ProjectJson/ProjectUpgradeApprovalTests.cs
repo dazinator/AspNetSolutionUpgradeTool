@@ -36,7 +36,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
             {
                 // arrange
                 var testXProj = VsProjectHelper.LoadTestProject(xproj);
-                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettings);
+                var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettings, new []{"appSettings.json"});
 
                 var migrator = new ProjectMigrator(testFileUpgradeContext);
                 var options = new ProjectMigrationOptions();

@@ -6,7 +6,12 @@
   ],
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
+    }
   },
   "dependencies": {},
   "tools": {
@@ -42,5 +47,10 @@
     ],
     "licenseUrl": "",
     "projectUrl": ""
+  },
+  "publishOptions": {
+    "include": [
+      "appSettings.json"
+    ]
   }
 }

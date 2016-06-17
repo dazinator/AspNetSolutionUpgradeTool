@@ -129,6 +129,7 @@
     <Content Include="TestCsharpFiles\TestCsharpFile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="TestJsonProjectItemUpgradeContext.cs" />
     <Compile Include="TestJsonProjectUpgradeContext.cs" />
     <Compile Include="TestGlobalJsonContents.cs" />
     <Compile Include="TestLaunchSettingsContents.cs" />

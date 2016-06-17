@@ -89,6 +89,10 @@ namespace AspNetUpgrade.Migrator
             var upgradePublishOptions = new UpgradePublishOptions();
             upgradeActions.Add(upgradePublishOptions);
 
+            // includes appSettings.Json files in copyToOutput
+            var includeAppSettingsFilesInCopyToOutput = new IncludeAppSettingsFilesInCopyToOutput();
+            upgradeActions.Add(includeAppSettingsFilesInCopyToOutput);
+
             // renames the old dnx4YZ TFM's to be the net4YZ Tfm's. 
             var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFramework452Json();
             upgradeActions.Add(frameworksUpgradeAction);

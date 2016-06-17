@@ -22,6 +22,11 @@
         "artifacts",
         "modules"
       ]
+    },
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
     }
   },
   "dependencies": {
@@ -135,8 +140,8 @@
   "publishOptions": {
     "include": [
       "wwwroot",
-      "appSettings.json",
-      "web.config"
+      "web.config",
+      "appSettings.json"
     ]
   }
 }

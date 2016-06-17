@@ -1,7 +1,12 @@
 ﻿{
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
+    }
   },
   "dependencies": {},
   "tools": {
@@ -33,5 +38,10 @@
         }
       }
     }
+  },
+  "publishOptions": {
+    "include": [
+      "appSettings.json"
+    ]
   }
 }

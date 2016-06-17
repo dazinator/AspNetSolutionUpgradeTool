@@ -121,6 +121,7 @@
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
     <Compile Include="Actions\ProjectJson\MoveCompileToBuildOptions.cs" />
+    <Compile Include="Actions\ProjectJson\IncludeAppSettingsFilesInCopyToOutput.cs" />
     <Compile Include="Actions\ProjectJson\MoveExcludeToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\MoveResourcesToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\MoveContentToNewOptions.cs" />
@@ -161,12 +162,15 @@
     <Compile Include="Actions\Csharp\Rc2Rewriter.cs" />
     <Compile Include="Actions\Csharp\UsingStatementPatternReplacement.cs" />
     <Compile Include="UpgradeContext\BaseCsharpFileUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\BaseJsonProjectItemUpgradeContext.cs" />
     <Compile Include="UpgradeContext\CsharpFileUpgradeContext.cs" />
+    <Compile Include="UpgradeContext\IJsonProjectItemUpgradeContext.cs" />
     <Compile Include="UpgradeContext\ICsharpFileUpgradeContext.cs" />
     <Compile Include="UpgradeContext\IProjectUpgradeContext.cs" />
     <Compile Include="UpgradeContext\ISolutionUpgradeContext.cs" />
     <Compile Include="Migrator\ProjectMigrationOptions.cs" />
     <Compile Include="Migrator\ProjectMigrator.cs" />
+    <Compile Include="UpgradeContext\JsonProjectItemUpgradeContext.cs" />
     <Compile Include="UpgradeContext\ProjectJsonWrapper.cs" />
     <Compile Include="Migrator\BaseProjectMigrator.cs" />
     <Compile Include="Model\ProjectType.cs" />

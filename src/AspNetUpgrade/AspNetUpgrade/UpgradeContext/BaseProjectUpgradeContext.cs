@@ -75,6 +75,9 @@ namespace AspNetUpgrade.UpgradeContext
         }
 
         public List<BaseCsharpFileUpgradeContext> CsharpFiles { get; set; }
+
+        public List<BaseJsonProjectItemUpgradeContext> JsonFiles { get; set; }
+
         public abstract string ProjectName();
 
 

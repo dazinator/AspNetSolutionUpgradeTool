@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using AspNetUpgrade.UpgradeContext;
@@ -19,13 +20,23 @@ namespace AspNetUpgrade.Tests
 
         private StringBuilder _modifiedLaunchSettingsContents;
 
-        public TestJsonBaseProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project, string launchSettingsJson)
+        public TestJsonBaseProjectUpgradeContext(string jsonContents, Microsoft.Build.Evaluation.Project project, string launchSettingsJson, string[] appSettingsFileNames = null)
         {
 
             _jsonContents = jsonContents;
             _modifiedJsonContents = new StringBuilder();
             _modifiedXprojContents = new StringBuilder();
             _modifiedLaunchSettingsContents = new StringBuilder();
+
+            this.JsonFiles = new List<BaseJsonProjectItemUpgradeContext>();
+            if (appSettingsFileNames != null)
+            {
+                foreach (var jsonFile in appSettingsFileNames)
+                {
+                    this.JsonFiles.Add(new TestJsonProjectItemUpgradeContext(jsonFile, string.Empty));
+                }
+            }
+          
 
             VsProjectFile = project;
 
@@ -46,7 +57,7 @@ namespace AspNetUpgrade.Tests
                     }
                 }
             }
-           
+
 
         }
 

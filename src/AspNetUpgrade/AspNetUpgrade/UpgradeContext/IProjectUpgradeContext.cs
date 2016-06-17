@@ -11,8 +11,9 @@ namespace AspNetUpgrade.UpgradeContext
         Microsoft.Build.Evaluation.Project VsProjectFile { get; set; }
         void SaveChanges();
         ProjectJsonWrapper ToProjectJsonWrapper();
-
         List<BaseCsharpFileUpgradeContext> CsharpFiles { get; set; }
+
+        List<BaseJsonProjectItemUpgradeContext> JsonFiles { get; set; }
 
         string ProjectName();
 

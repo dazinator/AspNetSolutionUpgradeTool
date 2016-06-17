@@ -22,7 +22,9 @@ namespace AspNetUpgrade.UpgradeContext
             LoadLaunchSettingsJson(projectDir);
             LoadVsProjectFile(projectDir);
             CsharpFiles = new List<BaseCsharpFileUpgradeContext>();
+            JsonFiles = new List<BaseJsonProjectItemUpgradeContext>();
             LoadCsharpFiles(projectDir);
+            LoadJsonFiles(projectDir);
         }
 
         private void LoadVsProjectFile(DirectoryInfo projectDir)
@@ -99,6 +101,11 @@ namespace AspNetUpgrade.UpgradeContext
             {
                 csharpFile.SaveChanges();
             }
+
+            foreach (var jsonFile in JsonFiles)
+            {
+                jsonFile.SaveChanges();
+            }
         }
 
         public override string ProjectName()
@@ -151,7 +158,13 @@ namespace AspNetUpgrade.UpgradeContext
             this.CsharpFiles.AddRange(csharpFileUpgrades);
         }
 
-
+        private void LoadJsonFiles(DirectoryInfo projectDir)
+        {
+            // Loads json files in project directory - that are not project.json. i.e appsettings.*.json etc.
+            var jsonFiles = projectDir.GetFiles("*.json", SearchOption.AllDirectories);
+            var jsonFileUpgradeContexts = jsonFiles.Where(a => a.Name.ToLowerInvariant() != "project.json").Select(file => new JsonProjectItemUpgradeContext(file)).ToList();
+            this.JsonFiles.AddRange(jsonFileUpgradeContexts);
+        }
 
 
     }

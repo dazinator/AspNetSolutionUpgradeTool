@@ -49,7 +49,12 @@
     ]
   },
   "buildOptions": {
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
+    }
   },
   "packOptions": {
     "tags": [
@@ -61,6 +66,7 @@
   "publishOptions": {
     "include": [
       "wwwroot",
+      "web.config",
       "appSettings.json"
     ]
   },

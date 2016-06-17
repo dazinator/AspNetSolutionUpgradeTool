@@ -71,11 +71,17 @@
     "preserveCompilationContext": true,
     "embed": {
       "include": "Views/**"
+    },
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
     }
   },
   "publishOptions": {
     "include": [
       "wwwroot",
+      "web.config",
       "appSettings.json"
     ]
   }
