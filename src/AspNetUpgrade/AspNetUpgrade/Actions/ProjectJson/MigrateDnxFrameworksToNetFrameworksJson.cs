@@ -14,7 +14,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
     {
 
         public const string NetStandardLibraryVersion = "1.5.0-rc2-24027";
-        public const string NetStandardTfm = "1.5.0-rc2-24027";
+        public const string NetStandardTfm = "netstandard1.5";
         public const string NetCoreAppTfmName = "netcoreapp1.0";
         public const string NetCoreAppVersion = "1.0.0-rc2-3002702";
 
