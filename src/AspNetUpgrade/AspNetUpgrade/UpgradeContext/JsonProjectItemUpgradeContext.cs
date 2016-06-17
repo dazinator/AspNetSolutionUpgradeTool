@@ -45,7 +45,7 @@ namespace AspNetUpgrade.UpgradeContext
         public override string Name()
         {
             var path = _JsonFileInfo.FullName;
-            var name = System.IO.Path.GetFileNameWithoutExtension(path);
+            var name = System.IO.Path.GetFileName(path);
             return name;
         }
 
