@@ -23,6 +23,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
 
+        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
@@ -75,6 +76,8 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
 
+     
+        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
         [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
