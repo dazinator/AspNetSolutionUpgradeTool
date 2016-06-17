@@ -161,7 +161,7 @@ namespace AspNetUpgrade.UpgradeContext
         private void LoadJsonFiles(DirectoryInfo projectDir)
         {
             // Loads json files in project directory - that are not project.json. i.e appsettings.*.json etc.
-            var jsonFiles = projectDir.GetFiles("*.json", SearchOption.AllDirectories);
+            var jsonFiles = projectDir.GetFiles("*.json", SearchOption.TopDirectoryOnly);
             var jsonFileUpgradeContexts = jsonFiles.Where(a => a.Name.ToLowerInvariant() != "project.json").Select(file => new JsonProjectItemUpgradeContext(file)).ToList();
             this.JsonFiles.AddRange(jsonFileUpgradeContexts);
         }

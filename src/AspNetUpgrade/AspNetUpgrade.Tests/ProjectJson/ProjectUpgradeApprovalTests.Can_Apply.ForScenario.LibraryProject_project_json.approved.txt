@@ -74,7 +74,8 @@
     },
     "copyToOutput": {
       "include": [
-        "appSettings.json"
+        "appSettings.json",
+        "Views"
       ]
     }
   },

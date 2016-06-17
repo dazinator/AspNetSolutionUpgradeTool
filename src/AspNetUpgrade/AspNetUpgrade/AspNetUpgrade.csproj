@@ -119,6 +119,7 @@
     <Compile Include="Actions\ProjectJson\AddNetCoreFrameworkToApplications.cs" />
     <Compile Include="Actions\ProjectJson\AddNetStandardFrameworkToLibrariesJson.cs" />
     <Compile Include="Actions\ProjectJson\BaseMigrateSpecifiedPackages.cs" />
+    <Compile Include="Actions\ProjectJson\IncludeViewsFolderInCopyToOutput.cs" />
     <Compile Include="Actions\ProjectJson\MigrateToolPackages.cs" />
     <Compile Include="Actions\ProjectJson\MoveCompileToBuildOptions.cs" />
     <Compile Include="Actions\ProjectJson\IncludeAppSettingsFilesInCopyToOutput.cs" />

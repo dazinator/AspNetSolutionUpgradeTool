@@ -93,6 +93,11 @@ namespace AspNetUpgrade.Migrator
             var includeAppSettingsFilesInCopyToOutput = new IncludeAppSettingsFilesInCopyToOutput();
             upgradeActions.Add(includeAppSettingsFilesInCopyToOutput);
 
+            // includes Views folder in copyToOutput
+            var includeViewsFolderInCopyToOutput = new IncludeViewsFolderInCopyToOutput();
+            upgradeActions.Add(includeViewsFolderInCopyToOutput);
+
+
             // renames the old dnx4YZ TFM's to be the net4YZ Tfm's. 
             var frameworksUpgradeAction = new MigrateDnxFrameworksToNetFramework452Json();
             upgradeActions.Add(frameworksUpgradeAction);
