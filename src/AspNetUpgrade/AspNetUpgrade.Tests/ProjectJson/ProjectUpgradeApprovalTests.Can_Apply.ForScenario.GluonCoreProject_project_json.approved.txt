@@ -22,6 +22,7 @@
       "version": "1.0.0-preview1-final",
       "type": "build"
     },
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0-rc2-final"
   },
   "frameworks": {

@@ -39,6 +39,10 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
                 package.MigrationAction = PackageMigrationAction.AddOrUpdate;
                 list.Add(package);
 
+                // ensure Microsoft.AspNetCore.Diagnostics is brought in
+                package = new DependencyPackageMigrationInfo("Microsoft.AspNetCore.Diagnostics", "1.0.0-rc2-final");
+                package.MigrationAction = PackageMigrationAction.AddOrUpdate;
+                list.Add(package);
             }
 
             package = new DependencyPackageMigrationInfo("Microsoft.VisualStudio.Web.CodeGenerators.Mvc", $"1.0.0-{toolingVersion}-final");

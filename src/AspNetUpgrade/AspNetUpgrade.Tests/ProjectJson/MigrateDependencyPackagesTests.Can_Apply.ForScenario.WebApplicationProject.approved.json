@@ -86,6 +86,8 @@
     
         },
         
+    "Microsoft.AspNetCore.Diagnostics":  "1.0.0-rc2-final",
+        
     "Microsoft.AspNetCore.Hosting":  "1.0.0-rc2-final",
         
     "Microsoft.Extensions.Options.ConfigurationExtensions":  "1.0.0-rc2-final"
