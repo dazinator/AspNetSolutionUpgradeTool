@@ -36,6 +36,7 @@ namespace AspNetUpgrade.UpgradeContext
             {
                 _xprojFileInfo = xprojFiles[0];
                 Microsoft.Build.Evaluation.Project project = new Microsoft.Build.Evaluation.Project(_xprojFileInfo.FullName, null, null, collection, Microsoft.Build.Evaluation.ProjectLoadSettings.IgnoreMissingImports);
+                this.VsProjectFile = project;
             }
 
         }
