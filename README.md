@@ -16,7 +16,9 @@ AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
 2. Upgrades `.cs` files, using Roslyn, to detect and replace old RC1 using statements. 
 3. Upgrades RC1 dependencies (NuGet packages) and commands, to the appropriate RC2 dependencies / tools. (lot's of renaming occured).
 
-NOTE: This tool only does some simple code refactoring at present - i.e using statement rewrites, all the rest is still left to you, however as this tool has access to the full `SyntaxTree` it's fairly easy to add new analysis / refactorings into the tool if you know what you are doing with Roslyn ;)
+NOTE: This tool only does some simple C# code refactoring at present - i.e using statement rewrites, all the rest is still left to you, however as this tool has access to the full `SyntaxTree` it's fairly easy to add new analysis / refactorings into the tool if you know what you are doing with Roslyn ;)
+
+This tool doesn't currently correct Razor files, i;m investigating that at the moment, see [#41](https://github.com/dazinator/AspNetRC1toRC2UpgradeTool/issues/41)
 
 Your mileage may vary.
 
