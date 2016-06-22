@@ -14,25 +14,14 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         public void Apply(IProjectUpgradeContext fileUpgradeContext)
         {
-            JObject projectJsonObject = fileUpgradeContext.ProjectJsonObject;
-            
-            if (fileUpgradeContext.ToProjectJsonWrapper().IsMvcProject())
+            var projectJsonWrapper = fileUpgradeContext.ToProjectJsonWrapper();
+            if (projectJsonWrapper.IsMvcProject())
             {
-                var buildOptions = projectJsonObject.GetOrAddProperty("buildOptions", null);
-                var copyToOutput = buildOptions.GetOrAddProperty("copyToOutput", null);
-                var existing = copyToOutput.Property("include");
-                if (existing == null)
-                {
-                    copyToOutput["include"] = new JArray();
-                }
+                var items = new JArray();
+                items.Add("Views/**");
 
-
-                var existingArray = copyToOutput["include"] as JArray;
-                if (existingArray != null)
-                {
-                    // add default publishing options
-                    existingArray.Add("Views");
-                }
+                projectJsonWrapper.IncludeInCopyToOutput(items);
+               
             }
 
         }
