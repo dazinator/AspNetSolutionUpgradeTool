@@ -53,7 +53,7 @@
     "copyToOutput": {
       "include": [
         "appSettings.json",
-        "Views"
+        "Views/**"
       ]
     }
   },
