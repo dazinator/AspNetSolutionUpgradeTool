@@ -14,7 +14,7 @@ AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
 
 1. Upgrades the `project.json` files, `.xproj` files, `launchSettings.json` files and  `global.json` file to the new schema's versions.
 2. Upgrades `.cs` files, using Roslyn, to detect and replace old RC1 using statements. 
-3. Upgrades RC1 based NuGet packages, (and some commands) to the appropriate RC2 packages / tools. (lot's of renaming occured).
+3. Upgrades RC1 dependencies (NuGet packages) and commands, to the appropriate RC2 dependencies / tools. (lot's of renaming occured).
 
 NOTE: This tool only does some simple code refactoring at present - i.e using statement rewrites, all the rest is still left to you, however as this tool has access to the full `SyntaxTree` it's fairly easy to add new analysis / refactorings into the tool if you know what you are doing with Roslyn ;)
 
