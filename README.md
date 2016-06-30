@@ -1,4 +1,4 @@
-# AspNetRC1toRC2UpgradeTool
+# AspNetSolutionUpgradeTool
 
 This tool upgrades an RC1 / Dnx solution to RC2 / Preview1.
 
