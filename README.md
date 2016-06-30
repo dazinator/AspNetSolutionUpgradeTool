@@ -1,6 +1,6 @@
 # AspNetSolutionUpgradeTool
 
-This tool upgrades an RC1 / Dnx solution, or RC2 solution, to RTM
+This tool upgrades RC1, or RC2 solution, to RTM
 
 If this tool has helped you upgrade your project, please consider leaving an entry on the wiki - https://github.com/dazinator/AspNetSolutionUpgradeTool/wiki/Usages
 
