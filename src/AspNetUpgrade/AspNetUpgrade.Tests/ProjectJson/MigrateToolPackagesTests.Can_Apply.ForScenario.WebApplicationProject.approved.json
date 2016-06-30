@@ -68,7 +68,7 @@
         
     "Microsoft.AspNetCore.Server.IISIntegration.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 
@@ -80,7 +80,7 @@
         
     "Microsoft.EntityFrameworkCore.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 
@@ -94,7 +94,7 @@
         
     "Microsoft.Extensions.SecretManager.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 
@@ -106,7 +106,7 @@
         
     "Microsoft.AspNetCore.Razor.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 
@@ -118,7 +118,7 @@
         
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 

@@ -23,15 +23,14 @@ namespace AspNetUpgrade.Tests.ProjectJson
         }
 
 
-        [TestCase("DnxCore50Project", TestProjectJsonContents.DnxCore50Project, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
-        [TestCase("LibraryProject", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
-        [TestCase("ConsoleProject", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
-        [TestCase("GluonCoreProject", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
-        [TestCase("WebApplicationProject", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings)]
+        [TestCase("DnxCore50Project RTM", TestProjectJsonContents.DnxCore50Project, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings, ReleaseVersion.RTM)]
+        [TestCase("LibraryProject RTM", TestProjectJsonContents.LibraryProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings, ReleaseVersion.RTM)]
+        [TestCase("ConsoleProject RTM", TestProjectJsonContents.ConsoleProjectRc1, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings, ReleaseVersion.RTM)]
+        [TestCase("GluonCoreProject RTM", TestProjectJsonContents.GluonCoreLibraryProject, TestXProjContents.LibraryApplication, TestLaunchSettingsContents.Rc1LaunchSettings, ReleaseVersion.RTM)]
+        [TestCase("WebApplicationProject RTM", TestProjectJsonContents.WebApplicationProject, TestXProjContents.WebApplication, TestLaunchSettingsContents.Rc1LaunchSettings, ReleaseVersion.RTM)]
         [Test]
-        public void Can_Apply(string scenario, string json, string xproj, string launchSettings)
+        public void Can_Apply(string scenario, string json, string xproj, string launchSettings, ReleaseVersion version)
         {
-
             using (ApprovalResults.ForScenario(scenario + "_project_json"))
             {
                 // arrange
@@ -39,10 +38,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettings, new []{"appSettings.json"});
 
                 var migrator = new ProjectMigrator(testFileUpgradeContext);
-                var options = new ProjectMigrationOptions();
+                var options = new ProjectMigrationOptions(version);
 
-                options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
-                options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+               // options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
+               // options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
                 options.AddNetStandardTargetForLibraries = true; // libraries will have the netStandard TFM added (and dependency).
                 options.AddNetCoreTargetForApplications = true; // applications will have the netCore app TFM added (and dependency)
 
@@ -92,10 +91,10 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var testXProj = VsProjectHelper.LoadTestProject(xproj);
                 var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, testXProj, launchSettingsJson);
                 var migrator = new ProjectMigrator(testFileUpgradeContext);
-                var options = new ProjectMigrationOptions();
+                var options = new ProjectMigrationOptions(ReleaseVersion.RTM);
 
-                options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
-                options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
+               // options.UpgradeToPreview1 = true; // project.json files will be updated to the preview 1 schema.
+               // options.UpgradePackagesToRc2 = true; // rc1 packages will be migrated to rc2 packages, including commands (migrated to tools).
                 options.AddNetStandardTargetForLibraries = true; // libraries will have the netStandard TFM added (and dependency).
                 options.AddNetCoreTargetForApplications = true; // applications will have the netCore app TFM added (and dependency)
 

@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Migrator.ToolMigrations
         public List<ToolPackageMigrationInfo> GetPackageMigrations(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
             var list = new List<ToolPackageMigrationInfo>();
-            string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
+            string toolingVersion = targetToolingVersion.ToString().ToLowerInvariant();
 
             // Updates the old web command if it is found, to be the new tool.
             var package = new ToolPackageMigrationInfo("Microsoft.AspNetCore.Server.IISIntegration.Tools", $"1.0.0-{toolingVersion}-final");

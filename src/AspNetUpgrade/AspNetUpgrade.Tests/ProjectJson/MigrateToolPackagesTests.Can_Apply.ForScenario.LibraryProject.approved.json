@@ -70,7 +70,7 @@
         
     "Microsoft.EntityFrameworkCore.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 
@@ -84,7 +84,7 @@
         
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools":  {
             
-      "version":  "1.0.0-preview1-final",
+      "version":  "1.0.0-preview2-final",
             
       "imports":  [
                 

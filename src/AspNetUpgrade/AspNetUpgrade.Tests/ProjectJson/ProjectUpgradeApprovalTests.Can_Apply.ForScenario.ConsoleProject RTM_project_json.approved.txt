@@ -1,0 +1,56 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "ConsoleApp1 Console Application",
+  "authors": [
+    "daroth"
+  ],
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
+    }
+  },
+  "dependencies": {},
+  "tools": {
+    "ConsoleApp1": "ConsoleApp1"
+  },
+  "frameworks": {
+    "net452": {
+      "buildOptions": {
+        "emitEntryPoint": true
+      }
+    },
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0-rc2-3002702",
+          "type": "platform"
+        }
+      }
+    }
+  },
+  "packOptions": {
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/dazinator/AspNetRC1toRC2UpgradeTool"
+    },
+    "tags": [
+      ""
+    ],
+    "licenseUrl": "",
+    "projectUrl": ""
+  },
+  "publishOptions": {
+    "include": [
+      "appSettings.json"
+    ]
+  }
+}

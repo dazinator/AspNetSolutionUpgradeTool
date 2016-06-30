@@ -1,16 +1,25 @@
+using AspNetUpgrade.Model;
+
 namespace AspNetUpgrade.Migrator
 {
     public class SolutionMigrationOptions
     {
 
-        public SolutionMigrationOptions()
+        public SolutionMigrationOptions(ToolingVersion toolingVersion)
         {
-            UpgradeToPreview1 = true;
-            SdkVersionNumber = "1.0.0-preview1-002702";
+           ToolingVersion = ToolingVersion;
+            if (ToolingVersion == ToolingVersion.Preview1)
+            {
+                SdkVersionNumber = "1.0.0-preview1-002702";
+            }
+            else if (ToolingVersion == ToolingVersion.Preview2)
+            {
+                SdkVersionNumber = "1.0.0-preview2-003121";
+            }
         }
 
-        public bool UpgradeToPreview1 { get; set; }
-        
+        public ToolingVersion ToolingVersion { get; set; }
+
         public string SdkVersionNumber { get; set; }
 
 

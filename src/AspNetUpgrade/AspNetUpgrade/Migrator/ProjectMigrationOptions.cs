@@ -1,19 +1,29 @@
+using AspNetUpgrade.Model;
+
 namespace AspNetUpgrade.Migrator
 {
     public class ProjectMigrationOptions
     {
-        public ProjectMigrationOptions()
+        public ProjectMigrationOptions(ReleaseVersion version)
         {
             TargetFrameworkVersionForXprojFile = "v4.5";
-            UpgradeToPreview1 = true;
-            UpgradePackagesToRc2 = true;
+            ToolingVersion = ToolingVersion;
+            PackagesVersion = version;
+
+            if (version == ReleaseVersion.RC2)
+            {
+                ToolingVersion = ToolingVersion.Preview1;
+            }
+            else if (version == ReleaseVersion.RTM)
+            {
+                ToolingVersion = ToolingVersion.Preview2;
+            }
             // AddNetCoreTargetForApplications = true;
             // AddNetStandardTargetForLibraries = true;
         }
 
-        public bool UpgradeToPreview1 { get; set; }
-
-        public bool UpgradePackagesToRc2 { get; set; }
+        public ReleaseVersion PackagesVersion { get; set; }
+        public ToolingVersion ToolingVersion { get; set; }
 
         public bool AddNetCoreTargetForApplications { get; set; }
 

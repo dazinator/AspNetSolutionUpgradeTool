@@ -1,0 +1,47 @@
+﻿{
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [
+        "appSettings.json"
+      ]
+    }
+  },
+  "dependencies": {},
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
+      "version": "1.0.0-preview1-final",
+      "imports": [
+        "portable-net45+win8+dnxcore50"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Tools": {
+      "version": "1.0.0-preview1-final",
+      "imports": [
+        "portable-net45+win8+dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0-rc2-3002702",
+          "type": "platform"
+        }
+      }
+    }
+  },
+  "publishOptions": {
+    "include": [
+      "appSettings.json"
+    ]
+  }
+}

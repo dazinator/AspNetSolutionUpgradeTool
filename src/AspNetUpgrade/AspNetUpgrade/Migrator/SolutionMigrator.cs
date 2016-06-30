@@ -22,10 +22,8 @@ namespace AspNetUpgrade.Migrator
             List<ISolutionUpgradeAction> migrations = new List<ISolutionUpgradeAction>();
             var context = this.Context;
             
-            if (options.UpgradeToPreview1)
-            {
-                migrations.AddRange(GetSchemaUpgrades(options, context));
-            }
+            migrations.AddRange(GetSchemaUpgrades(options, context));
+
 
             // additional migrations to apply
             if (additionalMigrations != null && additionalMigrations.Any())

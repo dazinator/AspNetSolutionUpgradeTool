@@ -2,25 +2,24 @@ using System.Collections.Generic;
 using AspNetUpgrade.Model;
 using AspNetUpgrade.UpgradeContext;
 
-namespace AspNetUpgrade.Migrator.DependencyMigrations
+namespace AspNetUpgrade.Migrator.DependencyMigrations.RTM
 {
-    public class EntityFrameworkDependencyPackageMigrationProvider : IDependencyPackageMigrationProvider
+    public class EntityFrameworkRtmDependencyPackageMigrationProvider : IDependencyPackageMigrationProvider
     {
 
         public List<DependencyPackageMigrationInfo> GetPackageMigrations(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
-            
             var list = new List<DependencyPackageMigrationInfo>();
-            string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
+            string toolingVersion = targetToolingVersion.ToString().ToLowerInvariant();
 
 
             // ef packages..
-            var package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer", "1.0.0-rc2-final");
+            var package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer", "1.0.0");
             package.OldNames.Add("EntityFramework.MicrosoftSqlServer");
             package.OldNames.Add("EntityFramework.SqlServer");
             list.Add(package);
 
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SQLite", "1.0.0-rc2-final");
+            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SQLite", "1.0.0");
             package.OldNames.Add("EntityFramework.SQLite");
             list.Add(package);
 
@@ -28,15 +27,15 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
             //package.OldNames.Add("EntityFramework7.Npgsql");
             //list.Add(package);
 
-            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact35", "1.0.0-rc2-final");
+            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact35", "1.0.0");
             package.OldNames.Add("EntityFramework.SqlServerCompact35");
             list.Add(package);
 
-            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact40", "1.0.0-rc2-final");
+            package = new DependencyPackageMigrationInfo("EntityFrameworkCore.SqlServerCompact40", "1.0.0");
             package.OldNames.Add("EntityFramework.SqlServerCompact40");
             list.Add(package);
 
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.InMemory", "1.0.0-rc2-final");
+            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.InMemory", "1.0.0");
             package.OldNames.Add("EntityFramework.InMemory");
             list.Add(package);
 
@@ -50,7 +49,7 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
             list.Add(package);
 
 
-            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer.Design", "1.0.0-rc2-final");
+            package = new DependencyPackageMigrationInfo("Microsoft.EntityFrameworkCore.SqlServer.Design", "1.0.0");
             package.OldNames.Add("EntityFramework.MicrosoftSqlServer.Design");
             list.Add(package);
 

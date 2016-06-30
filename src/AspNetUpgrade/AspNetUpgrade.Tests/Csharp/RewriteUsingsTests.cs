@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 
-namespace AspNetUpgrade.Tests.Refactor
+namespace AspNetUpgrade.Tests.Csharp
 {
 
     [UseReporter(typeof(DiffReporter))]

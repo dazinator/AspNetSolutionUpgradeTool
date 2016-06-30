@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AspNetUpgrade.Model;
 using AspNetUpgrade.UpgradeContext;
 
-namespace AspNetUpgrade.Migrator.DependencyMigrations
+namespace AspNetUpgrade.Migrator
 {
     public interface IDependencyPackageMigrationProvider
     {

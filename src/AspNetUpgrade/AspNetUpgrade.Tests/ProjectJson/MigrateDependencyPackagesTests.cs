@@ -29,7 +29,7 @@ namespace AspNetUpgrade.Tests.ProjectJson
                 var testFileUpgradeContext = new TestJsonBaseProjectUpgradeContext(json, null, null);
                 // get target nuget packages for RC2, Preview1 tooling.
                 var targetNuGetPackages =
-                    ProjectMigrator.GetDependencyPackageMigrationList(ToolingVersion.Preview1,
+                    ProjectMigrator.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1,
                         testFileUpgradeContext);
 
                 //  PackageMigrationHelper.GetRc2DependencyPackageMigrationList(ToolingVersion.Preview1, testFileUpgradeContext);

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using AspNetUpgrade.Migrator;
 using Newtonsoft.Json.Linq;
 
 namespace AspNetUpgrade.Actions.ProjectJson
@@ -27,13 +28,13 @@ namespace AspNetUpgrade.Actions.ProjectJson
         }
 
 
-        public RenameAspNetPackagesToAspNetCore() : base(ShouldUpdateDependencyPredicate, UpdateDependencyCallback)
+        public RenameAspNetPackagesToAspNetCore() : base(ReleaseVersion.RC2, ShouldUpdateDependencyPredicate, UpdateDependencyCallback)
         {
 
 
         }
 
-        private static void UpdateDependencyCallback(JObject dependencies, JProperty dependencyProperty)
+        private static void UpdateDependencyCallback(ReleaseVersion version, JObject dependencies, JProperty dependencyProperty)
         {
             var prop = dependencies[dependencyProperty.Name];
             var nameSegments = dependencyProperty.Name.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
@@ -57,7 +58,7 @@ namespace AspNetUpgrade.Actions.ProjectJson
 
         }
 
-        private static bool ShouldUpdateDependencyPredicate(JProperty property)
+        private static bool ShouldUpdateDependencyPredicate(ReleaseVersion version, JProperty property)
         {
             return !GetRC1PackageNamesToExcludeFromRenaming().Contains(property.Name)
                    && property.Name.ToLowerInvariant().StartsWith("microsoft.aspnet")

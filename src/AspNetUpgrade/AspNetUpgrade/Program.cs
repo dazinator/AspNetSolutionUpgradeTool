@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AspNetUpgrade.Migrator;
+using AspNetUpgrade.Model;
 using AspNetUpgrade.UpgradeContext;
 using CommandLine;
 
@@ -21,8 +22,15 @@ namespace AspNetUpgrade
                   var solutionDir = new DirectoryInfo(options.SolutionDir);
                   var solutionUpgradeContext = new SolutionUpgradeContext(solutionDir);
                   var solutionMigrator = new SolutionMigrator(solutionUpgradeContext);
-                  
-                  var solutionMigratorOptions = new SolutionMigrationOptions();
+
+                  ToolingVersion toolingVersion = ToolingVersion.Preview1;
+                  if (options.ReleaseVersion == ReleaseVersion.RTM)
+                  {
+                      toolingVersion = ToolingVersion.Preview2;
+                  }
+
+
+                  var solutionMigratorOptions = new SolutionMigrationOptions(toolingVersion);
                   solutionMigrator.Apply(solutionMigratorOptions);
 
                   // upgrade projects.
@@ -31,7 +39,7 @@ namespace AspNetUpgrade
                       Console.WriteLine("Upgrading " + project.ToString());
                       var projectMigrator = new ProjectMigrator(project);
                       // using default options for each project, but should probably extend command line to set these.
-                      var projectUpgradeOptions = new ProjectMigrationOptions();
+                      var projectUpgradeOptions = new ProjectMigrationOptions(options.ReleaseVersion);
                       projectMigrator.Apply(projectUpgradeOptions);
 
                       // upgrade csharp files in project if enabled.
@@ -77,15 +85,6 @@ namespace AspNetUpgrade
               });
 
             return exitCode;
-        }
-
-        private static void Refactor(SolutionUpgradeContext solutionUpgradeContext)
-        {
-
-
-
-
-
         }
     }
 }

@@ -9,7 +9,7 @@ namespace AspNetUpgrade.Migrator.DependencyMigrations
         public List<DependencyPackageMigrationInfo> GetPackageMigrations(ToolingVersion targetToolingVersion, IProjectUpgradeContext projectContext)
         {
             var list = new List<DependencyPackageMigrationInfo>();
-            string toolingVersion = ToolingVersion.Preview1.ToString().ToLowerInvariant();
+            string toolingVersion = targetToolingVersion.ToString().ToLowerInvariant();
 
             var package = new DependencyPackageMigrationInfo("Microsoft.Extensions.Configuration.FileExtensions", "1.0.0-rc2-final");
             package.OldNames.Add("Microsoft.Extensions.Configuration.FileProviderExtensions");
