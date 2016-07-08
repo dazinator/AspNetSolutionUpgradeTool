@@ -7,7 +7,7 @@ If this tool has helped you upgrade your project, please consider leaving an ent
 
 ```
 
-AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution"
+AspNetUpgrade.exe --solutionDir "E:\\path\\to\\your\\solution" -r RTM
 
 ```
 
