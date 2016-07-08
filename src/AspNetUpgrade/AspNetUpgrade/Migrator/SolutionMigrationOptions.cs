@@ -7,7 +7,7 @@ namespace AspNetUpgrade.Migrator
 
         public SolutionMigrationOptions(ToolingVersion toolingVersion)
         {
-           ToolingVersion = ToolingVersion;
+           ToolingVersion = toolingVersion;
             if (ToolingVersion == ToolingVersion.Preview1)
             {
                 SdkVersionNumber = "1.0.0-preview1-002702";
